@@ -1,6 +1,7 @@
 <?php
 	$trialSeq = json_decode($_POST["trialSeq"]);
 	$o_trialComment_add = json_decode($_POST["o_trialComment_add"]);
+	$commentText = $o_trialComment_add->commentText;
 
 
 	$servername = "localhost";
@@ -15,8 +16,15 @@
 	    die("Connection failed: " . $conn->connect_error);
 	} 
 
+
+
+	mysqli_autocommit($conn, FALSE);
+
+	$errors = array();
+
+
 	$sql = "
-		insert into trial_comment (trial_seq, comment_seq, insert_dt, comment_text)
+		insert into trial_comment (trial_seq, comment_seq, comment_dt, comment_text)
 		values (
     	". $trialSeq . ",
 			(
@@ -28,29 +36,33 @@
 				) sub
 			),
     	now(),
-		  ". $o_trialComment_add->commentText . "
+		  ". $commentText . "
 		)
 		";
 
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
 
 
-	// $conn->query($sql);
 
-	// if ($conn->query($sql))
-
-	if ($conn->query($sql) === TRUE) {
-	    $status = "success";
+	if(count($errors) === 0) {
+    $conn->commit();
+    $status = "success";
 	} else {
-	    $status = "failure";
+	  $conn->rollback();
+	  $status = "failure";
 	}
 
 
 	$output = new stdClass();
 	$output->status = $status;
+	$output->errors = $commentText;
 	$output->trialSeq = $trialSeq;
 
 
 	echo json_encode($output);
+
 
 	$conn->close();
 ?>

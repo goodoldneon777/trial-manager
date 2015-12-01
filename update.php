@@ -26,7 +26,7 @@
 
       <?php
         require('php/dist/m-trialComment-list.php');
-        create_trialComment_list('readonly', $_GET['trialseq']);
+        create_trialComment_list('write', $_GET['trialseq']);
       ?>
 
 

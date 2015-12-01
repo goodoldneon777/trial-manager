@@ -24,6 +24,7 @@ $(document).ready(function(){
 			errorText = '';
 			errorText += m_trialInfo.validate();
 			errorText += m_trialHeatData.validate();
+			errorText += m_trialComment_list.validate();
 
 			if (errorText.length === 0) {
 				$('#error-box').html('');
@@ -53,29 +54,35 @@ $(document).ready(function(){
 	function submit() {
 		var trialSeq = getURLVariable('trialseq');
 		var trialInfo = m_trialInfo.parse();
+		var trialComment_list = m_trialComment_list.parse();
 		var trialHeatData = m_trialHeatData.parse();
 
-console.log(trialInfo);
+
 		$.ajax({
-				type: 'POST',
-        url: 'php/dist/sql-update.php',
-        data: {
-        	'trialSeq'	: JSON.stringify( prepForSQL(trialSeq) ),
-        	'trialInfo' : JSON.stringify(trialInfo),
-        	'trialHeatData' : JSON.stringify(trialHeatData)
-        },
-        dataType: 'json',
-        success: function(results) {
-        	console.log(results.status);
-        	alert("Trial successfully added to the database.");
-        	document.location.href = "view.php?trialseq=" + trialSeq;
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          alert(
-          	'Status: ' + textStatus + '\n' +
-        		'Error: ' + errorThrown
-        	);
-        }   
+			type: 'POST',
+      url: 'php/dist/sql-update.php',
+      data: {
+      	'trialSeq'	: JSON.stringify( prepForSQL(trialSeq) ),
+      	'trialInfo' : JSON.stringify(trialInfo),
+      	'trialComment_list' : JSON.stringify(trialComment_list),
+      	'trialHeatData' : JSON.stringify(trialHeatData)
+      },
+      dataType: 'json',
+      success: function(results) {
+      	if (results.status === 'success') {
+      		alert("Trial successfully updated.");
+      		document.location.href = "view.php?trialseq=" + trialSeq;
+      	} else {
+      		alert("Something went wrong. Trial not updated.");
+	      	console.log(results.errors);
+      	}
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert(
+        	'Status: ' + textStatus + '\n' +
+      		'Error: ' + errorThrown
+      	);
+      }   
     });
 	}	
 
@@ -85,13 +92,17 @@ console.log(trialInfo);
 				type: 'POST',
         url: 'php/dist/sql-delete.php',
         data: {
-        	'trialSeq' : prepForSQL(getURLVariable('trial-seq'))
+        	'trialSeq' : prepForSQL(getURLVariable('trialseq'))
         },
         dataType: 'json',
         success: function(results) {
-        	console.log(results);
-        	alert("Trial has been deleted.");
-        	document.location.href = "index.php";
+	      	if (results.status === 'success') {
+	        	alert("Trial has been deleted.");
+	        	document.location.href = "index.php";
+	        } else {
+	      		alert("Something went wrong. Trial not deleted.");
+	      		console.log(results.errors);
+	      	}
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
           alert(
@@ -102,58 +113,6 @@ console.log(trialInfo);
     });
 	}
 
-
-	// function parseTrialInfo(elem) {
-	// 	var trialInfo = {
-	// 		trialSeq				: prepForSQL(getURLVariable('trial-seq')),
-	// 		trialName 			: prepForSQL($(elem + ' .trialName input').val()),
-	// 		user 						: prepForSQL($(elem + ' .owner input').val()),
-	// 		startDate 			: prepForSQL($(elem + ' .startDate input').val(), 'date'),
-	// 		endDate 				: prepForSQL($(elem + ' .endDate input').val(), 'date'),
-	// 		procChg 				: prepForSQL($(elem + ' .processChange input').val()),
-	// 		twi 						: prepForSQL($(elem + ' .twi input').val()),
-	// 		unit 						: prepForSQL($(elem + ' .unit select').val()),
-	// 		trialType 			: prepForSQL($(elem + ' .trialType select').val()),
-	// 		changeType 			: prepForSQL($(elem + ' .changeType select').val()),
-	// 		BOPVsl 					: prepForSQL($(elem + ' .bopVsl select').val()),
-	// 		degasVsl 				: prepForSQL($(elem + ' .degasVsl select').val()),
-	// 		argonNum 				: prepForSQL($(elem + ' .argonNum select').val()),
-	// 		casterNum 			: prepForSQL($(elem + ' .casterNum select').val()),
-	// 		strandNum 			: prepForSQL($(elem + ' .strandNum select').val()),
-	// 		trialGoal 			: prepForSQL($(elem + ' .goalText textarea').val()),
-	// 		trialMonitor 		: prepForSQL($(elem + ' .monitorText textarea').val()),
-	// 		trialComment 		: prepForSQL($(elem + ' .otherInfoText textarea').val()),
-	// 		trialConclusion : prepForSQL($(elem + ' .conclusionText textarea').val())
-	// 	};
-
-
-	// 	return trialInfo;
-	// }
-
-
-	// function parseTrialData(elem) {
-	// 	var emptyRow = null;
-	// 	var rawTrialData = $(elem).handsontable('getInstance').getData();
-	// 	var trialData = [];
-
-	// 	$.each(rawTrialData, function( index, row ) {
-	// 		emptyRow = true;	//Initialize
-
-	// 		$.each(row, function( index, value ) {
-	// 			if (value !== null  &&  value !== '') {
-	// 				emptyRow = false;
-	// 			}
-	// 			row[index] = prepForSQL(value);
-	// 		});
-
-	// 		if (!emptyRow) {
-	// 			trialData.push(row);
-	// 		}
-	// 	});
-
-
-	// 	return trialData;
-	// }
 
 
 

@@ -37,83 +37,83 @@ m_trialComment_add.parse = function() {
 
 
 
-$(document).ready(function(){
-	var main = {};
+// $(document).ready(function(){
+// 	var main = {};
 
-	// start();
-
-
+// 	// start();
 
 
-	function start() {
-		initialize();
-		watch();
-	}
 
 
-	function initialize() {
-		main = {};
-	}
+// 	function start() {
+// 		initialize();
+// 		watch();
+// 	}
 
 
-	function watch() {
-		var errorText = null;
-
-		$('#submit').click(function() {
-			errorText = validate();
-
-			if (errorText.length === 0) {
-				$('#error-box').html('');
-
-				parseInputs();
-			} else {
-				errorText =
-					'<div class="alert alert-danger" style="text-align:left">\n' +
-					'    <ul>\n' + errorText + '</ul>\n' +
-					'</div>';
-				$('#error-box').html(errorText);
-			}
-		});
-	}
+// 	function initialize() {
+// 		main = {};
+// 	}
 
 
-	function validate() {
-		var errorText = "";
-		var comment = $('#m-trialComment-add .comment textarea').val();
+// 	function watch() {
+// 		var errorText = null;
+
+// 		$('#submit').click(function() {
+// 			errorText = validate();
+
+// 			if (errorText.length === 0) {
+// 				$('#error-box').html('');
+
+// 				parseInputs();
+// 			} else {
+// 				errorText =
+// 					'<div class="alert alert-danger" style="text-align:left">\n' +
+// 					'    <ul>\n' + errorText + '</ul>\n' +
+// 					'</div>';
+// 				$('#error-box').html(errorText);
+// 			}
+// 		});
+// 	}
 
 
-		if (comment.length === 0) {
-			errorText += "<li>Your comment is blank.</li>\n";
-		}
+// 	function validate() {
+// 		var errorText = "";
+// 		var comment = $('#m-trialComment-add .comment textarea').val();
 
 
-		return errorText;
-	}
+// 		if (comment.length === 0) {
+// 			errorText += "<li>Your comment is blank.</li>\n";
+// 		}
 
 
-	function parseInputs() {
-		main.data = {
-			trialSeq 		: getURLVariable('trialseq'),
-			commentText	: $('#m-trialComment-add .comment textarea').val()
-		};
+// 		return errorText;
+// 	}
 
 
-		$.ajax({
-				type: 'POST',
-        url: 'php/dist/sql-create-comment.php',
-        data: {
-        	'input' : JSON.stringify(main.data)
-        },
-        dataType: 'json',
-        success: function(results) {
-        	// console.log(results);
-        	alert("Comment successfully added to the database.");
-        	// location.reload();
-        	document.location.href = "view.php?trialseq=" + getURLVariable('trialseq');
-        }
-    });
-	}	
-});
+// 	function parseInputs() {
+// 		main.data = {
+// 			trialSeq 		: getURLVariable('trialseq'),
+// 			commentText	: $('#m-trialComment-add .comment textarea').val()
+// 		};
+
+
+// 		$.ajax({
+// 				type: 'POST',
+//         url: 'php/dist/sql-create-comment.php',
+//         data: {
+//         	'input' : JSON.stringify(main.data)
+//         },
+//         dataType: 'json',
+//         success: function(results) {
+//         	// console.log(results);
+//         	alert("Comment successfully added to the database.");
+//         	// location.reload();
+//         	document.location.href = "view.php?trialseq=" + getURLVariable('trialseq');
+//         }
+//     });
+// 	}	
+// });
 
 
 

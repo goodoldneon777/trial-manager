@@ -15,44 +15,55 @@
 	} 
 
 
-	try {
-		$conn->autocommit(FALSE);
+	mysqli_autocommit($conn, FALSE);
 
-		$sql = "
-			delete from trial
-			where trial_seq = " . $trialSeq . "
-			";
-
-		$conn->query($sql);
+	$errors = array();
 
 
-		$sql = "
-			delete from trial_comment
-			where trial_seq = " . $trialSeq . "
-			";
+	$sql = 
+		"delete from trial \n" .
+		"where trial_seq = " . $trialSeq;
 
-		$conn->query($sql);
-
-
-		$sql = "
-			delete from trial_ht
-			where trial_seq = " . $trialSeq . "
-			";
-
-		$conn->query($sql);
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
 
 
-		$conn->commit();
-		$status = "success";
-	} catch (Exception $e) {
-		// An exception has been thrown
-    // We must rollback the transaction
-    $conn->rollback();
-    $status = "failure";
-  }
+	$sql = 
+		"delete from trial_comment \n" .
+		"where trial_seq = " . $trialSeq;
+
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
 
 
-	echo json_encode($status);
+	$sql = 
+		"delete from trial_ht \n" .
+		"where trial_seq = " . $trialSeq;
+
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
+
+
+	if(count($errors) === 0) {
+    $conn->commit();
+    $status = "success";
+	} else {
+	  $conn->rollback();
+	  $status = "failure";
+	}
+
+
+	$output = new stdClass();
+	$output->status = $status;
+	$output->errors = $errors;
+	$output->trialSeq = $trialSeq;
+
+
+	echo json_encode($output);
+
 
 	$conn->close();
 ?>

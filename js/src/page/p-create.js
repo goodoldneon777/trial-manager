@@ -44,20 +44,25 @@ $(document).ready(function(){
 	function createTrial() {
 		var trialInfo = m_trialInfo.parse();
 		var trialHeatData = m_trialHeatData.parse();
-
+console.log(trialHeatData);
 
 		$.ajax({
 				type: 'POST',
         url: 'php/dist/sql-create.php',
         data: {
         	'trialInfo' : JSON.stringify(trialInfo),
-        	'heatData' : JSON.stringify(trialHeatData)
+        	'trialHeatData' : JSON.stringify(trialHeatData)
         },
         dataType: 'json',
         success: function(results) {
-        	console.log(results);
-        	alert("Trial successfully added to the database.");
-        	document.location.href = "view.php?trialseq=" + results.trialSeq;
+        	if (results.status === 'success') {
+        		alert("Trial successfully added to the database.");
+        		document.location.href = "view.php?trialseq=" + results.trialSeq;
+        	} else {
+	      		alert("Something went wrong. Trial not added.");
+		      	console.log(results.errors);
+	      	console.log(results.status);
+	      	}
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
           alert(

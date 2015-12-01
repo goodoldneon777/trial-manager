@@ -35,6 +35,7 @@ function stringToDate(str) {
 function prepForSQL(val, type) {
   if (val !== null) {
     val = val.replace(/'/g, "''");  //Escape single quotes.
+    val = val.replace(/\\/g, "\\\\");  //Escape backslashes.
   }
 
   if ( (type === 'date')  &&  (val !== '') ) {

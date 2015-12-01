@@ -54,12 +54,12 @@ $(document).ready(function(){
         },
         dataType: 'json',
         success: function(results) {
-        	console.log(results.status);
-        	if (results.status === 'success') {
+	      	if (results.status === 'success') {
         		alert("Comment successfully added to the trial.");
         		document.location.href = "view.php?trialseq=" + trialSeq;
         	} else {
         		alert("There was a problem. Comment not added to the trial.");
+        		console.log(results.errors);
         	}
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
