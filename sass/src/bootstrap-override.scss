@@ -1,0 +1,209 @@
+$padding: 1em;
+
+
+
+.container {
+	margin: auto;
+}
+
+
+
+.input-group {
+  text-align: center;
+
+  .elem-title {
+    color: #555555;
+  }
+}
+
+
+.form-group {
+  text-align: center;
+
+  .elem-title {
+    color: #555555;
+    display: block;
+  }
+}
+
+
+
+
+// 15-column layout
+.col15-xs-5,
+.col15-sm-5,
+.col15-md-5,
+.col15-lg-5,
+.col15-xs-3,
+.col15-sm-3,
+.col15-md-3,
+.col15-lg-3 {
+  position: relative;
+  min-height: 1px;
+  padding: $padding;
+  padding-right: 0.7 * $padding;
+  padding-left: 0.7 * $padding;
+}
+.col15-xs-5 {
+  width: 33%;
+  float: left;
+}
+.col15-xs-3 {
+  width: 20%;
+  float: left;
+}
+@media (min-width: 768px) {
+	.col15-sm-5 {
+      width: 33%;
+      float: left;
+  }
+	.col15-sm-3 {
+      width: 20%;
+      float: left;
+  }
+}
+@media (min-width: 992px) {
+  .col15-md-5 {
+      width: 33%;
+      float: left;
+  }
+  .col15-md-3 {
+      width: 20%;
+      float: left;
+  }
+}
+@media (min-width: 1200px) {
+  .col15-lg-3 {
+      width: 20%;
+      float: left;
+  }
+}
+
+
+
+
+/* Red */
+$bgDefault      : #004e86;
+$bgHighlight    : #1785e1;
+$colDefault     : #ecf0f1;
+$colHover       : #ffffff; 
+/* Green * /
+$bgDefault      : #2ecc71;
+$bgHighlight    : #27ae60;
+$colDefault     : #ecf0f1;
+$colHover       : #d1ffed; /*/
+/* Purple * /
+$bgDefault      : #9b59b6;
+$bgHighlight    : #8e44ad;
+$colDefault     : #ecf0f1;
+$colHover       : #ecdbff; /*/
+/* Orange * /
+$bgDefault      : #e67e22;
+$bgHighlight    : #d35400;
+$colDefault     : #ecf0f1;
+$colHover       : #ffe6d1; /*/
+
+
+/* --- Style --- */
+.navbar {
+    background-color: $bgDefault;
+    border: 0;
+    .navbar-brand {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover; }}
+    .navbar-nav {
+        > li {
+            > a {
+                color: $colDefault;
+                &:hover, &:focus {
+                    color: $colHover;
+                    text-decoration: underline;   }}}
+        .active {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight; }}
+        .open {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight;
+                .caret {
+                    border-top-color: $colHover;
+                    border-bottom-color: $colHover; }}}
+        > .dropdown {
+            > a {
+                .caret {
+                    border-top-color: $colDefault;
+                    border-bottom-color: $colDefault; }
+                &:hover, &:focus {
+                    .caret {
+                        border-top-color: $colHover;
+                        border-bottom-color: $colHover; }}}}}
+    .navbar-toggle {
+        border-color: $bgHighlight;
+        &:hover, &:focus {
+            background-color: $bgHighlight; }
+        .icon-bar {
+            background-color: $colDefault; }}}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover;
+            background-color: $bgHighlight; }}
+}
+
+
+
+.input-group {
+    text-align: center;
+
+    .elem-title {
+        color: #666666;
+    }
+}
+
+
+
+
+// .form-group {
+//     margin-left: 10px;
+//     margin-right: 10px;
+//     text-align: center;
+//     // border: 1px solid red;
+
+//     .elem-title {
+//         color: #555555;
+//         display: block;
+//     }
+// }
+
+
+
+.panel {
+    text-align: left;
+    .panel-title {
+        .description {
+            padding-left: 10px;
+            font-weight: 300;
+        }
+    }
+}
+
+
+
+.btn-xlarge {
+    margin: 10px;
+    padding: 18px 28px;
+    font-size: 22px; //change this to your desired size
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+
+.page-header {
+    // border: 1px solid green;
+    margin-top: 0;
+}
