@@ -35,7 +35,7 @@
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
 	      $date = date_format(date_create($row["insert_dt"]), "m/d/Y");
-	      $commentText = $row["comment_text"];
+	      $commentText = str_replace( "\n","<br>", $row["comment_text"]);
 	      $html .= "<tr> \n";
 
 	      if ($type === 'readonly') {
