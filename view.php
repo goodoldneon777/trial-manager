@@ -40,8 +40,7 @@
 
 
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+    <?php require('php/dist/m-HTMLfoot.php'); ?>
 
 
   </body>

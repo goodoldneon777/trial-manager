@@ -13,8 +13,7 @@
 
 <script src="js/dist/extension.min.js"></script>
 
-<script src="plugin/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>
-<link rel="stylesheet" media="screen" href="plugin/bootstrap3-dialog/css/bootstrap-dialog.min.css">
+
 
 
 <!--[if lt IE 9]>

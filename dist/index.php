@@ -30,9 +30,8 @@
 
 
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
-    <script src="plugin/autosize/autosize.min.js"></script>
+    <?php require('php/dist/m-HTMLfoot.php'); ?>
+    
 
   </body>
 </html>
