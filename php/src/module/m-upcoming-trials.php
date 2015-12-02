@@ -40,7 +40,7 @@
       // echo "id: " . $row["trial_name"]. " - Name: " . $row["start_dt"]. " " . $row["end_dt"]. "<br>";
       $html .= "
       	<tr>\n
-      		<td>" . $row["trial_name"] . "</td>\n
+      		<td><a href=\"view.php?trialseq=" . $row["trial_seq"] . "\">" . $row["trial_name"] . "</a></td>\n
       		<td>" . $row["unit"] . "</td>\n
       		<td>" . date_format(date_create($row["start_dt"]), "m/d/Y") . "</td>\n
       		<td>" . date_format(date_create($row["end_dt"]), "m/d/Y") . "</td>\n
