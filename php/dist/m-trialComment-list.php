@@ -17,7 +17,7 @@
 			select comment_seq, comment_dt, comment_text
 			from trial_comment
 			where trial_seq = " . $trialSeq . " 
-			order by comment_seq desc
+			order by comment_dt desc
 			";
 
 
@@ -35,7 +35,7 @@
 
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
-	      $date = date_format(date_create($row["comment_dt"]), "m/d/Y");
+	      $date = date_format(date_create($row["comment_dt"]), "n/j/Y H:i");
 	      $commentText = $row["comment_text"];
 	      $commentClass = "comment-" . $row["comment_seq"];
 	      $html .= "<tr class=\"" . $commentClass . "\"> \n";
