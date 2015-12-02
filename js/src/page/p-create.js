@@ -1,3 +1,5 @@
+BootstrapDialog.alert('I want banana!');
+
 $(document).ready(function(){
 	var main = {};
 
@@ -30,7 +32,7 @@ $(document).ready(function(){
 
 			} else {
 				errorText =
-					'<div class="alert alert-danger" style="text-align:left">\n' +
+					'<div class="alert alert-danger">\n' +
 					'    <ul>\n' + errorText + '</ul>\n' +
 					'</div>';
 				$('#error-box').html(errorText);

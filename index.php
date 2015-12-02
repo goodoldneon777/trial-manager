@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Trial Manager - Recent/Upcoming Trials</title>
 
-    <?php require('php/dist/m-head.php'); ?>
+    <?php require('php/dist/m-HTMLhead.php'); ?>
 
 
   </head>

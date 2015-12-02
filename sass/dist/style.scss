@@ -341,8 +341,16 @@ $padding: 1em;
 
 
 #error-box {
-	width: 300px;
+	width: 30em;
 	margin: 0 auto;
+
+  .alert {
+    text-align: left;
+  }
+
+  ul {
+    padding-left: 1em;
+  }
 }
 
 

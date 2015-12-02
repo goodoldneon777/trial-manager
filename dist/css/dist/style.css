@@ -232,8 +232,12 @@ $colHover       : #ffe6d1; /*/
   resize: none; }
 
 #error-box {
-  width: 300px;
+  width: 30em;
   margin: 0 auto; }
+  #error-box .alert {
+    text-align: left; }
+  #error-box ul {
+    padding-left: 1em; }
 
 .required::after {
   content: "*";
