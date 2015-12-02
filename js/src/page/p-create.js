@@ -44,7 +44,7 @@ $(document).ready(function(){
 	function createTrial() {
 		var trialInfo = m_trialInfo.parse();
 		var trialHeatData = m_trialHeatData.parse();
-console.log(trialHeatData);
+
 
 		$.ajax({
 				type: 'POST',
@@ -75,7 +75,6 @@ console.log(trialHeatData);
 
 
 });
-
 
 
 

@@ -19,7 +19,8 @@
 		"select \n" .
 		"  ht_num, tap_yr, bop_vsl, degas_vsl, argon_num, caster_num, strand_num, comment \n" .
 		"from trial_ht \n" .
-		"where trial_seq = " . $trialSeq;
+		"where trial_seq = " . $trialSeq . " \n" .
+		"order by ht_seq asc;";
 
 
 	$result = $conn->query($sql);

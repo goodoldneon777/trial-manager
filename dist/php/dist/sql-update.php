@@ -98,7 +98,7 @@
 		if ($trialHeatData[0][0] !== "NULL") {
 			$sql = 
 		  	"insert into trial_ht ( \n" .
-				"  trial_seq, ht_num, tap_yr, bop_vsl, degas_vsl, argon_num, caster_num, strand_num, comment \n" .
+				"  trial_seq, ht_seq, ht_num, tap_yr, bop_vsl, degas_vsl, argon_num, caster_num, strand_num, comment \n" .
 				") \n";
 
 		  for ($i = 0; $i <= count($trialHeatData) - 1; $i++) {
@@ -116,7 +116,8 @@
 					$trialHeatData[$i][4] . ", " .
 					$trialHeatData[$i][5] . ", " .
 					$trialHeatData[$i][6] . ", " .
-					$trialHeatData[$i][7] . " \n";			
+					$trialHeatData[$i][7] . ", " .
+					$trialHeatData[$i][8] . " \n";			
 		  }
 
 		  if (!$conn->query($sql)) {

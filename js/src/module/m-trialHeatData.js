@@ -125,10 +125,10 @@ m_trialHeatData.validate = function() {
 
 m_trialHeatData.parse = function() {
   'use strict';
-
   var emptyRow = null;
   var rawHeatData = $('#m-trialHeatData .dataTable').handsontable('getInstance').getData();
   var heatData = [];
+  var ht_seq = 1;
 
   $.each(rawHeatData, function( index, row ) {
     emptyRow = true;  //Initialize
@@ -141,7 +141,9 @@ m_trialHeatData.parse = function() {
     });
 
     if (!emptyRow) {
+      row.unshift(ht_seq);
       heatData.push(row);
+      ht_seq = ht_seq + 1;
     }
   });
 
