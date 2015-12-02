@@ -1,83 +1,29 @@
-$padding: 10px;
-$input-spacing: 20px;
 
 
 
-#m-comment {
-	padding: 0;
-
-	.row {
-		width: 100%;
-		padding-top: 1.5*$padding;
-		padding-right: $padding;
-		padding-left: 2*$padding;
-	}
-
-	.comment {
-		width: 100%;
-	}
-	textarea {
-		width: 100%;
-		height: 100px;
-		resize: none;
-	}
+.container {
+  width: 100%;
+  margin: 0px;
 }
 
 
-#m-search-form {
-	width: 100%;
-	padding-bottom: 20px;
-	position: relative;
-
-	.trial-name {
-		width: 350px;
-		top: 0;
-		display: inline-block;
-	}
-
-	.start-date {
-		width: 130px;
-		display: inline-block;
-	}
-
-	.end-date {
-		width: 130px;
-		display: inline-block;
-	}
-
-	.trial-unit {
-		.form-control {
-			width: 135px;
-		}
-	}
-
-	.trial-type {
-		.form-control {
-			width: 130px;
-		}
-	}
-
-	.change-type {
-		.form-control {
-			width: 130px;
-		}
-	}
-
-	.row {
-		margin-top: 10px;
-		padding-left: 2 * $padding;
-		padding-right: 2 * $padding;
-		position: relative;
-	}
-
+.input-group {
+  width: 100%;
+}
+.input-group input {
+  width: 100%;
 }
 
-
-#m-search-results {
-	.table {
-		margin: 0;
-	}
+.input-group {
+  width: 100%;
 }
+
+.input-group textarea {
+  width: 100%;
+  overflow: auto;
+  resize: none;
+}
+
 
 
 
@@ -93,10 +39,6 @@ $input-spacing: 20px;
 }
 
 
-.align-top {
-	// top: 0;
-	// position: absolute;
-}
 
 
 
