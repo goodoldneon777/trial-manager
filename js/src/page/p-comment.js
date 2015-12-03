@@ -54,7 +54,8 @@ $(document).ready(function(){
 			BootstrapDialog.alert({
 				title: 'Error',
 				type: BootstrapDialog.TYPE_DANGER,
-				message: errorList
+				message: errorList,
+				closable: false
 			});
 
 			errorText =
@@ -87,6 +88,7 @@ $(document).ready(function(){
 							title: 'Success',
 							type: BootstrapDialog.TYPE_SUCCESS,
 							message: '<h3 style="text-align:center;">Comment successfully created.</h3>',
+							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(){
@@ -101,6 +103,7 @@ $(document).ready(function(){
 							title: 'Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: '<h3 style="text-align:center;">Something went wrong. Comment not created.</h3>',
+							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){
@@ -110,14 +113,25 @@ $(document).ready(function(){
 						});
 						
 						dialog.open();
+
         		console.log(results.errors);
         	}
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          alert(
-          	'Status: ' + textStatus + '\n' +
-        		'Error: ' + errorThrown
-        	);
+          var dialog = new BootstrapDialog({
+						title: 'Error',
+						type: BootstrapDialog.TYPE_DANGER,
+						message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+						closable: false,
+						buttons: [{
+							label: 'OK',
+							action: function(dialogRef){
+                dialogRef.close();
+              }
+						}]
+					});
+					
+					dialog.open();
         }   
     });
 	}	

@@ -56,6 +56,25 @@
 			} else {
 				$trialName = "Trial not found";
 			}
+		} else {
+			$trialName = "";
+			$startDate = "";
+			$endDate = "";
+			$processChange = "";
+			$twi = "";
+			$owner = "";
+			$unit = "";
+			$trialType = "";
+			$changeType = "";
+			$bopVsl = "";
+			$degasVsl = "";
+			$argonNum = "";
+			$casterNum = "";
+			$strandNum = "";
+			$goalText = "";
+			$monitorText = "";
+			$otherInfoText = "";
+			$conclusionText = "";
 		}
 
 

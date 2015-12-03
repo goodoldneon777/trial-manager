@@ -64,7 +64,8 @@ $(document).ready(function(){
 				BootstrapDialog.alert({
 					title: 'Error',
 					type: BootstrapDialog.TYPE_DANGER,
-					message: errorList
+					message: errorList,
+					closable: false,
 				});
 
 				errorText =
@@ -133,7 +134,7 @@ $(document).ready(function(){
 						title: 'Error',
 						type: BootstrapDialog.TYPE_DANGER,
 						message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-						closable: true,
+						closable: false,
 						buttons: [{
 							label: 'OK',
 							action: function(dialogRef){

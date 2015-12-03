@@ -62,7 +62,8 @@ $(document).ready(function(){
 			BootstrapDialog.alert({
 				title: 'Error',
 				type: BootstrapDialog.TYPE_DANGER,
-				message: errorList
+				message: errorList,
+				closable: false,
 			});
 
 			errorText =
@@ -84,7 +85,7 @@ $(document).ready(function(){
 			title: 'Warning',
 			type: BootstrapDialog.TYPE_WARNING,
 			message: '<h3 style="text-align:center;">This will permanently delete the trial. \n \nAre you sure?</h3>',
-      closable: true,
+      closable: false,
       callback: function(result) {
         if(result) {
             deleteTrial();
@@ -120,6 +121,7 @@ $(document).ready(function(){
 						title: 'Success',
 						type: BootstrapDialog.TYPE_SUCCESS,
 						message: '<h3 style="text-align:center;">Trial successfully updated.</h3>',
+						closable: false,
 						buttons: [{
 							label: 'OK',
 							action: function(){
@@ -134,6 +136,7 @@ $(document).ready(function(){
 						title: 'Error',
 						type: BootstrapDialog.TYPE_DANGER,
 						message: '<h3 style="text-align:center;">Something went wrong. Trial not updated.</h3>',
+						closable: false,
 						buttons: [{
 							label: 'OK',
 							action: function(dialogRef){
@@ -152,6 +155,7 @@ $(document).ready(function(){
 					title: 'Error',
 					type: BootstrapDialog.TYPE_DANGER,
 					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+					closable: false,
 					buttons: [{
 						label: 'OK',
 						action: function(dialogRef){
@@ -180,6 +184,7 @@ $(document).ready(function(){
 							title: 'Success',
 							type: BootstrapDialog.TYPE_SUCCESS,
 							message: '<h3 style="text-align:center;">Trial successfully deleted.</h3>',
+							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(){
@@ -194,6 +199,7 @@ $(document).ready(function(){
 							title: 'Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: '<h3 style="text-align:center;">Something went wrong. Trial not deleted.</h3>',
+							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){
@@ -212,6 +218,7 @@ $(document).ready(function(){
 							title: 'Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){

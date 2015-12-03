@@ -54,7 +54,8 @@ $(document).ready(function(){
 			BootstrapDialog.alert({
 				title: 'Error',
 				type: BootstrapDialog.TYPE_DANGER,
-				message: errorList
+				message: errorList,
+				closable: false
 			});
 
 			errorText =
@@ -88,6 +89,7 @@ $(document).ready(function(){
 							title: 'Success',
 							type: BootstrapDialog.TYPE_SUCCESS,
 							message: '<h3 style="text-align:center;">Trial successfully created.</h3>',
+							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(){
@@ -103,6 +105,7 @@ $(document).ready(function(){
 							title: 'Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: '<h3 style="text-align:center;">Something went wrong. Trial not created.</h3>',
+							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){
@@ -122,6 +125,7 @@ $(document).ready(function(){
 							title: 'Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){
