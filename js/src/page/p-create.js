@@ -93,12 +93,15 @@ $(document).ready(function(){
 							buttons: [{
 								label: 'OK',
 								action: function(){
-									document.location.href = "view.php?trialseq=" + results.trialSeq;
+									dialog.close();
+									// document.location.href = "view.php?trialseq=" + results.trialSeq;
 								}
 							}]
 						});
 						
 						dialog.open();
+
+						console.log(trialHeatData);
    
         	} else {
 	      		var dialog = new BootstrapDialog({
@@ -109,7 +112,7 @@ $(document).ready(function(){
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){
-                  dialogRef.close();
+                  dialog.close();
                 }
 							}]
 						});
@@ -129,7 +132,7 @@ $(document).ready(function(){
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){
-                  dialogRef.close();
+                  dialog.close();
                 }
 							}]
 						});
