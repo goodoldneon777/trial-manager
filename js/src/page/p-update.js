@@ -1,57 +1,103 @@
 $(document).ready(function(){
+	'use strict';
 	var main = {};
 
 	start();
 
 
 
-
 	function start() {
+		'use strict';
+
 		initialize();
+
 		watch();
 	}
 
 
 	function initialize() {
+		'use strict';
+
 		main = {};
 	}
 
 
 	function watch() {
-		var errorText = '';
+		'use strict';
+		
 
 		$('#submit').click(function() {
-			errorText = '';
-			errorText += m_trialInfo.validate();
-			errorText += m_trialHeatData.validate();
-			errorText += m_trialComment_list.validate();
-
-			if (errorText.length === 0) {
-				$('#error-box').html('');
-					
-				submit();
-
-			} else {
-				errorText =
-					'<div class="alert alert-danger" style="text-align:left">\n' +
-					'    <ul>\n' + errorText + '</ul>\n' +
-					'</div>';
-				$('#error-box').html(errorText);
-
-			}
+			submit();
 		});
 
 
 		$('#delete').click(function() {
-			if ( confirm('Are you sure you want to permanently delete this trial?') ) {
-			  deleteTrial();
-			}
+			deleteFunc();
 		});
 	}
 
 
-
 	function submit() {
+		'use strict';
+		var errorText = '';
+		var errorList = '';
+
+
+		errorText += m_trialInfo.validate();
+		errorText += m_trialHeatData.validate();
+		errorText += m_trialComment_list.validate();
+
+		if (errorText.length === 0) {
+			$('.errorHolder').html('');
+				
+			updateTrial();
+
+		} else {
+			errorList =
+				'<h3>Please fix these items:</h3>' +
+				'<div class="errorList">' +
+				'  <ul>' + errorText + '</ul>' +
+				'</div>';
+
+			BootstrapDialog.alert({
+				title: 'Error',
+				type: BootstrapDialog.TYPE_DANGER,
+				message: errorList
+			});
+
+			errorText =
+				'<div class="alert alert-danger">\n' +
+				'    <ul>\n' + errorText + '</ul>\n' +
+				'</div>';
+
+			$('.errorHolder').html(errorText);
+		}
+	}
+
+
+	function deleteFunc() {
+		'use strict';
+		var errorText = '';
+		var errorList = '';
+
+		BootstrapDialog.confirm({
+			title: 'Warning',
+			type: BootstrapDialog.TYPE_WARNING,
+			message: '<h3 style="text-align:center;">This will permanently delete the trial. \n \nAre you sure?</h3>',
+      closable: true,
+      callback: function(result) {
+        if(result) {
+            deleteTrial();
+        } else {
+
+        }
+      }
+		});
+	}
+
+
+	function updateTrial() {
+		'use strict';
 		var trialSeq = getURLVariable('trialseq');
 		var trialInfo = m_trialInfo.parse();
 		var trialComment_list = m_trialComment_list.parse();
@@ -70,18 +116,51 @@ $(document).ready(function(){
       dataType: 'json',
       success: function(results) {
       	if (results.status === 'success') {
-      		alert("Trial successfully updated.");
-      		document.location.href = "view.php?trialseq=" + trialSeq;
+      		var dialog = new BootstrapDialog({
+						title: 'Success',
+						type: BootstrapDialog.TYPE_SUCCESS,
+						message: '<h3 style="text-align:center;">Trial successfully updated.</h3>',
+						buttons: [{
+							label: 'OK',
+							action: function(){
+								document.location.href = "view.php?trialseq=" + trialSeq;
+							}
+						}]
+					});
+					
+					dialog.open();
       	} else {
-      		alert("Something went wrong. Trial not updated.");
+      		var dialog = new BootstrapDialog({
+						title: 'Error',
+						type: BootstrapDialog.TYPE_DANGER,
+						message: '<h3 style="text-align:center;">Something went wrong. Trial not updated.</h3>',
+						buttons: [{
+							label: 'OK',
+							action: function(dialogRef){
+                dialogRef.close();
+              }
+						}]
+					});
+					
+					dialog.open();
+
 	      	console.log(results.errors);
       	}
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        alert(
-        	'Status: ' + textStatus + '\n' +
-      		'Error: ' + errorThrown
-      	);
+        var dialog = new BootstrapDialog({
+					title: 'Error',
+					type: BootstrapDialog.TYPE_DANGER,
+					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+					buttons: [{
+						label: 'OK',
+						action: function(dialogRef){
+              dialogRef.close();
+            }
+					}]
+				});
+				
+				dialog.open();
       }   
     });
 	}	
@@ -97,19 +176,52 @@ $(document).ready(function(){
         dataType: 'json',
         success: function(results) {
 	      	if (results.status === 'success') {
-	        	alert("Trial has been deleted.");
-	        	document.location.href = "index.php";
+	        	var dialog = new BootstrapDialog({
+							title: 'Success',
+							type: BootstrapDialog.TYPE_SUCCESS,
+							message: '<h3 style="text-align:center;">Trial successfully deleted.</h3>',
+							buttons: [{
+								label: 'OK',
+								action: function(){
+									document.location.href = "index.php";
+								}
+							}]
+						});
+						
+						dialog.open();
 	        } else {
-	      		alert("Something went wrong. Trial not deleted.");
+	      		var dialog = new BootstrapDialog({
+							title: 'Error',
+							type: BootstrapDialog.TYPE_DANGER,
+							message: '<h3 style="text-align:center;">Something went wrong. Trial not deleted.</h3>',
+							buttons: [{
+								label: 'OK',
+								action: function(dialogRef){
+	                dialogRef.close();
+	              }
+							}]
+						});
+						
+						dialog.open();
+
 	      		console.log(results.errors);
 	      	}
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          alert(
-          	'Status: ' + textStatus + '\n' +
-        		'Error: ' + errorThrown
-        	);
-        }   
+          var dialog = new BootstrapDialog({
+							title: 'Error',
+							type: BootstrapDialog.TYPE_DANGER,
+							message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+							buttons: [{
+								label: 'OK',
+								action: function(dialogRef){
+                  dialogRef.close();
+                }
+							}]
+						});
+						
+						dialog.open();
+        }
     });
 	}
 

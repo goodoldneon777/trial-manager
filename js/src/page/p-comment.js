@@ -1,47 +1,75 @@
 $(document).ready(function(){
+	'use strict';
 	var main = {};
 
 	start();
 
 
 	function start() {
+		'use strict';
+
 		initialize();
+
 		watch();
 	}
 
 
 	function initialize() {
+		'use strict';
+
 		main = {};
 	}
 
 
 	function watch() {
-		var errorText = '';
+		'use strict';
+		
 
 		$('#submit').click(function() {
-			errorText = '';
-			errorText += m_trialComment_add.validate();
-
-
-			if (errorText.length === 0) {
-				$('#error-box').html('');
-					
-				submit();
-
-			} else {
-				errorText =
-					'<div class="alert alert-danger" style="text-align:left">\n' +
-					'    <ul>\n' + errorText + '</ul>\n' +
-					'</div>';
-				$('#error-box').html(errorText);
-
-			}
+			submit();
 		});
 	}
 
 
-
 	function submit() {
+		'use strict';
+		var errorText = '';
+		var errorList = '';
+
+
+		errorText += m_trialComment_add.validate();
+
+		if (errorText.length === 0) {
+			$('.errorHolder').html('');
+				
+			createComment();
+
+		} else {
+			errorList =
+				'<h3>Please fix these items:</h3>' +
+				'<div class="errorList">' +
+				'  <ul>' + errorText + '</ul>' +
+				'</div>';
+
+			BootstrapDialog.alert({
+				title: 'Error',
+				type: BootstrapDialog.TYPE_DANGER,
+				message: errorList
+			});
+
+			errorText =
+				'<div class="alert alert-danger">\n' +
+				'    <ul>\n' + errorText + '</ul>\n' +
+				'</div>';
+
+			$('.errorHolder').html(errorText);
+
+		}
+	}
+
+
+	function createComment() {
+		'use strict';
 		var trialSeq = getURLVariable('trialseq');
 		var o_trialComment_add = m_trialComment_add.parse();
 
@@ -55,10 +83,33 @@ $(document).ready(function(){
         dataType: 'json',
         success: function(results) {
 	      	if (results.status === 'success') {
-        		alert("Comment successfully added to the trial.");
-        		document.location.href = "view.php?trialseq=" + trialSeq;
+        		var dialog = new BootstrapDialog({
+							title: 'Success',
+							type: BootstrapDialog.TYPE_SUCCESS,
+							message: '<h3 style="text-align:center;">Comment successfully created.</h3>',
+							buttons: [{
+								label: 'OK',
+								action: function(){
+									document.location.href = "view.php?trialseq=" + trialSeq;
+								}
+							}]
+						});
+						
+						dialog.open();
         	} else {
-        		alert("There was a problem. Comment not added to the trial.");
+        		var dialog = new BootstrapDialog({
+							title: 'Error',
+							type: BootstrapDialog.TYPE_DANGER,
+							message: '<h3 style="text-align:center;">Something went wrong. Comment not created.</h3>',
+							buttons: [{
+								label: 'OK',
+								action: function(dialogRef){
+                  dialogRef.close();
+                }
+							}]
+						});
+						
+						dialog.open();
         		console.log(results.errors);
         	}
         },

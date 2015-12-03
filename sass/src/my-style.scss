@@ -27,9 +27,14 @@
 
 
 
-#error-box {
+.errorHolder {
 	width: 30em;
 	margin: 0 auto;
+  text-align: left;
+
+  .errorList {
+    text-align: left;
+  }
 
   .alert {
     text-align: left;
@@ -37,6 +42,10 @@
 
   ul {
     padding-left: 1em;
+
+    li {
+      margin: 0;
+    }
   }
 }
 

@@ -12,7 +12,7 @@ m_trialComment_add.validate = function() {
 
 
 		if (comment.length === 0) {
-			errorText += "<li>Your comment is blank.</li>\n";
+			errorText += "<li>Your comment is blank.</li>";
 		}
 
 

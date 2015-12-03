@@ -1,44 +1,70 @@
-BootstrapDialog.alert('I want banana!');
-
 $(document).ready(function(){
+	'use strict';
 	var main = {};
 
 	start();
 
 
 	function start() {
+		'use strict';
+
 		initialize();
+
 		watch();
 	}
 
 
 	function initialize() {
+		'use strict';
+
 		main = {};
 	}
 
 
 	function watch() {
-		var errorText = '';
+		'use strict';
 
 		$('#submit').click(function() {
-			errorText = '';
-			errorText += m_trialInfo.validate();
-			errorText += m_trialHeatData.validate();
-
-			if (errorText.length === 0) {
-				$('#error-box').html('');
-					
-				createTrial();
-
-			} else {
-				errorText =
-					'<div class="alert alert-danger">\n' +
-					'    <ul>\n' + errorText + '</ul>\n' +
-					'</div>';
-				$('#error-box').html(errorText);
-
-			}
+			submit();
 		});
+	}
+
+
+	function submit() {
+		'use strict';
+		var errorText = '';
+		var errorList = '';
+
+		errorText = '';
+		errorText += m_trialInfo.validate();
+		errorText += m_trialHeatData.validate();
+
+		if (errorText.length === 0) {
+			$('.errorHolder').html('');
+				
+			createTrial();
+
+		} else {
+			errorList =
+				'<h3>Please fix these items:</h3>' +
+				'<div class="errorList">' +
+				'  <ul>' + errorText + '</ul>' +
+				'</div>';
+
+			BootstrapDialog.alert({
+				title: 'Error',
+				type: BootstrapDialog.TYPE_DANGER,
+				message: errorList
+			});
+
+			errorText =
+				'<div class="alert alert-danger">\n' +
+				'    <ul>\n' + errorText + '</ul>\n' +
+				'</div>';
+
+			$('.errorHolder').html(errorText);
+
+		}
 	}
 
 
@@ -58,26 +84,58 @@ $(document).ready(function(){
         dataType: 'json',
         success: function(results) {
         	if (results.status === 'success') {
-        		alert("Trial successfully added to the database.");
-        		document.location.href = "view.php?trialseq=" + results.trialSeq;
+        		var dialog = new BootstrapDialog({
+							title: 'Success',
+							type: BootstrapDialog.TYPE_SUCCESS,
+							message: '<h3 style="text-align:center;">Trial successfully created.</h3>',
+							buttons: [{
+								label: 'OK',
+								action: function(){
+									document.location.href = "view.php?trialseq=" + results.trialSeq;
+								}
+							}]
+						});
+						
+						dialog.open();
+   
         	} else {
-	      		alert("Something went wrong. Trial not added.");
+	      		var dialog = new BootstrapDialog({
+							title: 'Error',
+							type: BootstrapDialog.TYPE_DANGER,
+							message: '<h3 style="text-align:center;">Something went wrong. Trial not created.</h3>',
+							buttons: [{
+								label: 'OK',
+								action: function(dialogRef){
+                  dialogRef.close();
+                }
+							}]
+						});
+						
+						dialog.open();
+
 		      	console.log(results.errors);
-	      	console.log(results.status);
+	      		console.log(results.status);
 	      	}
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          alert(
-          	'Status: ' + textStatus + '\n' +
-        		'Error: ' + errorThrown
-        	);
+        	var dialog = new BootstrapDialog({
+							title: 'Error',
+							type: BootstrapDialog.TYPE_DANGER,
+							message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+							buttons: [{
+								label: 'OK',
+								action: function(dialogRef){
+                  dialogRef.close();
+                }
+							}]
+						});
+						
+						dialog.open();
         }   
     });
 	}	
 
 
 });
-
-
 
 

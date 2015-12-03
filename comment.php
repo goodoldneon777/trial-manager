@@ -26,7 +26,7 @@
       <?php require('php/dist/m-trialComment-add.php'); ?>
 
 
-      <div id="error-box"></div>
+      <div class="errorHolder"></div>
 
 
 			<div style="text-align:center;">

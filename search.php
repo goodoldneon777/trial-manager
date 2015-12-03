@@ -22,7 +22,7 @@
 
 			<?php require('php/dist/m-search-form.php'); ?>
 
-      <div id="error-box"></div>
+      <div class="errorHolder"></div>
 
       <div style="text-align:center;">
         <button id="submit" type="button" class="btn btn-xlarge btn-success">Search Trials</button>

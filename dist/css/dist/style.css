@@ -231,13 +231,18 @@ $colHover       : #ffe6d1; /*/
   overflow: auto;
   resize: none; }
 
-#error-box {
+.errorHolder {
   width: 30em;
-  margin: 0 auto; }
-  #error-box .alert {
+  margin: 0 auto;
+  text-align: left; }
+  .errorHolder .errorList {
     text-align: left; }
-  #error-box ul {
+  .errorHolder .alert {
+    text-align: left; }
+  .errorHolder ul {
     padding-left: 1em; }
+    .errorHolder ul li {
+      margin: 0; }
 
 .required::after {
   content: "*";

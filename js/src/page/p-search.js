@@ -1,16 +1,22 @@
 $(document).ready(function(){
+	'use strict';
 	var main = {};
 
 	start();
 
 
 	function start() {
+		'use strict';
+
 		initialize();
+
 		watch();
 	}
 
 
 	function initialize() {
+		'use strict';
+
 		main = {};
 	}
 
@@ -22,7 +28,6 @@ $(document).ready(function(){
 		$('#m-search-form .trial-name').keyup(function() {
 	    submit();
 		});
-
 
 		$('#m-search-form input').change(function() {
 			submit();
@@ -40,19 +45,34 @@ $(document).ready(function(){
 
 	function submit() {
 		var errorText = null;
+		var errorList = '';
+		
 		errorText = validate();
 
 			if (errorText.length === 0) {
-				$('#error-box').html('');
+				$('.errorHolder').html('');
 
 				parseInputs();
 
 			} else {
-				errorText =
-					'<div class="alert alert-danger" style="text-align:left">\n' +
-					'    <ul>\n' + errorText + '</ul>\n' +
+				errorList =
+					'<h3>Please fix these items:</h3>' +
+					'<div class="errorList">' +
+					'  <ul>' + errorText + '</ul>' +
 					'</div>';
-				$('#error-box').html(errorText);
+
+				BootstrapDialog.alert({
+					title: 'Error',
+					type: BootstrapDialog.TYPE_DANGER,
+					message: errorList
+				});
+
+				errorText =
+					'<div class="alert alert-danger">' +
+					'    <ul>' + errorText + '</ul>' +
+					'</div>';
+
+				$('.errorHolder').html(errorText);
 
 			}
 	}
@@ -65,11 +85,11 @@ $(document).ready(function(){
 
 
 		if ( (startDate.length > 0)  &&  (!isValidDate(startDate)) ) {
-			errorText += "<li>'Start Date' is not a valid date.</li>\n";
+			errorText += "<li>'Start Date' is not a valid date.</li>";
 		}
 
 		if ( (endDate.length > 0)  &&  (!isValidDate(endDate)) ) {
-			errorText += "<li>'End Date' is not a valid date.</li>\n";
+			errorText += "<li>'End Date' is not a valid date.</li>";
 		}
 
 		if ( (startDate.length > 0)  &&  (endDate.length > 0) ) {
@@ -78,7 +98,7 @@ $(document).ready(function(){
 				endDate = stringToDate(endDate);
 				
 				if (startDate > endDate) {
-					errorText += "<li>'Start Date' is after 'End Date'</li>\n";
+					errorText += "<li>'Start Date' is after 'End Date'</li>";
 				}
 			}
 		}
@@ -106,14 +126,23 @@ $(document).ready(function(){
         },
         dataType: 'json',
         success: function(results) {
-        	// console.log(results.sql);
         	$('#m-search-results .contents').html(results.html);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          alert(
-          	'Status: ' + textStatus + '\n' +
-        		'Error: ' + errorThrown
-        	);
+        	var dialog = new BootstrapDialog({
+						title: 'Error',
+						type: BootstrapDialog.TYPE_DANGER,
+						message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+						closable: true,
+						buttons: [{
+							label: 'OK',
+							action: function(dialogRef){
+                dialogRef.close();
+              }
+						}]
+					});
+						
+					dialog.open();
         }   
     });
 	}	

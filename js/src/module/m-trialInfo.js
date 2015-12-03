@@ -19,35 +19,35 @@ m_trialInfo.validate = function() {
 	var owner = $('#m-trialInfo .owner input').val();
 
 	if (trialName.length === 0) {
-		errorText += "<li>'Trial Name' is blank.</li>\n";
+		errorText += "<li>'Trial Name' is blank.</li>";
 	}
 
 	if (startDate.length === 0) {
-		errorText += "<li>'Start Date' is blank.</li>\n";
+		errorText += "<li>'Start Date' is blank.</li>";
 	} else if (!isValidDate(startDate)) {
-		errorText += "<li>'Start Date' is not a valid date.</li>\n";
+		errorText += "<li>'Start Date' is not a valid date.</li>";
 	}
 
 	if (endDate.length === 0) {
-		errorText += "<li>'End Date' is blank.</li>\n";
+		errorText += "<li>'End Date' is blank.</li>";
 	} else if (!isValidDate(endDate)) {
-		errorText += "<li>'End Date' is not a valid date.</li>\n";
+		errorText += "<li>'End Date' is not a valid date.</li>";
 	}
 
 	if (isValidDate(startDate)  &&  isValidDate(endDate)) {
 		startDate = stringToDate(startDate);
 		endDate = stringToDate(endDate);
 		if (startDate > endDate) {
-			errorText += "<li>'Start Date' is after 'End Date'</li>\n";
+			errorText += "<li>'Start Date' is after 'End Date'</li>";
 		}
 	}
 
 	if (unit.length === 0) {
-		errorText += "<li>'Unit' is blank.</li>\n";
+		errorText += "<li>'Unit' is blank.</li>";
 	}
 
 	if (owner.length === 0) {
-		errorText += "<li>'Owner' is blank.</li>\n";
+		errorText += "<li>'Owner' is blank.</li>";
 	}
 
 	return errorText;

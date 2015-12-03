@@ -340,9 +340,14 @@ $padding: 1em;
 
 
 
-#error-box {
+.errorHolder {
 	width: 30em;
 	margin: 0 auto;
+  text-align: left;
+
+  .errorList {
+    text-align: left;
+  }
 
   .alert {
     text-align: left;
@@ -350,6 +355,10 @@ $padding: 1em;
 
   ul {
     padding-left: 1em;
+
+    li {
+      margin: 0;
+    }
   }
 }
 

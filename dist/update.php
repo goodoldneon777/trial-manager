@@ -36,7 +36,7 @@
       ?>
 
 
-      <div id="error-box"></div>
+      <div class="errorHolder"></div>
 
       <div style="text-align:center;">
         <button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this trial.">Update Trial</button>

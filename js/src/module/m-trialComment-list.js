@@ -16,11 +16,11 @@ m_trialComment_list.validate = function() {
 	  commentText = $(this).find('.commentText textarea').val();
 	  
 	  if (commentDate.length === 0  &&  commentText.length > 0) {
-			errorText += "<li>Comment date is blank but comment text isn't.</li>\n";
+			errorText += "<li>Comment date is blank but comment text isn't.</li>";
 		} else if (commentDate.length > 0  &&  commentText.length === 0) {
-			errorText += "<li>Comment text is blank but comment date isn't.</li>\n";
+			errorText += "<li>Comment text is blank but comment date isn't.</li>";
 		} else if (commentDate.length > 0  &&  !isValidDate(commentDate)) {
-			errorText += "<li>Invalid comment date: " + commentDate + ".</li>\n";
+			errorText += "<li>Invalid comment date: " + commentDate + ".</li>";
 		}
 
 	});

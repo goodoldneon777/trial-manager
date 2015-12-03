@@ -113,7 +113,7 @@ m_trialHeatData.validate = function() {
 
     if (!emptyRow) {
       if ( (ht_num === null)  ||  (tap_yr === null) ) {
-        errorText = "<li>'Heat #' and 'Tap Year' are required on all used rows in the heat data table.</li>\n";
+        errorText = "<li>'Heat #' and 'Tap Year' are required on all used rows in the heat data table.</li>";
       }
     }
   });
