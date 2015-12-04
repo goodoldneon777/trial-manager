@@ -82,7 +82,7 @@ $(document).ready(function(){
 		var errorList = '';
 
 		BootstrapDialog.confirm({
-			title: 'Warning',
+			title: '<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>&nbsp;&nbsp;Warning',
 			type: BootstrapDialog.TYPE_WARNING,
 			message: '<h3 style="text-align:center;">This will permanently delete the trial. \n \nAre you sure?</h3>',
       closable: false,

@@ -52,7 +52,7 @@ $(document).ready(function(){
 				'</div>';
 
 			BootstrapDialog.alert({
-				title: 'Error',
+				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 				type: BootstrapDialog.TYPE_DANGER,
 				message: errorList,
 				closable: false
@@ -86,7 +86,7 @@ $(document).ready(function(){
         success: function(results) {
         	if (results.status === 'success') {
         		var dialog = new BootstrapDialog({
-							title: 'Success',
+							title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
 							type: BootstrapDialog.TYPE_SUCCESS,
 							message: '<h3 style="text-align:center;">Trial successfully created.</h3>',
 							closable: false,
@@ -94,7 +94,7 @@ $(document).ready(function(){
 								label: 'OK',
 								action: function(){
 									dialog.close();
-									// document.location.href = "view.php?trialseq=" + results.trialSeq;
+									document.location.href = "view.php?trialseq=" + results.trialSeq;
 								}
 							}]
 						});
@@ -105,7 +105,7 @@ $(document).ready(function(){
    
         	} else {
 	      		var dialog = new BootstrapDialog({
-							title: 'Error',
+							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: '<h3 style="text-align:center;">Something went wrong. Trial not created.</h3>',
 							closable: false,
@@ -125,7 +125,7 @@ $(document).ready(function(){
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
         	var dialog = new BootstrapDialog({
-							title: 'Error',
+							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
 							closable: false,
@@ -146,3 +146,19 @@ $(document).ready(function(){
 });
 
 
+
+
+var dialog = new BootstrapDialog({
+							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+							type: BootstrapDialog.TYPE_DANGER,
+							message: 'Status:',
+							closable: false,
+							buttons: [{
+								label: 'OK',
+								action: function(dialogRef){
+                  dialog.close();
+                }
+							}]
+						});
+						
+						dialog.open();
