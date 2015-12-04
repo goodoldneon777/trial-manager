@@ -131,8 +131,13 @@ m_trialHeatData.validate = function() {
 
     // Loop thru each cell in the row.
     $.each(row, function( index, value ) {
+      // If the cell is only whitespace.
+      if ( ifNull(value, '').replace(/ /g,'').length === 0 ) {
+        value = null;
+      }
+
       // If there is a value in the cell, flag row as not empty.
-      if (value !== null) {
+      if ( value !== null ) {
         emptyRow = false;
       }
     });
@@ -165,8 +170,13 @@ m_trialHeatData.parse = function() {
 
     // Loop thru each cell in the row.
     $.each(row, function( index, value ) {
+      // If the cell is only whitespace.
+      if ( ifNull(value, '').replace(/ /g,'').length === 0 ) {
+        value = null;
+      }
+
       // If there is a value in the cell, flag row as not empty.
-      if (value !== null) {
+      if ( value !== null ) {
         emptyRow = false;
       }
 

@@ -147,18 +147,3 @@ $(document).ready(function(){
 
 
 
-
-var dialog = new BootstrapDialog({
-							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-							type: BootstrapDialog.TYPE_DANGER,
-							message: 'Status:',
-							closable: false,
-							buttons: [{
-								label: 'OK',
-								action: function(dialogRef){
-                  dialog.close();
-                }
-							}]
-						});
-						
-						dialog.open();

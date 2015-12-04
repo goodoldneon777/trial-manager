@@ -300,6 +300,25 @@ $padding: 1em;
 
 #m-trialComment-list {
   width: 100%;
+
+  table {
+  	margin: 0;
+  }
+
+  .commentDate {
+  	width: 180px;
+  	vertical-align: middle;
+  }
+
+  .commentText {
+  	vertical-align: middle;
+  }
+
+  .commentAction {
+  	width: 100px;
+  	vertical-align: middle;
+  	text-align: center;
+  }
 }
 
 

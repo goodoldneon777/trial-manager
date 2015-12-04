@@ -25,13 +25,24 @@
 		$html = "";
 
 		if ($result->num_rows > 0) {
-			$html = 
-				"<table class=\"table table-striped table-bordered\"> \n" .
-				"  <thead style=\"text-align:center;\"> \n" .
-				"    <th style=\"text-align:center; width:180px;\">Date</th> \n" .
-				"    <th style=\"text-align:center;\">Comment</th> \n" .
-				"  </thead> \n" .
-				"  <tbody> \n";
+			if ($type === 'readonly') {
+				$html = 
+					"<table class=\"table table-striped table-bordered\"> \n" .
+					"  <thead style=\"text-align:center;\"> \n" .
+					"    <th style=\"text-align:center; width:180px;\">Date</th> \n" .
+					"    <th style=\"text-align:center;\">Comment</th> \n" .
+					"  </thead> \n" .
+					"  <tbody> \n";
+			} else if ($type === 'write') {
+				$html = 
+					"<table class=\"table table-striped table-bordered\"> \n" .
+					"  <thead style=\"text-align:center;\"> \n" .
+					"    <th class=\"commentDate\">Date</th> \n" .
+					"    <th class=\"commentText\">Comment</th> \n" .
+					"    <th class=\"commentAction\">Actions</th> \n" .
+					"  </thead> \n" .
+					"  <tbody> \n";
+			}
 
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
@@ -46,19 +57,22 @@
 	      	$html .= "  <td>" . $date . "</td> \n";
 	      	$html .= "  <td>" . $commentText . "</td> \n";
 	      } else if ($type === 'write') {
-	      	$html .= "  <td> \n";
-	      	$html .= "    <div class=\"col-xs-12 noPad-xs\"> \n";
-	      	$html .= "      <div class=\"commentDate input-group noPad-xs\"> \n";
-	      	$html .= "        <textarea class=\"form-control\" rows=\"1\">" . $date . "</textarea> \n";
-	      	$html .= "      </div> \n";
+	      	$html .= "  <td class=\"commentDate\"> \n";
+	      	$html .= "    <div class=\"input-group noPad-xs\"> \n";
+	      	// $html .= "      <textarea class=\"form-control\" rows=\"1\">" . $date . "</textarea> \n";
+	      	$html .= "      <input class=\"form-control\" rows=\"1\" value=\"" . $date . "\"";
 	      	$html .= "    </div> \n";
 	      	$html .= "  </td> \n";
-	      	$html .= "  <td> \n";
 
-	      	$html .= "    <div class=\"col-xs-12 noPad-xs\"> \n";
-	      	$html .= "      <div class=\"commentText input-group noPad-xs\"> \n";
-	      	$html .= "        <textarea class=\"form-control\" rows=\"1\">" . $commentText . "</textarea> \n";
-	      	$html .= "      </div> \n";
+	      	$html .= "  <td class=\"commentText\"> \n";
+	      	$html .= "    <div class=\"input-group noPad-xs\"> \n";
+	      	$html .= "      <textarea class=\"form-control\" rows=\"1\">" . $commentText . "</textarea> \n";
+	      	$html .= "    </div> \n";
+	      	$html .= "  </td> \n";
+
+	      	$html .= "  <td class=\"commentAction\"> \n";
+	      	$html .= "    <div class=\"noPad-xs\"> \n";
+	      	$html .= "  		<a href=\"javascript: void(0)\" onclick=\"m_trialComment_list.deleteComment('" . $commentClass . "')\" class=\"delete\">Delete</a>";
 	      	$html .= "    </div> \n";
 	      	$html .= "  </td> \n";
 	      }
@@ -84,7 +98,10 @@
 	    	<span class="description"></span>
 	    </h3>
 	  </div>
-	<?php echo $html; ?>
+
+	  <div class="content">
+			<?php echo $html; ?>
+		</div>
 
 	</div>
 
@@ -93,6 +110,14 @@
 
 
 <script src="js/dist/m-trialComment-list.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.delete').click(function(e){
+            e.preventDefault();
+        })
+    });
+</script>
 
 
 <?php

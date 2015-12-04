@@ -206,6 +206,17 @@ $colHover       : #ffe6d1; /*/
 
 #m-trialComment-list {
   width: 100%; }
+  #m-trialComment-list table {
+    margin: 0; }
+  #m-trialComment-list .commentDate {
+    width: 180px;
+    vertical-align: middle; }
+  #m-trialComment-list .commentText {
+    vertical-align: middle; }
+  #m-trialComment-list .commentAction {
+    width: 100px;
+    vertical-align: middle;
+    text-align: center; }
 
 #m-trialHeatData {
   width: 100%; }
