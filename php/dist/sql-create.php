@@ -61,7 +61,7 @@
 	if (count($trialHeatData) > 0) {
 		$sql = 
 	  	"insert into trial_ht ( \n" .
-			"  trial_seq, ht_seq, ht_num, tap_yr, bop_vsl, degas_vsl, argon_num, caster_num, strand_num, comment \n" .
+			"  trial_seq, trial_name, trial_start_dt, trial_end_dt, ht_seq, ht_num, tap_yr, bop_vsl, degas_vsl, argon_num, caster_num, strand_num, comment \n" .
 			") \n";
 
 	  for ($i = 0; $i <= count($trialHeatData) - 1; $i++) {
@@ -71,7 +71,7 @@
 
 	  	$sql .= 
 	  		"select " .
-				"(select max(trial_seq) from trial), " .
+				"trial_seq, trial_name, start_dt, end_dt, " .
 				$trialHeatData[$i][0] . ", " .
 				$trialHeatData[$i][1] . ", " .
 				$trialHeatData[$i][2] . ", " .
@@ -80,7 +80,9 @@
 				$trialHeatData[$i][5] . ", " .
 				$trialHeatData[$i][6] . ", " .
 				$trialHeatData[$i][7] . ", " .
-				$trialHeatData[$i][8] . " \n";			
+				$trialHeatData[$i][8] . " \n" .
+				"from trial \n" .
+				"where trial_seq = " . $trialSeq . " ";		
 	  }
 
 	  if (!$conn->query($sql)) {

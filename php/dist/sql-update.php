@@ -5,6 +5,9 @@
 	$trialHeatData = json_decode($_POST["trialHeatData"]);
 
 
+	$debugSQL = "";	// Will contain all the queries. For debugging purposes.
+
+
 	$servername = getenv('server');
 	$username = getenv('userWR');
 	$password = getenv('passWR');
@@ -52,6 +55,9 @@
 	}
 
 
+	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
+
 	$sql =
 		"delete from trial_comment \n" .
 		"where trial_seq = " . $trialSeq;
@@ -86,6 +92,9 @@
 	}
 
 
+	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
+
 	$sql =
 		"delete from trial_ht \n" .
 		"where trial_seq = " . $trialSeq;
@@ -96,38 +105,39 @@
 
 
 	if (count($trialHeatData) > 0) {
-		if ($trialHeatData[0][0] !== "NULL") {
-			$sql = 
-		  	"insert into trial_ht ( \n" .
-				"  trial_seq, ht_seq, ht_num, tap_yr, bop_vsl, degas_vsl, argon_num, caster_num, strand_num, comment \n" .
-				") \n";
+		$sql = 
+	  	"insert into trial_ht ( \n" .
+			"  trial_seq, trial_name, trial_start_dt, trial_end_dt, ht_seq, ht_num, tap_yr, bop_vsl, degas_vsl, argon_num, caster_num, strand_num, comment \n" .
+			") \n";
 
-		  for ($i = 0; $i <= count($trialHeatData) - 1; $i++) {
-		  	if ($i > 0) {
-		  		$sql .= "union \n";
-		  	}
+	  for ($i = 0; $i <= count($trialHeatData) - 1; $i++) {
+	  	if ($i > 0) {
+	  		$sql .= "union \n";
+	  	}
 
-		  	$sql .= 
-		  		"select " .
-					$trialSeq . ", " .
-					$trialHeatData[$i][0] . ", " .
-					$trialHeatData[$i][1] . ", " .
-					$trialHeatData[$i][2] . ", " .
-					$trialHeatData[$i][3] . ", " .
-					$trialHeatData[$i][4] . ", " .
-					$trialHeatData[$i][5] . ", " .
-					$trialHeatData[$i][6] . ", " .
-					$trialHeatData[$i][7] . ", " .
-					$trialHeatData[$i][8] . " \n";			
-		  }
+	  	$sql .= 
+	  		"select " .
+				"trial_seq, trial_name, start_dt, end_dt, " .
+				$trialHeatData[$i][0] . ", " .
+				$trialHeatData[$i][1] . ", " .
+				$trialHeatData[$i][2] . ", " .
+				$trialHeatData[$i][3] . ", " .
+				$trialHeatData[$i][4] . ", " .
+				$trialHeatData[$i][5] . ", " .
+				$trialHeatData[$i][6] . ", " .
+				$trialHeatData[$i][7] . ", " .
+				$trialHeatData[$i][8] . " \n" .
+				"from trial \n" .
+				"where trial_seq = " . $trialSeq . " ";		
+	  }
 
-		  if (!$conn->query($sql)) {
-			  $errors[] = $conn->error;
-			}
+	  if (!$conn->query($sql)) {
+		  $errors[] = $conn->error;
 		}
 	}
 
-
+	
+	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
 
 
 	if(count($errors) === 0) {
@@ -143,6 +153,7 @@
 	$output->status = $status;
 	$output->errors = $errors;
 	$output->trialSeq = $trialSeq;
+	$output->debugSQL = $debugSQL;
 
 
 	echo json_encode($output);

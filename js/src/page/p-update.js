@@ -148,6 +148,7 @@ $(document).ready(function(){
 					dialog.open();
 
 	      	console.log(results.errors);
+	      	console.log(results.debugSQL);
       	}
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -165,6 +166,8 @@ $(document).ready(function(){
 				});
 				
 				dialog.open();
+
+	     	console.log(results.debugSQL);
       }   
     });
 	}	
