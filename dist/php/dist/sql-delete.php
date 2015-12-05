@@ -2,10 +2,11 @@
 	$trialSeq = $_POST["trialSeq"];
 
 
-	$servername = "localhost";
-	$username = "trial_mgr_wr";
-	$password = "womanofsteel";
-	$dbname = "trial_mgr";
+	$servername = getenv('server');
+	$username = getenv('userWR');
+	$password = getenv('passWR');
+	$dbname = getenv('db');
+	
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);

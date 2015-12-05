@@ -2,14 +2,12 @@
 	$trialInfo = json_decode($_POST["trialInfo"]);
 	$trialHeatData = json_decode($_POST["trialHeatData"]);
 
-	$foo = $trialInfo->trialName;
-	// $foo = "Trial Name";
 
+	$servername = getenv('server');
+	$username = getenv('userWR');
+	$password = getenv('passWR');
+	$dbname = getenv('db');
 
-	$servername = "localhost";
-	$username = "trial_mgr_wr";
-	$password = "womanofsteel";
-	$dbname = "trial_mgr";
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);

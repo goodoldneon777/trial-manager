@@ -72,14 +72,14 @@ $(document).ready(function(){
 	function createComment() {
 		'use strict';
 		var trialSeq = getURLVariable('trialseq');
-		var o_trialComment_add = m_trialComment_add.parse();
+		var trialComment_add = m_trialComment_add.parse();
 
 		$.ajax({
 				type: 'POST',
         url: 'php/dist/sql-create-comment.php',
         data: {
         	'trialSeq' : JSON.stringify( prepForSQL(trialSeq) ),
-        	'o_trialComment_add' : JSON.stringify(o_trialComment_add)
+        	'trialComment_add' : JSON.stringify(trialComment_add)
         },
         dataType: 'json',
         success: function(results) {
