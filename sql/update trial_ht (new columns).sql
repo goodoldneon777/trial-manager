@@ -1,0 +1,1 @@
+ALTER TABLE `trial_ht` ADD `trial_name` VARCHAR(100) NOT NULL AFTER `ht_seq`, ADD `trial_start_dt` DATETIME NOT NULL AFTER `trial_name`, ADD `trial_end_dt` DATETIME NOT NULL AFTER `trial_start_dt`;

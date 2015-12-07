@@ -1,4 +1,10 @@
 <?php
+	$server = getenv('server');
+	$userWR = getenv('userWR');
+	$passWR = getenv('passWR');
+	$db = getenv('db');
+
+	
 	$trialSeq = json_decode($_POST["trialSeq"]);
 	$trialInfo = json_decode($_POST["trialInfo"]);
 	$trialComment_list = json_decode($_POST["trialComment_list"], true);
@@ -8,14 +14,8 @@
 	$debugSQL = "";	// Will contain all the queries. For debugging purposes.
 
 
-	$servername = getenv('server');
-	$username = getenv('userWR');
-	$password = getenv('passWR');
-	$dbname = getenv('db');
-
-
 	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = new mysqli($server, $userWR, $passWR, $db);
 	// Check connection
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);

@@ -1,19 +1,18 @@
 <?php
 
 	function create_trialInfo($type, $trialSeq = null) {
+		$server = getenv('server');
+		$userWR = getenv('userWR');
+		$passWR = getenv('passWR');
+		$db = getenv('db');
 
 		// If there's a trial to display, query the trial info.
 		if ($trialSeq !== null) {
-			$servername = "localhost";
-			$username = "trial_mgr_wr";
-			$password = "womanofsteel";
-			$dbname = "trial_mgr";
-
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);
+			$conn = new mysqli($server, $userWR, $passWR, $db);
 			// Check connection
 			if ($conn->connect_error) {
-			    die("Connection failed: " . $conn->connect_error);
+			  die("Connection failed: " . $conn->connect_error);
 			} 
 
 
@@ -26,7 +25,6 @@
 				from trial
 				where trial_seq = " . $trialSeq . " 
 				";
-
 
 			$result = $conn->query($sql);
 
@@ -520,11 +518,6 @@
 <?php
 
 
-		// $html = ob_get_contents();
-
-		// return $html;
-
-		// ob_end_clean();
 	}
 
 

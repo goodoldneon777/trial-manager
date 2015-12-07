@@ -125,19 +125,19 @@ $(document).ready(function(){
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
         	var dialog = new BootstrapDialog({
-							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-							type: BootstrapDialog.TYPE_DANGER,
-							message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-							closable: false,
-							buttons: [{
-								label: 'OK',
-								action: function(dialogRef){
-                  dialog.close();
-                }
-							}]
-						});
-						
-						dialog.open();
+						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+						type: BootstrapDialog.TYPE_DANGER,
+						message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+						closable: false,
+						buttons: [{
+							label: 'OK',
+							action: function(dialogRef){
+                dialog.close();
+              }
+						}]
+					});
+					
+					dialog.open();
         }   
     });
 	}	

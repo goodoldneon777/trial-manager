@@ -1,3 +1,12 @@
+<?php
+	putenv("server=localhost");
+	putenv("userWR=trial_mgr_wr");
+	putenv("passWR=womanofsteel");
+	putenv("db=trial_mgr");
+?>
+
+
+
 <!-- Bootstrap -->
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/dist/style.min.css" rel="stylesheet">

@@ -1,19 +1,20 @@
 <?php
+	$server = getenv('server');
+	$userWR = getenv('userWR');
+	$passWR = getenv('passWR');
+	$db = getenv('db');
+	
 	$trialInfo = json_decode($_POST["trialInfo"]);
 	$trialHeatData = json_decode($_POST["trialHeatData"]);
 
-
-	$servername = getenv('server');
-	$username = getenv('userWR');
-	$password = getenv('passWR');
-	$dbname = getenv('db');
+	$debugSQL = '';
 
 
 	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = new mysqli($server, $userWR, $passWR, $db);
 	// Check connection
 	if ($conn->connect_error) {
-	    die("Connection failed: " . $conn->connect_error);
+	   die("Connection failed: " . $conn->connect_error);
 	}
 
 
@@ -51,11 +52,17 @@
 	  $errors[] = $conn->error;
 	}
 
+	$debugSQL .= $sql;
+
+
 
 	$sql = "select max(trial_seq) from trial";
 	$result = $conn->query($sql);
   $trialSeq = $result->fetch_array();
   $trialSeq = $trialSeq[0];
+
+	$debugSQL .= $sql;
+
 
 
 	if (count($trialHeatData) > 0) {
@@ -88,6 +95,8 @@
 	  if (!$conn->query($sql)) {
 		  $errors[] = $conn->error;
 		}
+
+		$debugSQL .= $sql;
 	}
 
 
@@ -105,6 +114,7 @@
 	$output->status = $status;
 	$output->errors = $errors;
 	$output->trialSeq = $trialSeq;
+	$output->debugSQL = $debugSQL;
 
 
 	echo json_encode($output);

@@ -1,14 +1,15 @@
 <?php
-	$servername = "localhost";
-	$username = "trial_mgr_ro";
-	$password = "manofsteel";
-	$dbname = "trial_mgr";
+	$server = getenv('server');
+	$userWR = getenv('userWR');
+	$passWR = getenv('passWR');
+	$db = getenv('db');
+	
 
 	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = new mysqli($server, $userWR, $passWR, $db);
 	// Check connection
 	if ($conn->connect_error) {
-	    die("Connection failed: " . $conn->connect_error);
+	   die("Connection failed: " . $conn->connect_error);
 	} 
 
 

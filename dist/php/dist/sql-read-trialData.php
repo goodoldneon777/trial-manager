@@ -1,15 +1,15 @@
 <?php
+	$server = getenv('server');
+	$userWR = getenv('userWR');
+	$passWR = getenv('passWR');
+	$db = getenv('db');
+
+	
 	$trialSeq = $_POST['trialSeq'];
-
-
-	$servername = getenv('server');
-	$username = getenv('userRO');
-	$password = getenv('passRO');
-	$dbname = getenv('db');
 	
 
 	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = new mysqli($server, $userWR, $passWR, $db);
 	// Check connection
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);

@@ -1,12 +1,13 @@
 <?php
-	function create_trialComment_list($type, $trialSeq = null) {
-		$servername = "localhost";
-		$username = "root";
-		$password = "steel87";
-		$dbname = "trial_mgr";
 
+	function create_trialComment_list($type, $trialSeq = null) {
+		$server = getenv('server');
+		$userWR = getenv('userWR');
+		$passWR = getenv('passWR');
+		$db = getenv('db');
+		
 		// Create connection
-		$conn = new mysqli($servername, $username, $password, $dbname);
+		$conn = new mysqli($server, $userWR, $passWR, $db);
 		// Check connection
 		if ($conn->connect_error) {
 		    die("Connection failed: " . $conn->connect_error);
