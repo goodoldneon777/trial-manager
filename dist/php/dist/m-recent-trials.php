@@ -1,9 +1,9 @@
 <?php
-	$server = getenv('server');
-	$userWR = getenv('userWR');
-	$passWR = getenv('passWR');
-	$db = getenv('db');
-	
+	$server = getenv("server");
+	$userWR = getenv("userWR");
+	$passWR = getenv("passWR");
+	$db = getenv("db");
+
 
 	// Create connection
 	$conn = new mysqli($server, $userWR, $passWR, $db);

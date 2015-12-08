@@ -1,10 +1,10 @@
 <?php
-	$server = getenv('server');
-	$userWR = getenv('userWR');
-	$passWR = getenv('passWR');
-	$db = getenv('db');
+	$server = getenv("server");
+	$userWR = getenv("userWR");
+	$passWR = getenv("passWR");
+	$db = getenv("db");
 
-	
+
 	$trialSeq = $_POST['trialSeq'];
 	
 
@@ -31,9 +31,9 @@
 	  $rows[] = $row;
 	}
 
-	// $foo = mysql_fetch_array($result, MYSQL_NUM);
 
 	echo json_encode($rows);
+
 
 	$conn->close();
 

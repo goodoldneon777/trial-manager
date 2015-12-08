@@ -1,8 +1,9 @@
 <?php
-	$server = getenv('server');
-	$userWR = getenv('userWR');
-	$passWR = getenv('passWR');
-	$db = getenv('db');
+	$server = getenv("server");
+	$userWR = getenv("userWR");
+	$passWR = getenv("passWR");
+	$db = getenv("db");
+	
 	
 	$trialInfo = json_decode($_POST["trialInfo"]);
 	$trialHeatData = json_decode($_POST["trialHeatData"]);

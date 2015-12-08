@@ -1,18 +1,13 @@
 <?php
-	$server = getenv('server');
-	$userWR = getenv('userWR');
-	$passWR = getenv('passWR');
-	$db = getenv('db');
+	$server = getenv("server");
+	$userWR = getenv("userWR");
+	$passWR = getenv("passWR");
+	$db = getenv("db");
+
 
 	$trialSeq = json_decode($_POST["trialSeq"]);
 	$trialComment_add = json_decode($_POST["trialComment_add"]);
 	$commentText = $trialComment_add->commentText;
-
-
-	// $servername = getenv('server');
-	// $username = getenv('userWR');
-	// $password = getenv('passWR');
-	// $dbname = getenv('db');
 
 
 	// Create connection

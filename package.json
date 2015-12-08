@@ -5,6 +5,7 @@
   "repository": {},
   "devDependencies": {
     "autosize": "^3.0.13",
+    "bootstrap": "^3.3.6",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "^0.5.1",

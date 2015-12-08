@@ -1,8 +1,8 @@
 <?php
-	$server = getenv('server');
-	$userWR = getenv('userWR');
-	$passWR = getenv('passWR');
-	$db = getenv('db');
+	$server = getenv("server");
+	$userWR = getenv("userWR");
+	$passWR = getenv("passWR");
+	$db = getenv("db");
 
 	
 	$trialSeq = json_decode($_POST["trialSeq"]);
