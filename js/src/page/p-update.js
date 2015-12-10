@@ -62,8 +62,7 @@ $(document).ready(function(){
 			BootstrapDialog.alert({
 				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 				type: BootstrapDialog.TYPE_DANGER,
-				message: errorList,
-				closable: false,
+				message: errorList
 			});
 
 			errorText =
@@ -121,7 +120,6 @@ $(document).ready(function(){
 						title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
 						type: BootstrapDialog.TYPE_SUCCESS,
 						message: '<h3 style="text-align:center;">Trial successfully updated.</h3>',
-						closable: false,
 						buttons: [{
 							label: 'OK',
 							action: function(){
@@ -136,7 +134,6 @@ $(document).ready(function(){
 						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 						type: BootstrapDialog.TYPE_DANGER,
 						message: '<h3 style="text-align:center;">Something went wrong. Trial not updated.</h3>',
-						closable: false,
 						buttons: [{
 							label: 'OK',
 							action: function(dialogRef){
@@ -156,7 +153,6 @@ $(document).ready(function(){
 					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 					type: BootstrapDialog.TYPE_DANGER,
 					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-					closable: false,
 					buttons: [{
 						label: 'OK',
 						action: function(dialogRef){
@@ -187,7 +183,6 @@ $(document).ready(function(){
 							title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
 							type: BootstrapDialog.TYPE_SUCCESS,
 							message: '<h3 style="text-align:center;">Trial successfully deleted.</h3>',
-							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(){
@@ -202,7 +197,6 @@ $(document).ready(function(){
 							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: '<h3 style="text-align:center;">Something went wrong. Trial not deleted.</h3>',
-							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){
@@ -221,7 +215,6 @@ $(document).ready(function(){
 							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 							type: BootstrapDialog.TYPE_DANGER,
 							message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-							closable: false,
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){

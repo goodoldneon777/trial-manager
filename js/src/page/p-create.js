@@ -54,8 +54,7 @@ $(document).ready(function(){
 			BootstrapDialog.alert({
 				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 				type: BootstrapDialog.TYPE_DANGER,
-				message: errorList,
-				closable: false
+				message: errorList
 			});
 
 			errorText =
@@ -76,59 +75,37 @@ $(document).ready(function(){
 
 
 		$.ajax({
-				type: 'POST',
-        url: 'php/dist/sql-create.php',
-        data: {
-        	'trialInfo' : JSON.stringify(trialInfo),
-        	'trialHeatData' : JSON.stringify(trialHeatData)
-        },
-        dataType: 'json',
-        success: function(results) {
-        	if (results.status === 'success') {
-        		var dialog = new BootstrapDialog({
-							title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
-							type: BootstrapDialog.TYPE_SUCCESS,
-							message: '<h3 style="text-align:center;">Trial successfully created.</h3>',
-							closable: false,
-							buttons: [{
-								label: 'OK',
-								action: function(){
-									dialog.close();
-									document.location.href = "view.php?trialseq=" + results.trialSeq;
-								}
-							}]
-						});
-						
-						dialog.open();
+			type: 'POST',
+      url: 'php/dist/sql-create.php',
+      data: {
+      	'trialInfo' : JSON.stringify(trialInfo),
+      	'trialHeatData' : JSON.stringify(trialHeatData)
+      },
+      dataType: 'json',
+      success: function(results) {
+      	if (results.status === 'success') {
+      		var dialog = new BootstrapDialog({
+						title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
+						type: BootstrapDialog.TYPE_SUCCESS,
+						message: '<h3 style="text-align:center;">Trial successfully created.</h3>',
+						buttons: [{
+							label: 'OK',
+							action: function(){
+								dialog.close();
+								document.location.href = "view.php?trialseq=" + results.trialSeq;
+							}
+						}]
+					});
+					
+					dialog.open();
 
-						console.log(trialHeatData);
-   
-        	} else {
-	      		var dialog = new BootstrapDialog({
-							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-							type: BootstrapDialog.TYPE_DANGER,
-							message: '<h3 style="text-align:center;">Something went wrong. Trial not created.</h3>',
-							closable: false,
-							buttons: [{
-								label: 'OK',
-								action: function(dialogRef){
-                  dialog.close();
-                }
-							}]
-						});
-						
-						dialog.open();
-
-		      	console.log(results.errors);
-	      		console.log(results.status);
-	      	}
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        	var dialog = new BootstrapDialog({
+					console.log(trialHeatData);
+ 
+      	} else {
+      		var dialog = new BootstrapDialog({
 						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 						type: BootstrapDialog.TYPE_DANGER,
-						message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-						closable: false,
+						message: '<h3 style="text-align:center;">Something went wrong. Trial not created.</h3>',
 						buttons: [{
 							label: 'OK',
 							action: function(dialogRef){
@@ -138,7 +115,26 @@ $(document).ready(function(){
 					});
 					
 					dialog.open();
-        }   
+
+	      	console.log(results.errors);
+      		console.log(results.status);
+      	}
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      	var dialog = new BootstrapDialog({
+					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+					type: BootstrapDialog.TYPE_DANGER,
+					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+					buttons: [{
+						label: 'OK',
+						action: function(dialogRef){
+              dialog.close();
+            }
+					}]
+				});
+				
+				dialog.open();
+      }   
     });
 	}	
 
