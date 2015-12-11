@@ -1,3 +1,11 @@
+<?php
+  $type = $_GET['type'];
+  if ($type !== 'group') {
+    $type = 'trial';
+  }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,7 +28,13 @@
 
     <div id="l-body">
 
-			<?php require('php/dist/m-search-form.php'); ?>
+      <?php
+
+        require('php/dist/m-trialGroupBtn.php');
+        create_trialGroupBtn($type);
+
+        require('php/dist/m-trialSearchForm.php');
+      ?>
 
       <div class="errorHolder"></div>
 
@@ -30,7 +44,7 @@
 
       <br>
 
-      <?php require('php/dist/m-search-results.php'); ?>
+      <?php require('php/dist/m-searchResults.php'); ?>
 
 		</div>
 

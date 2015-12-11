@@ -337,7 +337,7 @@
 
 	<div id="m-trialInfo" class="panel panel-primary">
 		<div class="panel-heading">
-	    <h3 class="panel-title">Info<span class="description"></span>
+	    <h3 class="panel-title">Trial Info<span class="description"></span>
 	    </h3>
 	  </div>
 

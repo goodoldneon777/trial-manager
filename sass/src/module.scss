@@ -7,6 +7,15 @@
 }
 
 
+.m-groupInfo {
+  width: 100%;
+  
+  input {
+    text-overflow: ellipsis;
+  }
+}
+
+
 #m-trialComment-list {
   width: 100%;
 
@@ -40,4 +49,9 @@
 	.table {
 		margin: 0;
 	}
+}
+
+
+.m-trialGroupBtn {
+  width: 100%;
 }

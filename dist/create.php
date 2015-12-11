@@ -1,3 +1,19 @@
+<?php
+  $type = $_GET['type'];
+  if ($type !== 'group') {
+    $type = 'trial';
+  }
+
+  if ($type === 'trial') {
+    $html_title = '<title>Trial Manager - Create Trial</title>';
+    $html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Create this trial.">Create Trial</button>';
+  } else if ($type === 'group') {
+    $html_title = '<title>Trial Manager - Create Group</title>';
+    $html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Create this group.">Create Group</button>';
+  }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,9 +21,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Trial Manager - Create Trial</title>
 
-    <?php require('php/dist/m-HTMLhead.php'); ?>
+
+    <?php 
+      echo $html_title;
+
+      require('php/dist/m-HTMLhead.php'); 
+    ?>
+
     
   </head>
   <body>
@@ -19,21 +40,32 @@
     <div id="l-body">
 
       <?php
-        require('php/dist/m-trialInfo.php');
-        create_trialInfo('write');
-      ?>
+
+        require('php/dist/m-trialGroupBtn.php');
+        create_trialGroupBtn($type);
 
 
-      <?php
-        require('php/dist/m-trialHeatData.php');
-        create_trialHeatData('write');
+        if ($type === 'trial') {
+          require('php/dist/m-trialInfo.php');
+          require('php/dist/m-trialHeatData.php');
+
+          create_trialInfo('write');
+          create_trialHeatData('write');
+
+        } else if ($type === 'group') {
+          require('php/dist/m-groupInfo.php');
+
+          create_groupInfo('write');
+
+        }
       ?>
+
 
 
       <div class="errorHolder"></div>
 
       <div style="text-align:center;">
-        <button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this trial.">Create Trial</button>
+        <?php echo $html_submitBtn; ?>
       </div>
 
     </div>

@@ -185,14 +185,32 @@ $colHover       : #ffe6d1; /*/
 
 
 .panel {
-    text-align: left;
-    .panel-title {
+  text-align: left;
+
+    .panel-heading {
+
+      .panel-title {
+
         .description {
             padding-left: 10px;
             font-weight: 300;
         }
+      }
     }
 }
+
+
+.panel-info {
+  border-color: #46b8da;
+
+    .panel-heading {
+      background-color: #5bc0de;
+      border-color: #46b8da;
+      color: white;
+    }
+}
+
+
 
 
 
@@ -298,6 +316,15 @@ $padding: 1em;
 }
 
 
+.m-groupInfo {
+  width: 100%;
+  
+  input {
+    text-overflow: ellipsis;
+  }
+}
+
+
 #m-trialComment-list {
   width: 100%;
 
@@ -331,6 +358,11 @@ $padding: 1em;
 	.table {
 		margin: 0;
 	}
+}
+
+
+.m-trialGroupBtn {
+  width: 100%;
 }
 
 

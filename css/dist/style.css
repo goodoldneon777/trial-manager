@@ -120,9 +120,16 @@ $colHover       : #ffe6d1; /*/
 
 .panel {
   text-align: left; }
-  .panel .panel-title .description {
+  .panel .panel-heading .panel-title .description {
     padding-left: 10px;
     font-weight: 300; }
+
+.panel-info {
+  border-color: #46b8da; }
+  .panel-info .panel-heading {
+    background-color: #5bc0de;
+    border-color: #46b8da;
+    color: white; }
 
 .btn-xlarge {
   margin: 10px;
@@ -204,6 +211,11 @@ $colHover       : #ffe6d1; /*/
   #m-trialInfo input {
     text-overflow: ellipsis; }
 
+.m-groupInfo {
+  width: 100%; }
+  .m-groupInfo input {
+    text-overflow: ellipsis; }
+
 #m-trialComment-list {
   width: 100%; }
   #m-trialComment-list table {
@@ -223,6 +235,9 @@ $colHover       : #ffe6d1; /*/
 
 #m-search-results .table {
   margin: 0; }
+
+.m-trialGroupBtn {
+  width: 100%; }
 
 .container {
   width: 100%;

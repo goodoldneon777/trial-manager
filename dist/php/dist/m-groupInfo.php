@@ -1,13 +1,13 @@
 <?php
 
-	function create_trialInfo($type, $trialSeq = null) {
+	function create_groupInfo($type, $groupSeq = null) {
 		$server = getenv('server');
 		$userWR = getenv('userWR');
 		$passWR = getenv('passWR');
 		$db = getenv('db');
 
 		// If there's a trial to display, query the trial info.
-		if ($trialSeq !== null) {
+		if ($groupSeq !== null) {
 			// Create connection
 			$conn = new mysqli($server, $userWR, $passWR, $db);
 			// Check connection
@@ -18,12 +18,11 @@
 
 			$sql = "
 				select 
-					trial_name, start_dt, end_dt, proc_chg_num, twi_num, user,
-					unit, trial_type, change_type, bop_vsl, degas_vsl, argon_station, 
-					caster_num, strand_num, comment_goal, comment_monitor, 
-					comment_general, comment_conclusion
-				from trial
-				where trial_seq = " . $trialSeq . " 
+					name, start_dt, end_dt, owner, unit, goal_type, change_type, 
+					bop_vsl, degas_vsl, argon_station, caster_num, strand_num, 
+					comment_goal, comment_monitor, comment_general, comment_conclusion
+				from trial_group
+				where group_seq = " . $groupSeq . " 
 				";
 
 			$result = $conn->query($sql);
@@ -32,14 +31,12 @@
 			if ($result->num_rows > 0) {
 				$row = $result->fetch_assoc();
 
-				$trialName = $row["trial_name"];
+				$name = $row["name"];
 				$startDate = date_format(date_create($row["start_dt"]), "n/j/Y G:i");
 				$endDate = date_format(date_create($row["end_dt"]), "n/j/Y G:i");
-				$processChange = $row["proc_chg_num"];
-				$twi = $row["twi_num"];
 				$owner = $row["user"];
 				$unit = $row["unit"];
-				$trialType = $row["trial_type"];
+				$goalType = $row["goal_type"];
 				$changeType = $row["change_type"];
 				$bopVsl = $row["bop_vsl"];
 				$degasVsl = $row["degas_vsl"];
@@ -52,17 +49,15 @@
 				$conclusionText = $row["comment_conclusion"];
 
 			} else {
-				$trialName = "Trial not found";
+				$name = "Group not found";
 			}
 		} else {
-			$trialName = "";
+			$name = "";
 			$startDate = "";
 			$endDate = "";
-			$processChange = "";
-			$twi = "";
 			$owner = "";
 			$unit = "";
-			$trialType = "";
+			$goalType = "";
 			$changeType = "";
 			$bopVsl = "";
 			$degasVsl = "";
@@ -81,10 +76,10 @@
 
 			$html_header =
 				'<div class="page-header">' . 
-					'<h1>' . $trialName . '</h1>' .
+					'<h1>' . $name . '</h1>' .
 				'</div>';
 
-			$html_trialName =
+			$html_name =
 				'';
 
 			$html_startDate = 
@@ -107,20 +102,9 @@
 			  '<input class="form-control" type="text" readonly value="' . $owner . '">' .
 			  '<span></span>';
 
-	    $html_processChange =
-	    	'<span class="elem-title hidden-xs">Process Change</span>' .
-		    '<span class="elem-title visible-xs">Proc Chg</span>' .
-	    	'<input class="form-control" type="text" readonly value="' . $processChange . '">' .
-	    	'<span></span>';
-
-	    $html_twi =
-	    	'<span class="elem-title">TWI</span>' .
-			  '<input class="form-control" type="text" readonly value="' . $twi . '">' .
-			  '<span></span>';
-
-		  $html_trialType =
-		  	'<span class="elem-title">Trial Type</span>' .
-		    '<input class="form-control" type="text" readonly value="' . $trialType . '">' .
+		  $html_goalType =
+		  	'<span class="elem-title">Goal Type</span>' .
+		    '<input class="form-control" type="text" readonly value="' . $goalType . '">' .
 		    '<span></span>';
 
 		  $html_changeType =
@@ -183,12 +167,12 @@
 			$html_header =
 				'';
 
-			$html_trialName =
+			$html_name =
 				'<div class="col-sm-2 fullPad-sm halfPad-xs"></div>' .
 				'<div class="col-sm-8 fullPad-sm halfPad-xs">' .
-				'  <div class="trialName input-group">' .
-				'    <span class="elem-title required">Trial Name</span>' .
-    		'    <input class="form-control" type="text" data-toggle="tooltip" title="Can be the same as a previous trial name." value="' . $trialName . '">' .
+				'  <div class="name input-group">' .
+				'    <span class="elem-title required">Group Name</span>' .
+    		'    <input class="form-control" type="text" data-toggle="tooltip" title="Can be the same as a previous group name." value="' . $name . '">' .
     		'    <span></span>' .
     		'  </div>' .
     		'</div>' . 
@@ -206,7 +190,7 @@
 
 			$html_unit = 
 				'<span class="elem-title required">Unit</span>' .
-			  '<select class="form-control" data-toggle="tooltip" title="Area where this trial will be performed." text="BOP">' .
+			  '<select class="form-control" data-toggle="tooltip" title="Area where this group of trials will be performed." text="BOP">' .
 			  '  <option></option>' .
 			  '  <option' . ( ($unit === 'BF') ? " selected" : "" ) . '>BF</option>' .
 	 			'  <option' . ( ($unit === 'BOP') ? " selected" : "" ) . '>BOP</option>' .
@@ -222,31 +206,20 @@
 			  '<input class="form-control" type="text" value="' . $owner . '">' .
 			  '<span></span>';
 
-	    $html_processChange =
-	    	'<span class="elem-title hidden-xs">Process Change</span>' .
-		    '<span class="elem-title visible-xs">Proc Chg</span>' .
-	    	'<input class="form-control" type="text" value="' . $processChange . '">' .
-	    	'<span></span>';
-
-	    $html_twi =
-	    	'<span class="elem-title">TWI</span>' .
-			  '<input class="form-control" type="text" value="' . $twi . '">' .
-			  '<span></span>';
-
-		  $html_trialType =
-		  	'<span class="elem-title">Trial Type</span>' .
-		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this trial trying to improve?">' .
+		  $html_goalType =
+		  	'<span class="elem-title">Goal Type</span>' .
+		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this group of trials trying to improve?">' .
 		    '  <option></option>' .
-		    '  <option' . ( ($trialType === 'Cost') ? " selected" : "" ) . '>Cost</option>' .
-		    '  <option' . ( ($trialType === 'Process') ? " selected" : "" ) . '>Process</option>' .
-		    '  <option' . ( ($trialType === 'Quality') ? " selected" : "" ) . '>Quality</option>' .
-		    '  <option' . ( ($trialType === 'Safety') ? " selected" : "" ) . '>Safety</option>' .
-		    '  <option' . ( ($trialType === 'Other') ? " selected" : "" ) . '>Other</option>' .
+		    '  <option' . ( ($goalType === 'Cost') ? " selected" : "" ) . '>Cost</option>' .
+		    '  <option' . ( ($goalType === 'Process') ? " selected" : "" ) . '>Process</option>' .
+		    '  <option' . ( ($goalType === 'Quality') ? " selected" : "" ) . '>Quality</option>' .
+		    '  <option' . ( ($goalType === 'Safety') ? " selected" : "" ) . '>Safety</option>' .
+		    '  <option' . ( ($goalType === 'Other') ? " selected" : "" ) . '>Other</option>' .
 		  	'</select>';
 
 		  $html_changeType =
 		  	'<span class="elem-title">Change Type</span>' .
-		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this trial changing?">' .
+		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this group of trials changing?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($changeType === 'Equipment') ? " selected" : "" ) . '>Equipment</option>' .
 		    '  <option' . ( ($changeType === 'Material') ? " selected" : "" ) . '>Material</option>' .
@@ -258,7 +231,7 @@
 			$html_bopVsl =
 				'<span class="elem-title hidden-xs">BOP Vsl</span>' .
 	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">BOP Vsl</span>' .
-    		'<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one BOP vessel?">' .
+    		'<select class="form-control" data-toggle="tooltip" title="Does this group of trials affect only one BOP vessel?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($bopVsl === '25') ? " selected" : "" ) . '>25</option>' .
 		    '  <option' . ( ($bopVsl === '26') ? " selected" : "" ) . '>26</option>' .
@@ -267,7 +240,7 @@
     	$html_degasVsl =
     		'<span class="elem-title hidden-xs">Degas Vsl</span>' .
 	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">RH Vsl</span>' .
-    		'<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one Degasser vessel?">' .
+    		'<select class="form-control" data-toggle="tooltip" title="Does this group of trials affect only one Degasser vessel?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($degasVsl === '1') ? " selected" : "" ) . '>1</option>' .
 		    '  <option' . ( ($degasVsl === '2') ? " selected" : "" ) . '>2</option>' .
@@ -276,7 +249,7 @@
     	$html_argonNum =
     		'<span class="elem-title hidden-xs">Argon #</span>' .
 	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">Argon</span>' .
-    		'<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one Argon station?">' .
+    		'<select class="form-control" data-toggle="tooltip" title="Does this group of trials affect only one Argon station?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($argonNum === '1') ? " selected" : "" ) . '>1</option>' .
 		    '  <option' . ( ($argonNum === '2') ? " selected" : "" ) . '>2</option>' .
@@ -285,7 +258,7 @@
     	$html_casterNum =
     		'<span class="elem-title hidden-xs">Caster #</span>' .
 			  '<span class="elem-title visible-xs" style="font-size:0.9em;">Caster</span>' .
-		    '<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one Caster?">' .
+		    '<select class="form-control" data-toggle="tooltip" title="Does this group of trials affect only one Caster?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($casterNum === '1') ? " selected" : "" ) . '>1</option>' .
 		    '  <option' . ( ($casterNum === '2') ? " selected" : "" ) . '>2</option>' .
@@ -294,7 +267,7 @@
 		  $html_strandNum =
 		  	'<span class="elem-title hidden-xs">Strand #</span>' .
 	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">Strand</span>' .
-    		'<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one Caster strand?">' .
+    		'<select class="form-control" data-toggle="tooltip" title="Does this group of trials affect only one Caster strand?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($strandNum === '1') ? " selected" : "" ) . '>1</option>' .
 		    '  <option' . ( ($strandNum === '2') ? " selected" : "" ) . '>2</option>' .
@@ -335,9 +308,9 @@
 
 <div class="container noPad-xs">
 
-	<div id="m-trialInfo" class="panel panel-primary">
+	<div class="m-groupInfo panel panel-info">
 		<div class="panel-heading">
-	    <h3 class="panel-title">Trial Info<span class="description"></span>
+	    <h3 class="panel-title">Group Info<span class="description"></span>
 	    </h3>
 	  </div>
 
@@ -346,7 +319,7 @@
 
 			<div class="row noPad-xs" style="margin:0;">
 
-				<?php echo $html_trialName; ?>
+				<?php echo $html_name; ?>
 
 
 
@@ -383,24 +356,8 @@
 
 
 			  <div class="col-sm-3 col-xs-4 fullPad-sm halfPad-xs">
-				  <div class="processChange input-group">
-			    	<?php echo $html_processChange; ?>
-				  </div>
-				</div>
-
-
-
-			  <div class="col-sm-3 col-xs-4 fullPad-sm halfPad-xs">
-				  <div class="twi input-group">
-			    	<?php echo $html_twi; ?>
-				  </div>
-				</div>
-
-
-
-			  <div class="col-sm-3 col-xs-4 fullPad-sm halfPad-xs">
-				  <div class="trialType input-group">
-			    	<?php echo $html_trialType; ?>
+				  <div class="goalType input-group">
+			    	<?php echo $html_goalType; ?>
 				  </div>
 				</div>
 
@@ -511,7 +468,7 @@
 </div>
 
 
-<script src="js/dist/m-trialInfo.min.js"></script>
+<script src="js/dist/m-groupInfo.min.js"></script>
 
 
 
