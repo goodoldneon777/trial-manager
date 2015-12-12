@@ -1,6 +1,6 @@
 <div class="container noPad-xs">
 
-	<div id="m-search-form" class="panel panel-primary">
+	<div class="m-trialSearchForm panel panel-primary">
 		<div class="panel-heading">
 	    <h3 class="panel-title">
 	    	Trial Search
@@ -14,7 +14,7 @@
 			<div class="row noPad-xs">
 
 				<div class="col-sm-6 col-xs-12 fullPad-sm halfPad-xs">
-				  <div class="trial-name input-group">
+				  <div class="name input-group">
 			    	<span class="elem-title">Trial Name</span>
 			    	<input class="form-control" type="text" data-toggle="tooltip" title="Partial trial name search. For example, a trial named 'BOP FeP Addition' would show up if you enter 'FeP'.">
 			    	<span></span>
@@ -46,7 +46,7 @@
 			<div class="row form-inline">
 
 				<div class="col-sm-4 col-xs-4 fullPad-sm halfPad-xs">
-				  <div class="trial-unit input-group">
+				  <div class="unit input-group">
 					  <span class="elem-title">Unit</span>
 					  <select class="form-control" data-toggle="tooltip" title="Area in which the trials were performed.">
 					    <option></option>
@@ -62,7 +62,7 @@
 				</div>
 
 				<div class="col-sm-4 col-xs-4 fullPad-sm halfPad-xs">
-				  <div class="trial-type input-group">
+				  <div class="goal-type input-group">
 					  <span class="elem-title">Trial Type</span>
 					  <select class="form-control" data-toggle="tooltip" title="What the trials were trying to improve.">
 					    <option></option>
@@ -101,7 +101,7 @@
 
 
 
-
+<script src="js/dist/m-trialSearchForm.min.js"></script>
 
 
 

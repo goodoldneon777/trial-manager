@@ -1,4 +1,18 @@
-<div id="m-search-results" class="panel panel-primary">
+<?php
+  $type = $_GET['type'];
+  if ($type !== 'group') {
+    $type = 'trial';
+  }
+
+  if ($type === 'trial') {
+    $html_class = '"m-searchResults panel panel-primary"';
+  } else if ($type === 'group') {
+    $html_class = '"m-searchResults panel panel-info"';
+  }
+?>
+
+
+<div class=<?php echo $html_class; ?> >
 	<div class="panel-heading">
     <h3 class="panel-title">
     	Search Results

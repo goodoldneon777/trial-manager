@@ -1,8 +1,14 @@
 $(document).ready(function(){
 	'use strict';
 	var main = {};
+	var pageType = getURLVariable('type');	//Get the page type from the URL.
+	if (pageType !== 'group') {
+		pageType = 'trial';
+	}
+
 
 	start();
+
 
 
 	function start() {
@@ -14,6 +20,7 @@ $(document).ready(function(){
 	}
 
 
+
 	function initialize() {
 		'use strict';
 
@@ -21,130 +28,133 @@ $(document).ready(function(){
 	}
 
 
+
 	function watch() {
 		'use strict';
+		var elemForm = '';
+		if (pageType === 'trial') {		//The search form has different classes: for trials and groups.
+			elemForm = '.m-trialSearchForm';
+		} else if (pageType === 'group') {
+			elemForm = '.m-groupSearchForm';
+		}
 
-
-		$('#m-search-form .trial-name').keyup(function() {
+		$(elemForm + ' .name').keyup(function() {		//Watch for typing in the name input. This allows for live searching while the user types.
 	    submit();
 		});
 
-		$('#m-search-form input').change(function() {
+		$(elemForm + ' input').change(function() {		//Watch for changes in any input. This doesn't cover live searching while typing.
 			submit();
 		});
 
-		$('#m-search-form select').change(function() {
+		$(elemForm + ' select').change(function() {		//Watch for changes in any of the dropdowns.
 			submit();
 		});
 
-		$('#submit').click(function() {
+		$('#submit').click(function() {		//Watch for clicking the submit button.
 			submit();
 		});
 	}
+
 
 
 	function submit() {
 		var errorText = null;
 		var errorList = '';
 		
-		errorText = validate();
+		//Depending on the page type, validate the search form. The validate functions return lists of errors.
+		if (pageType === 'trial') {
+			errorText = m_trialSearchForm.validate();
+		} else if (pageType === 'group') {
+			errorText = m_groupSearchForm.validate();
+		}
 
-			if (errorText.length === 0) {
-				$('.errorHolder').html('');
 
-				parseInputs();
+		//If there weren't any errors
+		if (errorText.length === 0) {
+			$('.errorHolder').html('');
 
-			} else {
-				errorList =
-					'<h3>Please fix these items:</h3>' +
-					'<div class="errorList">' +
-					'  <ul>' + errorText + '</ul>' +
-					'</div>';
 
-				BootstrapDialog.alert({
+			//Depending on the page type, parse the search form.
+			if (pageType === 'trial') {
+				main.data = m_trialSearchForm.parseInputs();
+			} else if (pageType === 'group') {
+				main.data = m_groupSearchForm.parseInputs();
+			}
+
+
+			//Run the function that searches the DB.
+			search(pageType);
+
+
+		} else {	//If there was at least 1 error
+			//Build the HTML for the error dialog.
+			errorList =
+				'<h3>Please fix these items:</h3>' +
+				'<div class="errorList">' +
+				'  <ul>' + errorText + '</ul>' +
+				'</div>';
+
+			//Alert the user with the errors.
+			BootstrapDialog.alert({
+				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+				type: BootstrapDialog.TYPE_DANGER,
+				message: errorList
+			});
+
+			//Build the HTML for the embedded error box.
+			errorText =
+				'<div class="alert alert-danger">' +
+				'    <ul>' + errorText + '</ul>' +
+				'</div>';
+
+			//Update the embedded error box with the errors.
+			$('.errorHolder').html(errorText);
+
+		}
+	}
+
+
+
+	function search(pageType) {
+		var urlSQL = '';
+
+		if (pageType === 'trial') {
+			urlSQL = 'php/dist/sql-searchTrial.php'
+		} else if (pageType === 'group') {
+			urlSQL = 'php/dist/sql-searchGroup.php'
+		}
+
+
+		$.ajax({
+			type: 'POST',
+      url: urlSQL,
+      data: {
+      	'input' : JSON.stringify(main.data)
+      },
+      dataType: 'json',
+      success: function(results) {
+      	$('.m-searchResults .contents').html(results.html);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      	var dialog = new BootstrapDialog({
 					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 					type: BootstrapDialog.TYPE_DANGER,
-					message: errorList
+					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+					buttons: [{
+						label: 'OK',
+						action: function(dialogRef){
+              dialogRef.close();
+            }
+					}]
 				});
-
-				errorText =
-					'<div class="alert alert-danger">' +
-					'    <ul>' + errorText + '</ul>' +
-					'</div>';
-
-				$('.errorHolder').html(errorText);
-
-			}
-	}
-
-
-	function validate() {
-		var errorText = "";
-		var startDate = $('#m-search-form .start-date input').val();
-		var endDate = $('#m-search-form .end-date input').val();
-
-
-		if ( (startDate.length > 0)  &&  (!isValidDate(startDate)) ) {
-			errorText += "<li>'Start Date' is not a valid date.</li>";
-		}
-
-		if ( (endDate.length > 0)  &&  (!isValidDate(endDate)) ) {
-			errorText += "<li>'End Date' is not a valid date.</li>";
-		}
-
-		if ( (startDate.length > 0)  &&  (endDate.length > 0) ) {
-			if (isValidDate(startDate)  &&  isValidDate(endDate)) {
-				startDate = stringToDate(startDate);
-				endDate = stringToDate(endDate);
-				
-				if (startDate > endDate) {
-					errorText += "<li>'Start Date' is after 'End Date'</li>";
-				}
-			}
-		}
-
-		return errorText;
-	}
-
-
-	function parseInputs() {
-		main.data = {
-			trialName 			: prepForSQL($('#m-search-form .trial-name input').val()),
-			startDate 			: prepForSQL($('#m-search-form .start-date input').val(), 'date'),
-			endDate 				: prepForSQL($('#m-search-form .end-date input').val(), 'date'),
-			unit 						: prepForSQL($('#m-search-form .trial-unit select').val()),
-			trialType 			: prepForSQL($('#m-search-form .trial-type select').val()),
-			changeType 			: prepForSQL($('#m-search-form .change-type select').val())
-		};
-
-// console.log(main.data);
-		$.ajax({
-				type: 'POST',
-        url: 'php/dist/sql-search.php',
-        data: {
-        	'input' : JSON.stringify(main.data)
-        },
-        dataType: 'json',
-        success: function(results) {
-        	$('#m-search-results .contents').html(results.html);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        	var dialog = new BootstrapDialog({
-						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-						type: BootstrapDialog.TYPE_DANGER,
-						message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-						buttons: [{
-							label: 'OK',
-							action: function(dialogRef){
-                dialogRef.close();
-              }
-						}]
-					});
-						
-					dialog.open();
-        }   
+					
+				dialog.open();
+      }   
     });
-	}	
+
+	}
+
+
 });
 
 

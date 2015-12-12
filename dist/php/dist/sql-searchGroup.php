@@ -20,7 +20,7 @@
 	$whereStatementBlank = true;
 
 	if ($data->trialName != 'NULL') {
-		$whereStatement .= "  and trial_name like '%" . substr($data->trialName, 1, strlen($data->trialName) - 2) . "%' \n";
+		$whereStatement .= "  and name like '%" . substr($data->trialName, 1, strlen($data->trialName) - 2) . "%' \n";
 		$whereStatementBlank = false;
 	}
 
@@ -48,7 +48,7 @@
 	}
 
 	if ($data->trialType != 'NULL') {
-		$whereStatement .= "  and trial_type = " . $data->trialType . " \n";
+		$whereStatement .= "  and goal_type = " . $data->trialType . " \n";
 		$whereStatementBlank = false;
 	}
 
@@ -60,8 +60,8 @@
 
 
 	$sql = 
-		"select trial_name, unit, start_dt, end_dt, trial_seq \n" .
-		"from trial \n";
+		"select name, unit, start_dt, end_dt, group_seq \n" .
+		"from trial_group \n";
 
 	if ($whereStatementBlank === false) {
 		$sql .= " \n" . $whereStatement;
@@ -78,7 +78,7 @@
 		$html = 
 			"<table class=\"table table-striped table-bordered\"> \n" .
 			"  <thead style=\"text-align:center;\"> \n" .
-			"    <th style=\"width:50%; text-align:center;\">Trial Name</th> \n" .
+			"    <th style=\"width:50%; text-align:center;\">Name</th> \n" .
 			"    <th style=\"width:80px; text-align:center;\">Unit</th> \n" .
 			"    <th style=\"text-align:center;\">Start Date</th> \n" .
 			"    <th style=\"text-align:center;\">End Date</th> \n" .
@@ -89,14 +89,14 @@
     while($row = $result->fetch_assoc()) {
       $html .= 
       	"<tr> \n" .
-      	"  <td><a href=\"view.php?trialseq=" . $row["trial_seq"] . "\">" . $row["trial_name"] . "</a></td> \n" .
+      	"  <td><a href=\"view.php?groupseq=" . $row["group_seq"] . "\">" . $row["name"] . "</a></td> \n" .
       	"  <td>" . $row["unit"] . "</td> \n" .
-      	"  <td>" . date_format(date_create($row["start_dt"]), "m/d/Y") . "</td> \n" .
-      	"  <td>" . date_format(date_create($row["end_dt"]), "m/d/Y") . "</td> \n" .
+      	"  <td>" . date_format(date_create($row["start_dt"]), "n/j/Y") . "</td> \n" .
+      	"  <td>" . date_format(date_create($row["end_dt"]), "n/j/Y") . "</td> \n" .
       	"  <td class=\"hidden-xs\" style=\"text-align:center;\"> \n" .
-      	"    <a href=\"view.php?trialseq=" . $row["trial_seq"] . "\">View</a> \n" .
+      	"    <a href=\"view.php?groupseq=" . $row["group_seq"] . "\">View</a> \n" .
       	"    | \n" .
-      	"    <a href=\"comment.php?trialseq=" . $row["trial_seq"] . "\">Comment</a> \n" .
+      	"    <a href=\"comment.php?groupseq=" . $row["group_seq"] . "\">Comment</a> \n" .
       	"  </td> \n" .
     		"</tr> \n";
     }
@@ -104,7 +104,7 @@
     	"  </tbody> \n" .
     	"</table> \n";
 	} else {
-    $html = "<div style=\"text-align:center; padding:10px;\">No trials found</div>";
+    $html = "<div style=\"text-align:center; padding:10px;\">No groups found</div>";
 	}
 
 

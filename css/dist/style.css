@@ -233,7 +233,7 @@ $colHover       : #ffe6d1; /*/
 #m-trialHeatData {
   width: 100%; }
 
-#m-search-results .table {
+.m-searchResults .table {
   margin: 0; }
 
 .m-trialGroupBtn {
