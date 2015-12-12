@@ -121,7 +121,8 @@ $colHover       : #ffe6d1; /*/
 .panel {
   text-align: left; }
   .panel table {
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    border-bottom: 0; }
   .panel .panel-heading .panel-title .description {
     padding-left: 10px;
     font-weight: 300; }
