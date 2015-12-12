@@ -181,7 +181,9 @@
     } else if ($type === 'write') {
 
 			$html_header =
-				'';
+				'<div class="page-header">' . 
+					'<h1>' . $trialName . '</h1>' .
+				'</div>';
 
 			$html_trialName =
 				'<div class="col-sm-2 fullPad-sm halfPad-xs"></div>' .

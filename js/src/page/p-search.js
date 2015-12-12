@@ -2,6 +2,7 @@ $(document).ready(function(){
 	'use strict';
 	var main = {};
 	var pageType = getURLVariable('type');	//Get the page type from the URL.
+	
 	if (pageType !== 'group') {
 		pageType = 'trial';
 	}

@@ -59,7 +59,7 @@ m_groupInfo.parse = function() {
 	'use strict';
 
 
-	var trialInfo = {
+	var info = {
 		name 						: prepForSQL($('.m-groupInfo .name input').val()),
 		owner 					: prepForSQL($('.m-groupInfo .owner input').val()),
 		startDate 			: prepForSQL($('.m-groupInfo .startDate input').val(), 'date'),
@@ -79,7 +79,7 @@ m_groupInfo.parse = function() {
 	};
 
 
-	return trialInfo;
+	return info;
 };
 
 

@@ -5,6 +5,7 @@ $(document).ready(function(){
 	start();
 
 
+
 	function start() {
 		'use strict';
 
@@ -14,11 +15,13 @@ $(document).ready(function(){
 	}
 
 
+
 	function initialize() {
 		'use strict';
 
 		main = {};
 	}
+
 
 
 	function watch() {
@@ -28,6 +31,7 @@ $(document).ready(function(){
 			submit();
 		});
 	}
+
 
 
 	function submit() {

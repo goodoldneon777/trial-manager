@@ -44,7 +44,7 @@
         } else if ($type === 'group') {
           require('php/dist/m-groupInfo.php');
 
-          create_groupInfo('write', $groupSeq);
+          create_groupInfo('readonly', $groupSeq);
 
         }
       ?>
