@@ -63,7 +63,7 @@
 
 				<div class="col-sm-4 col-xs-4 fullPad-sm halfPad-xs">
 				  <div class="goal-type input-group">
-					  <span class="elem-title">Trial Type</span>
+					  <span class="elem-title">Goal Type</span>
 					  <select class="form-control" data-toggle="tooltip" title="What the trials were trying to improve.">
 					    <option></option>
 					    <option>Cost</option>

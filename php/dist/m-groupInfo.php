@@ -34,7 +34,7 @@
 				$name = $row["name"];
 				$startDate = date_format(date_create($row["start_dt"]), "n/j/Y G:i");
 				$endDate = date_format(date_create($row["end_dt"]), "n/j/Y G:i");
-				$owner = $row["user"];
+				$owner = $row["owner"];
 				$unit = $row["unit"];
 				$goalType = $row["goal_type"];
 				$changeType = $row["change_type"];

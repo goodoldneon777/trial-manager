@@ -1,3 +1,16 @@
+<?php
+  $trialSeq = $_GET['trialseq'];
+  $groupSeq = $_GET['groupseq'];
+
+  if (!$groupSeq) {
+    $type = 'trial';
+  } else {
+    $type = 'group';
+  }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,23 +31,23 @@
 
     <div id="l-body">
 
-			<?php
-        require('php/dist/m-trialInfo.php');
-        create_trialInfo('readonly', $_GET['trialseq']);
-      ?>
-
-
       <?php
-        require('php/dist/m-trialComment-list.php');
-        create_trialComment_list('readonly', $_GET['trialseq']);
-      ?>
 
+        if ($type === 'trial') {
+          require('php/dist/m-trialInfo.php');
+          require('php/dist/m-trialComment-list.php');
+          require('php/dist/m-trialHeatData.php');
 
-      <?php
-        require('php/dist/m-trialHeatData.php');
-        create_trialHeatData('readonly', $_GET['trialseq']);
+          create_trialInfo('readonly', $trialSeq);
+          create_trialComment_list('readonly', $trialSeq);
+          create_trialHeatData('readonly', $trialSeq);
+        } else if ($type === 'group') {
+          require('php/dist/m-groupInfo.php');
+
+          create_groupInfo('write', $groupSeq);
+
+        }
       ?>
- 
 
 		</div>
 
