@@ -3,11 +3,11 @@
   $groupSeq = $_GET['groupseq'];
 
   if (!$groupSeq) {
-    $type = 'trial';
+    $pageType = 'trial';
     $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this trial.">Update Trial</button>';
     $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this trial.">Delete Trial</button>';
   } else {
-    $type = 'group';
+    $pageType = 'group';
     $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this group.">Update Group</button>';
     $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this group.">Delete Group</button>';
   }
@@ -37,19 +37,20 @@
 
       <?php
 
-        if ($type === 'trial') {
+        if ($pageType === 'trial') {
           require('php/dist/m-info-trial.php');
-          require('php/dist/m-commentList-trial.php');
+          require('php/dist/m-commentList.php');
           require('php/dist/m-heatData-trial.php');
 
           create_info_trial('write', $trialSeq);
-          create_commentList_trial('write', $trialSeq);
+          create_commentList('write', $pageType, $trialSeq);
           create_heatData_trial('write', $trialSeq);
-        } else if ($type === 'group') {
+        } else if ($pageType === 'group') {
           require('php/dist/m-info-group.php');
+          require('php/dist/m-commentList.php');
 
           create_info_group('write', $groupSeq);
-
+          create_commentList('write', $pageType, $groupSeq);
         }
       ?>
 

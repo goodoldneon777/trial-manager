@@ -99,8 +99,10 @@
 
 		if ($pageType === 'trial') {
 			$html_class = '"m-commentList panel panel-primary"';
+			$html_heading = 'Trial Comments';
 		} else if ($pageType === 'group') {
 			$html_class = '"m-commentList panel panel-info"';
+			$html_heading = 'Group Comments';
 		}
 
 
@@ -113,7 +115,7 @@
 	<div class=<?php echo $html_class; ?> >
 		<div class="panel-heading">
 	    <h3 class="panel-title">
-	    	Trial Comments
+	    	<?php echo $html_heading; ?>
 	    	<span class="description"></span>
 	    </h3>
 	  </div>

@@ -30,6 +30,15 @@
 	}
 
 
+	$sql = 
+		"delete from trial_group_comment \n" .
+		"where group_seq = " . $seq;
+
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
+
+
 
 	if(count($errors) === 0) {
     $conn->commit();

@@ -218,16 +218,16 @@ $colHover       : #ffe6d1; /*/
   .m-info-group input {
     text-overflow: ellipsis; }
 
-.m-commentList-trial {
+.m-commentList {
   width: 100%; }
-  .m-commentList-trial table {
+  .m-commentList table {
     margin: 0; }
-  .m-commentList-trial .commentDate {
+  .m-commentList .commentDate {
     width: 180px;
     vertical-align: middle; }
-  .m-commentList-trial .commentText {
+  .m-commentList .commentText {
     vertical-align: middle; }
-  .m-commentList-trial .commentAction {
+  .m-commentList .commentAction {
     width: 100px;
     vertical-align: middle;
     text-align: center; }

@@ -7,6 +7,7 @@
 	
 	$seq = json_decode($_POST["seq"]);
 	$info = json_decode($_POST["info"]);
+	$commentList = json_decode($_POST["commentList"], true);
 
 
 	$debugSQL = "";	// Will contain all the queries. For debugging purposes.
@@ -48,6 +49,43 @@
 
 	if (!$conn->query($sql)) {
 	  $errors[] = $conn->error;
+	}
+
+
+	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
+
+	$sql =
+		"delete from trial_group_comment \n" .
+		"where group_seq = " . $seq;
+
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
+
+
+	if (count($commentList) > 0) {
+		$sql = 
+	  	"insert into trial_group_comment ( \n" .
+			"  group_seq, comment_seq, comment_dt, comment_text \n" .
+			") \n";
+
+	  for ($i = 0; $i <= count($commentList) - 1; $i++) {
+	  	if ($i > 0) {
+	  		$sql .= "union \n";
+	  	}
+
+	  	$sql .= 
+	  		"select " .
+				$seq . ", " .
+				$commentList[$i][0] . ", " .
+				$commentList[$i][1] . ", " .
+				$commentList[$i][2] . " \n";			
+	  }
+
+	  if (!$conn->query($sql)) {
+		  $errors[] = $conn->error;
+		}
 	}
 
 
