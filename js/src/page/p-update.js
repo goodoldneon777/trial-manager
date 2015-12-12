@@ -44,7 +44,7 @@ $(document).ready(function(){
 
 
 		$('#delete').click(function() {
-			deleteFunc();
+			deleteClick();
 		});
 	}
 
@@ -57,20 +57,23 @@ $(document).ready(function(){
 
 
 		if (pageType === 'trial') {
-			errorText += m_trialInfo.validate();
-			errorText += m_trialHeatData.validate();
+			errorText += m_info_trial.validate();
+			errorText += m_heatData_trial.validate();
 		} else if (pageType === 'group') {
-			errorText += m_groupInfo.validate();
+			errorText += m_info_group.validate();
 		}
 
 
 		if (errorText.length === 0) {
 			$('.errorHolder').html('');
 				
+
 			if (pageType === 'trial') {
-				updateTrial();
+				// updateTrial();
+				update('trial');
 			} else if (pageType === 'group') {
-				updateGroup();
+				// updateGroup();
+				update('group');
 			}
 				
 
@@ -98,7 +101,7 @@ $(document).ready(function(){
 
 
 
-	function deleteFunc() {
+	function deleteClick() {
 		'use strict';
 		var errorText = '';
 		var errorList = '';
@@ -111,9 +114,9 @@ $(document).ready(function(){
       callback: function(result) {
         if(result) {
 					if (pageType === 'trial') {
-						deleteTrial();
+						deleteFunc('trial');
 					} else if (pageType === 'group') {
-						deleteGroup();
+						deleteFunc('group');
 					}
         } else {
         	return;
@@ -124,155 +127,44 @@ $(document).ready(function(){
 
 
 
-	function updateTrial() {
+	function update(type) {
 		'use strict';
-		var trialSeq = getURLVariable('trialseq');
-		var trialInfo = m_trialInfo.parse();
-		var trialComment_list = m_trialComment_list.parse();
-		var trialHeatData = m_trialHeatData.parse();
+		var seq = null;
+		var info = {};
+		var commentList = [];
+		var heatData = {};
+		var urlSQL = null;
+		var urlRedirect = null;
+		var msgSuccess = null;
+		var msgFailure = null;
+
+		if (type === 'trial') {
+			seq = trialSeq;
+			info = m_info_trial.parse();
+			commentList = m_commentList_trial.parse();
+			heatData = m_heatData_trial.parse();
+			urlSQL = 'php/dist/sql-update-trial.php';
+			urlRedirect = 'view.php?trialseq=';
+			msgSuccess = 'Trial successfully updated.';
+			msgFailure = 'Something went wrong. Trial not updated.';
+		} else if (type === 'group') {
+			seq = groupSeq;
+			info = m_info_group.parse();
+			urlSQL = 'php/dist/sql-update-group.php';
+			urlRedirect = 'view.php?groupseq=';
+			msgSuccess = 'Group successfully update.';
+			msgFailure = 'Something went wrong. Group not updated.';
+		}
 
 
 		$.ajax({
 			type: 'POST',
-      url: 'php/dist/sql-update.php',
+      url: urlSQL,
       data: {
-      	'trialSeq'	: JSON.stringify( prepForSQL(trialSeq) ),
-      	'trialInfo' : JSON.stringify(trialInfo),
-      	'trialComment_list' : JSON.stringify(trialComment_list),
-      	'trialHeatData' : JSON.stringify(trialHeatData)
-      },
-      dataType: 'json',
-      success: function(results) {
-      	if (results.status === 'success') {
-      		var dialog = new BootstrapDialog({
-						title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
-						type: BootstrapDialog.TYPE_SUCCESS,
-						message: '<h3 style="text-align:center;">Trial successfully updated.</h3>',
-						buttons: [{
-							label: 'OK',
-							action: function(){
-								document.location.href = "view.php?trialseq=" + trialSeq;
-							}
-						}]
-					});
-					
-					dialog.open();
-      	} else {
-      		var dialog = new BootstrapDialog({
-						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-						type: BootstrapDialog.TYPE_DANGER,
-						message: '<h3 style="text-align:center;">Something went wrong. Trial not updated.</h3>',
-						buttons: [{
-							label: 'OK',
-							action: function(dialogRef){
-                dialogRef.close();
-              }
-						}]
-					});
-					
-					dialog.open();
-
-	      	console.log(results.errors);
-	      	console.log(results.debugSQL);
-      	}
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        var dialog = new BootstrapDialog({
-					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-					type: BootstrapDialog.TYPE_DANGER,
-					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-					buttons: [{
-						label: 'OK',
-						action: function(dialogRef){
-              dialogRef.close();
-            }
-					}]
-				});
-				
-				dialog.open();
-
-	     	console.log(results.debugSQL);
-      }   
-    });
-	}
-
-
-	function deleteTrial() {
-		$.ajax({
-			type: 'POST',
-      url: 'php/dist/sql-delete.php',
-      data: {
-      	'trialSeq' : prepForSQL(getURLVariable('trialseq'))
-      },
-      dataType: 'json',
-      success: function(results) {
-      	if (results.status === 'success') {
-        	var dialog = new BootstrapDialog({
-						title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
-						type: BootstrapDialog.TYPE_SUCCESS,
-						message: '<h3 style="text-align:center;">Trial successfully deleted.</h3>',
-						buttons: [{
-							label: 'OK',
-							action: function(){
-								document.location.href = "index.php";
-							}
-						}]
-					});
-					
-					dialog.open();
-        } else {
-      		var dialog = new BootstrapDialog({
-						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-						type: BootstrapDialog.TYPE_DANGER,
-						message: '<h3 style="text-align:center;">Something went wrong. Trial not deleted.</h3>',
-						buttons: [{
-							label: 'OK',
-							action: function(dialogRef){
-                dialogRef.close();
-              }
-						}]
-					});
-					
-					dialog.open();
-
-      		console.log(results.errors);
-      	}
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        var dialog = new BootstrapDialog({
-					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-					type: BootstrapDialog.TYPE_DANGER,
-					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-					buttons: [{
-						label: 'OK',
-						action: function(dialogRef){
-              dialogRef.close();
-            }
-					}]
-				});
-				
-				dialog.open();
-      }
-    });
-	}
-
-
-
-	function updateGroup() {
-		'use strict';
-		var seq = groupSeq;
-		var info = m_groupInfo.parse();
-		var urlSuccessRedirect = 'view.php?groupseq=' + seq;
-		var msgSuccess = 'Group successfully updated.';
-		var msgFailure = 'Something went wrong. Group not updated.';
-
-
-		$.ajax({
-			type: 'POST',
-      url: 'php/dist/sql-updateGroup.php',
-      data: {
-      	'seq'	: JSON.stringify( prepForSQL(seq) ),
-      	'info' : JSON.stringify(info)
+      	'seq' : JSON.stringify(seq),
+      	'info' : JSON.stringify(info),
+      	'commentList': JSON.stringify(commentList),
+      	'heatData' : JSON.stringify(heatData)
       },
       dataType: 'json',
       success: function(results) {
@@ -284,12 +176,14 @@ $(document).ready(function(){
 						buttons: [{
 							label: 'OK',
 							action: function(){
-								document.location.href = urlSuccessRedirect;
+								dialog.close();
+								document.location.href = urlRedirect + results.seq;
 							}
 						}]
 					});
 					
 					dialog.open();
+ 
       	} else {
       		var dialog = new BootstrapDialog({
 						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
@@ -298,7 +192,7 @@ $(document).ready(function(){
 						buttons: [{
 							label: 'OK',
 							action: function(dialogRef){
-                dialogRef.close();
+                dialog.close();
               }
 						}]
 					});
@@ -306,40 +200,59 @@ $(document).ready(function(){
 					dialog.open();
 
 	      	console.log(results.errors);
-	      	console.log(results.debugSQL);
+      		console.log(results.debugSQL);
       	}
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        var dialog = new BootstrapDialog({
+      	var dialog = new BootstrapDialog({
 					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 					type: BootstrapDialog.TYPE_DANGER,
 					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
 					buttons: [{
 						label: 'OK',
 						action: function(dialogRef){
-              dialogRef.close();
+              dialog.close();
             }
 					}]
 				});
 				
 				dialog.open();
-
-	     	console.log(results.debugSQL);
       }   
     });
+
 	}
 
 
-	function deleteGroup() {
+
+	function deleteFunc(type) {
 		'use strict';
-		var seq = groupSeq;
-		var msgSuccess = 'Group successfully deleted.';
-		var msgFailure = 'Something went wrong. Group not updated.';
+		var seq = null;
+		var info = {};
+		var commentList = [];
+		var heatData = {};
+		var urlSQL = null;
+		var urlRedirect = null;
+		var msgSuccess = null;
+		var msgFailure = null;
+
+		if (type === 'trial') {
+			seq = trialSeq;
+			urlSQL = 'php/dist/sql-delete-trial.php';
+			urlRedirect = 'index.php';
+			msgSuccess = 'Trial successfully deleted.';
+			msgFailure = 'Something went wrong. Trial not deleted.';
+		} else if (type === 'group') {
+			seq = groupSeq;
+			urlSQL = 'php/dist/sql-delete-group.php';
+			urlRedirect = 'index.php';
+			msgSuccess = 'Group successfully deleted.';
+			msgFailure = 'Something went wrong. Group not deleted.';
+		}
 
 
 		$.ajax({
 			type: 'POST',
-      url: 'php/dist/sql-deleteGroup.php',
+      url: urlSQL,
       data: {
       	'seq' : prepForSQL(seq)
       },
@@ -393,7 +306,138 @@ $(document).ready(function(){
 				dialog.open();
       }
     });
+
 	}
+
+
+
+
+	// function deleteTrial() {
+	// 	$.ajax({
+	// 		type: 'POST',
+ //      url: 'php/dist/sql-delete.php',
+ //      data: {
+ //      	'trialSeq' : prepForSQL(getURLVariable('trialseq'))
+ //      },
+ //      dataType: 'json',
+ //      success: function(results) {
+ //      	if (results.status === 'success') {
+ //        	var dialog = new BootstrapDialog({
+	// 					title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
+	// 					type: BootstrapDialog.TYPE_SUCCESS,
+	// 					message: '<h3 style="text-align:center;">Trial successfully deleted.</h3>',
+	// 					buttons: [{
+	// 						label: 'OK',
+	// 						action: function(){
+	// 							document.location.href = "index.php";
+	// 						}
+	// 					}]
+	// 				});
+					
+	// 				dialog.open();
+ //        } else {
+ //      		var dialog = new BootstrapDialog({
+	// 					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+	// 					type: BootstrapDialog.TYPE_DANGER,
+	// 					message: '<h3 style="text-align:center;">Something went wrong. Trial not deleted.</h3>',
+	// 					buttons: [{
+	// 						label: 'OK',
+	// 						action: function(dialogRef){
+ //                dialogRef.close();
+ //              }
+	// 					}]
+	// 				});
+					
+	// 				dialog.open();
+
+ //      		console.log(results.errors);
+ //      	}
+ //      },
+ //      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+ //        var dialog = new BootstrapDialog({
+	// 				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+	// 				type: BootstrapDialog.TYPE_DANGER,
+	// 				message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+	// 				buttons: [{
+	// 					label: 'OK',
+	// 					action: function(dialogRef){
+ //              dialogRef.close();
+ //            }
+	// 				}]
+	// 			});
+				
+	// 			dialog.open();
+ //      }
+ //    });
+	// }
+
+
+
+
+	// function deleteGroup() {
+	// 	'use strict';
+	// 	var seq = groupSeq;
+	// 	var msgSuccess = 'Group successfully deleted.';
+	// 	var msgFailure = 'Something went wrong. Group not updated.';
+
+
+	// 	$.ajax({
+	// 		type: 'POST',
+ //      url: 'php/dist/sql-deleteGroup.php',
+ //      data: {
+ //      	'seq' : prepForSQL(seq)
+ //      },
+ //      dataType: 'json',
+ //      success: function(results) {
+ //      	if (results.status === 'success') {
+ //        	var dialog = new BootstrapDialog({
+	// 					title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
+	// 					type: BootstrapDialog.TYPE_SUCCESS,
+	// 					message: '<h3 style="text-align:center;">' + msgSuccess + '</h3>',
+	// 					buttons: [{
+	// 						label: 'OK',
+	// 						action: function(){
+	// 							document.location.href = "index.php";
+	// 						}
+	// 					}]
+	// 				});
+					
+	// 				dialog.open();
+ //        } else {
+ //      		var dialog = new BootstrapDialog({
+	// 					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+	// 					type: BootstrapDialog.TYPE_DANGER,
+	// 					message: '<h3 style="text-align:center;">' + msgFailure + '</h3>',
+	// 					buttons: [{
+	// 						label: 'OK',
+	// 						action: function(dialogRef){
+ //                dialogRef.close();
+ //              }
+	// 					}]
+	// 				});
+					
+	// 				dialog.open();
+
+ //      		console.log(results.errors);
+ //      	}
+ //      },
+ //      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+ //        var dialog = new BootstrapDialog({
+	// 				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+	// 				type: BootstrapDialog.TYPE_DANGER,
+	// 				message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+	// 				buttons: [{
+	// 					label: 'OK',
+	// 					action: function(dialogRef){
+ //              dialogRef.close();
+ //            }
+	// 				}]
+	// 			});
+				
+	// 			dialog.open();
+ //      }
+ //    });
+	// }
 
 
 

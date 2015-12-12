@@ -187,16 +187,20 @@ $colHover       : #ffe6d1; /*/
 .panel {
   text-align: left;
 
-    .panel-heading {
+  table {
+    margin-bottom: 0;
+  }  
 
-      .panel-title {
+  .panel-heading {
 
-        .description {
-            padding-left: 10px;
-            font-weight: 300;
-        }
+    .panel-title {
+
+      .description {
+          padding-left: 10px;
+          font-weight: 300;
       }
     }
+  }
 }
 
 
@@ -307,7 +311,7 @@ $padding: 1em;
 		padding-left: 0;
   }
 }
-#m-trialInfo {
+.m-info-trial {
   width: 100%;
   
   input {
@@ -316,7 +320,7 @@ $padding: 1em;
 }
 
 
-.m-groupInfo {
+.m-info-group {
   width: 100%;
   
   input {
@@ -325,7 +329,7 @@ $padding: 1em;
 }
 
 
-#m-trialComment-list {
+.m-commentList-trial{
   width: 100%;
 
   table {
@@ -349,7 +353,7 @@ $padding: 1em;
 }
 
 
-#m-trialHeatData {
+.m-heatData-trial{
   width: 100%;
 }
 

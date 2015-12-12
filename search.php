@@ -48,10 +48,10 @@
 
 
         if ($type === 'trial') {
-          require('php/dist/m-trialSearchForm.php');
+          require('php/dist/m-searchForm-trial.php');
 
         } else if ($type === 'group') {
-          require('php/dist/m-groupSearchForm.php');
+          require('php/dist/m-searchForm-group.php');
 
         }
 

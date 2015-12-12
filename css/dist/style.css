@@ -120,6 +120,8 @@ $colHover       : #ffe6d1; /*/
 
 .panel {
   text-align: left; }
+  .panel table {
+    margin-bottom: 0; }
   .panel .panel-heading .panel-title .description {
     padding-left: 10px;
     font-weight: 300; }
@@ -206,31 +208,31 @@ $colHover       : #ffe6d1; /*/
     padding: 1em;
     padding-right: 0;
     padding-left: 0; } }
-#m-trialInfo {
+.m-info-trial {
   width: 100%; }
-  #m-trialInfo input {
+  .m-info-trial input {
     text-overflow: ellipsis; }
 
-.m-groupInfo {
+.m-info-group {
   width: 100%; }
-  .m-groupInfo input {
+  .m-info-group input {
     text-overflow: ellipsis; }
 
-#m-trialComment-list {
+.m-commentList-trial {
   width: 100%; }
-  #m-trialComment-list table {
+  .m-commentList-trial table {
     margin: 0; }
-  #m-trialComment-list .commentDate {
+  .m-commentList-trial .commentDate {
     width: 180px;
     vertical-align: middle; }
-  #m-trialComment-list .commentText {
+  .m-commentList-trial .commentText {
     vertical-align: middle; }
-  #m-trialComment-list .commentAction {
+  .m-commentList-trial .commentAction {
     width: 100px;
     vertical-align: middle;
     text-align: center; }
 
-#m-trialHeatData {
+.m-heatData-trial {
   width: 100%; }
 
 .m-searchResults .table {

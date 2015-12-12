@@ -5,8 +5,8 @@
 	$db = getenv("db");
 	
 	
-	$trialInfo = json_decode($_POST["trialInfo"]);
-	$trialHeatData = json_decode($_POST["trialHeatData"]);
+	$info = json_decode($_POST["info"]);
+	$heatData = json_decode($_POST["heatData"]);
 
 	$debugSQL = '';
 
@@ -26,27 +26,27 @@
 
 	$sql = 
 		"insert into trial ( \n" .
-		"  trial_name, user, start_dt, end_dt, proc_chg_num, twi_num, unit, trial_type, change_type, bop_vsl, degas_vsl, argon_station, caster_num, strand_num, comment_goal, comment_monitor, comment_general, comment_conclusion \n" .
+		"  trial_name, owner, start_dt, end_dt, proc_chg_num, twi_num, unit, goal_type, change_type, bop_vsl, degas_vsl, argon_station, caster_num, strand_num, comment_goal, comment_monitor, comment_general, comment_conclusion \n" .
 		") \n" .
 		"value (" .
-		$trialInfo->trialName . ", " .
-		$trialInfo->owner . ", " .
-		$trialInfo->startDate . ", " .
-		$trialInfo->endDate . ", " .
-		$trialInfo->processChange . ", " .
-		$trialInfo->twi . ", " .
-		$trialInfo->unit . ", " .
-		$trialInfo->trialType . ", " .
-		$trialInfo->changeType . ", " .
-		$trialInfo->bopVsl . ", " .
-		$trialInfo->degasVsl . ", " .
-		$trialInfo->argonNum . ", " .
-		$trialInfo->casterNum . ", " .
-		$trialInfo->strandNum . ", " .
-		$trialInfo->goalText . ", " .
-		$trialInfo->monitorText . ", " .
-		$trialInfo->otherInfoText . ", " .
-		$trialInfo->conclusionText .
+		$info->name . ", " .
+		$info->owner . ", " .
+		$info->startDate . ", " .
+		$info->endDate . ", " .
+		$info->processChange . ", " .
+		$info->twi . ", " .
+		$info->unit . ", " .
+		$info->goalType . ", " .
+		$info->changeType . ", " .
+		$info->bopVsl . ", " .
+		$info->degasVsl . ", " .
+		$info->argonNum . ", " .
+		$info->casterNum . ", " .
+		$info->strandNum . ", " .
+		$info->goalText . ", " .
+		$info->monitorText . ", " .
+		$info->otherInfoText . ", " .
+		$info->conclusionText .
 		" ) \n";
 
 	if (!$conn->query($sql)) {
@@ -59,20 +59,20 @@
 
 	$sql = "select max(trial_seq) from trial";
 	$result = $conn->query($sql);
-  $trialSeq = $result->fetch_array();
-  $trialSeq = $trialSeq[0];
+  $arr = $result->fetch_array();
+  $seq = $arr[0];
 
 	$debugSQL .= $sql;
 
 
 
-	if (count($trialHeatData) > 0) {
+	if (count($heatData) > 0) {
 		$sql = 
 	  	"insert into trial_ht ( \n" .
 			"  trial_seq, trial_name, trial_start_dt, trial_end_dt, ht_seq, ht_num, tap_yr, bop_vsl, degas_vsl, argon_num, caster_num, strand_num, comment \n" .
 			") \n";
 
-	  for ($i = 0; $i <= count($trialHeatData) - 1; $i++) {
+	  for ($i = 0; $i <= count($heatData) - 1; $i++) {
 	  	if ($i > 0) {
 	  		$sql .= "union \n";
 	  	}
@@ -80,17 +80,17 @@
 	  	$sql .= 
 	  		"select " .
 				"trial_seq, trial_name, start_dt, end_dt, " .
-				$trialHeatData[$i][0] . ", " .
-				$trialHeatData[$i][1] . ", " .
-				$trialHeatData[$i][2] . ", " .
-				$trialHeatData[$i][3] . ", " .
-				$trialHeatData[$i][4] . ", " .
-				$trialHeatData[$i][5] . ", " .
-				$trialHeatData[$i][6] . ", " .
-				$trialHeatData[$i][7] . ", " .
-				$trialHeatData[$i][8] . " \n" .
+				$heatData[$i][0] . ", " .
+				$heatData[$i][1] . ", " .
+				$heatData[$i][2] . ", " .
+				$heatData[$i][3] . ", " .
+				$heatData[$i][4] . ", " .
+				$heatData[$i][5] . ", " .
+				$heatData[$i][6] . ", " .
+				$heatData[$i][7] . ", " .
+				$heatData[$i][8] . " \n" .
 				"from trial \n" .
-				"where trial_seq = " . $trialSeq . " ";		
+				"where trial_seq = " . $seq . " ";		
 	  }
 
 	  if (!$conn->query($sql)) {
@@ -114,7 +114,7 @@
 	$output = new stdClass();
 	$output->status = $status;
 	$output->errors = $errors;
-	$output->trialSeq = $trialSeq;
+	$output->seq = $seq;
 	$output->debugSQL = $debugSQL;
 
 

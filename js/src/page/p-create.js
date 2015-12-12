@@ -46,10 +46,10 @@ $(document).ready(function(){
 
 
 		if (createType === 'trial') {
-			errorText += m_trialInfo.validate();
-			errorText += m_trialHeatData.validate();
+			errorText += m_info_trial.validate();
+			errorText += m_heatData_trial.validate();
 		} else if (createType === 'group') {
-			errorText += m_groupInfo.validate();
+			errorText += m_info_group.validate();
 		}
 
 
@@ -57,9 +57,9 @@ $(document).ready(function(){
 			$('.errorHolder').html('');
 				
 			if (createType === 'group') {
-				createGroup();
-			} else {
-				createTrial();
+				create('group');
+			} else if (createType === 'trial') {
+				create('trial');
 			}
 
 		} else {
@@ -87,17 +87,38 @@ $(document).ready(function(){
 
 
 
-	function createTrial() {
-		var trialInfo = m_trialInfo.parse();
-		var trialHeatData = m_trialHeatData.parse();
+	function create(type) {
+		'use strict';
+		var info = {};
+		var heatData = {};
+		var urlSQL = '';
+		var urlRedirect = '';
+		var msgSuccess = '';
+		var msgFailure = '';
+
+		if (type === 'trial') {
+			info = m_info_trial.parse();
+			heatData = m_heatData_trial.parse();
+			urlSQL = 'php/dist/sql-createTrial.php';
+			urlRedirect = 'view.php?trialseq=';
+			msgSuccess = 'Trial successfully created.';
+			msgFailure = 'Something went wrong. Trial not created.';
+		} else if (type === 'group') {
+			info = m_info_group.parse();
+			urlSQL = 'php/dist/sql-createGroup.php';
+			urlRedirect = 'view.php?groupseq=';
+			msgSuccess = 'Group successfully created.';
+			msgFailure = 'Something went wrong. Group not created.';
+		}
+
 
 
 		$.ajax({
 			type: 'POST',
-      url: 'php/dist/sql-createTrial.php',
+      url: urlSQL,
       data: {
-      	'trialInfo' : JSON.stringify(trialInfo),
-      	'trialHeatData' : JSON.stringify(trialHeatData)
+      	'info' : JSON.stringify(info),
+      	'heatData' : JSON.stringify(heatData)
       },
       dataType: 'json',
       success: function(results) {
@@ -105,25 +126,23 @@ $(document).ready(function(){
       		var dialog = new BootstrapDialog({
 						title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
 						type: BootstrapDialog.TYPE_SUCCESS,
-						message: '<h3 style="text-align:center;">Trial successfully created.</h3>',
+						message: '<h3 style="text-align:center;">' + msgSuccess + '</h3>',
 						buttons: [{
 							label: 'OK',
 							action: function(){
 								dialog.close();
-								document.location.href = "view.php?trialseq=" + results.trialSeq;
+								document.location.href = urlRedirect + results.seq;
 							}
 						}]
 					});
 					
 					dialog.open();
-
-					console.log(trialHeatData);
  
       	} else {
       		var dialog = new BootstrapDialog({
 						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 						type: BootstrapDialog.TYPE_DANGER,
-						message: '<h3 style="text-align:center;">Something went wrong. Trial not created.</h3>',
+						message: '<h3 style="text-align:center;">' + msgFailure + '</h3>',
 						buttons: [{
 							label: 'OK',
 							action: function(dialogRef){
@@ -135,7 +154,7 @@ $(document).ready(function(){
 					dialog.open();
 
 	      	console.log(results.errors);
-      		console.log(results.status);
+      		console.log(results.debugSQL);
       	}
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -154,74 +173,8 @@ $(document).ready(function(){
 				dialog.open();
       }   
     });
-	}	
 
-
-
-	function createGroup() {
-		var groupInfo = m_groupInfo.parse();
-
-
-		$.ajax({
-			type: 'POST',
-      url: 'php/dist/sql-createGroup.php',
-      data: {
-      	'groupInfo' : JSON.stringify(groupInfo)
-      },
-      dataType: 'json',
-      success: function(results) {
-      	if (results.status === 'success') {
-      		var dialog = new BootstrapDialog({
-						title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
-						type: BootstrapDialog.TYPE_SUCCESS,
-						message: '<h3 style="text-align:center;">Group successfully created.</h3>',
-						buttons: [{
-							label: 'OK',
-							action: function(){
-								dialog.close();
-								document.location.href = "view.php?groupseq=" + results.groupSeq;
-							}
-						}]
-					});
-					
-					dialog.open();
- 
-      	} else {
-      		var dialog = new BootstrapDialog({
-						title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-						type: BootstrapDialog.TYPE_DANGER,
-						message: '<h3 style="text-align:center;">Something went wrong. Trial not created.</h3>',
-						buttons: [{
-							label: 'OK',
-							action: function(dialogRef){
-                dialog.close();
-              }
-						}]
-					});
-					
-					dialog.open();
-
-	      	console.log(results.errors);
-      		console.log(results.status);
-      	}
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) { 
-      	var dialog = new BootstrapDialog({
-					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-					type: BootstrapDialog.TYPE_DANGER,
-					message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-					buttons: [{
-						label: 'OK',
-						action: function(dialogRef){
-              dialog.close();
-            }
-					}]
-				});
-				
-				dialog.open();
-      }   
-    });
-	}	
+	}
 
 
 });

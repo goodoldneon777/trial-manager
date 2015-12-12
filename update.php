@@ -38,17 +38,17 @@
       <?php
 
         if ($type === 'trial') {
-          require('php/dist/m-trialInfo.php');
-          require('php/dist/m-trialComment-list.php');
-          require('php/dist/m-trialHeatData.php');
+          require('php/dist/m-info-trial.php');
+          require('php/dist/m-commentList-trial.php');
+          require('php/dist/m-heatData-trial.php');
 
-          create_trialInfo('write', $trialSeq);
-          create_trialComment_list('write', $trialSeq);
-          create_trialHeatData('write', $trialSeq);
+          create_info_trial('write', $trialSeq);
+          create_commentList_trial('write', $trialSeq);
+          create_heatData_trial('write', $trialSeq);
         } else if ($type === 'group') {
-          require('php/dist/m-groupInfo.php');
+          require('php/dist/m-info-group.php');
 
-          create_groupInfo('write', $groupSeq);
+          create_info_group('write', $groupSeq);
 
         }
       ?>

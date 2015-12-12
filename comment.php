@@ -1,3 +1,16 @@
+<?php
+  $trialSeq = $_GET['trialseq'];
+  $groupSeq = $_GET['groupseq'];
+
+  if (!$groupSeq) {
+    $type = 'trial';
+  } else {
+    $type = 'group';
+  }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Trial Manager - Comment on a Trial</title>
+    <title>Trial Manager - Add Comment</title>
 
     <?php require('php/dist/m-HTMLhead.php'); ?>
 
@@ -19,11 +32,20 @@
     <div id="l-body">
 
       <?php
-        require('php/dist/m-trialInfo.php');
-        create_trialInfo('readonly', $_GET['trialseq']);
+
+        if ($type === 'trial') {
+          require('php/dist/m-info-trial.php');
+          create_info_trial('readonly', $trialSeq);
+        } else if ($type === 'group') {
+          require('php/dist/m-info-group.php');
+          create_info_group('readonly', $groupSeq);
+        }
+        
       ?>
 
-      <?php require('php/dist/m-trialComment-add.php'); ?>
+
+
+      <?php require('php/dist/m-commentAdd.php'); ?>
 
 
       <div class="errorHolder"></div>

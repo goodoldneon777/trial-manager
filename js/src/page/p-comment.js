@@ -1,8 +1,19 @@
 $(document).ready(function(){
 	'use strict';
 	var main = {};
+	var trialSeq = getURLVariable('trialseq');
+	var groupSeq = getURLVariable('groupseq');
+	var pageType = '';
+
+	if (!groupSeq) {
+		pageType = 'trial';
+	} else {
+		pageType= 'group';
+	}
+
 
 	start();
+
 
 
 	function start() {
@@ -14,11 +25,13 @@ $(document).ready(function(){
 	}
 
 
+
 	function initialize() {
 		'use strict';
 
 		main = {};
 	}
+
 
 
 	function watch() {
@@ -31,18 +44,19 @@ $(document).ready(function(){
 	}
 
 
+
 	function submit() {
 		'use strict';
 		var errorText = '';
 		var errorList = '';
 
 
-		errorText += m_trialComment_add.validate();
+		errorText += m_commentAdd.validate();
 
 		if (errorText.length === 0) {
 			$('.errorHolder').html('');
 				
-			createComment();
+			addToDatabase();
 
 		} else {
 			errorList =
@@ -68,17 +82,37 @@ $(document).ready(function(){
 	}
 
 
-	function createComment() {
+
+	function addToDatabase() {
 		'use strict';
-		var trialSeq = getURLVariable('trialseq');
-		var trialComment_add = m_trialComment_add.parse();
+		var seq = null;
+		var comment = m_commentAdd.parse();
+		var urlSQL = null;
+		var urlRedirect = null;
+		var msgSuccess = null;
+		var msgFailure = null;
+
+		if (pageType === 'trial') {
+			seq = trialSeq;
+			urlSQL = 'php/dist/sql-create-comment-trial.php';
+			urlRedirect = 'view.php?trialseq=';
+			msgSuccess = 'Comment successfully added.';
+			msgFailure = 'Something went wrong. Comment not added.';
+		} else if (pageType === 'group') {
+			seq = groupSeq;
+			urlSQL = 'php/dist/sql-create-comment-group.php';
+			urlRedirect = 'view.php?groupseq=';
+			msgSuccess = 'Comment successfully added.';
+			msgFailure = 'Something went wrong. Comment not added.';
+		}
+
 
 		$.ajax({
 				type: 'POST',
-        url: 'php/dist/sql-create-comment.php',
+        url: urlSQL,
         data: {
-        	'trialSeq' : JSON.stringify( prepForSQL(trialSeq) ),
-        	'trialComment_add' : JSON.stringify(trialComment_add)
+        	'seq' : JSON.stringify( prepForSQL(seq) ),
+        	'comment' : JSON.stringify(comment)
         },
         dataType: 'json',
         success: function(results) {
@@ -86,11 +120,11 @@ $(document).ready(function(){
         		var dialog = new BootstrapDialog({
 							title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
 							type: BootstrapDialog.TYPE_SUCCESS,
-							message: '<h3 style="text-align:center;">Comment successfully created.</h3>',
+							message: '<h3 style="text-align:center;">' + msgSuccess + '</h3>',
 							buttons: [{
 								label: 'OK',
 								action: function(){
-									document.location.href = "view.php?trialseq=" + trialSeq;
+									document.location.href = urlRedirect + seq;
 								}
 							}]
 						});
@@ -100,7 +134,7 @@ $(document).ready(function(){
         		var dialog = new BootstrapDialog({
 							title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
 							type: BootstrapDialog.TYPE_DANGER,
-							message: '<h3 style="text-align:center;">Something went wrong. Comment not created.</h3>',
+							message: '<h3 style="text-align:center;">' + msgFailure + '</h3>',
 							buttons: [{
 								label: 'OK',
 								action: function(dialogRef){

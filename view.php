@@ -3,9 +3,9 @@
   $groupSeq = $_GET['groupseq'];
 
   if (!$groupSeq) {
-    $type = 'trial';
+    $pageType = 'trial';
   } else {
-    $type = 'group';
+    $pageType = 'group';
   }
 
 ?>
@@ -33,20 +33,23 @@
 
       <?php
 
-        if ($type === 'trial') {
-          require('php/dist/m-trialInfo.php');
-          require('php/dist/m-trialComment-list.php');
-          require('php/dist/m-trialHeatData.php');
+        if ($pageType === 'trial') {
+          require('php/dist/m-info-trial.php');
+          require('php/dist/m-commentList.php');
+          require('php/dist/m-heatData-trial.php');
 
-          create_trialInfo('readonly', $trialSeq);
-          create_trialComment_list('readonly', $trialSeq);
-          create_trialHeatData('readonly', $trialSeq);
-        } else if ($type === 'group') {
-          require('php/dist/m-groupInfo.php');
+          create_info_trial('readonly', $trialSeq);
+          create_commentList('readonly', $pageType, $trialSeq);
+          create_heatData_trial('readonly', $trialSeq);
+        } else if ($pageType === 'group') {
+          require('php/dist/m-info-group.php');
+          require('php/dist/m-commentList.php');
 
-          create_groupInfo('readonly', $groupSeq);
+          create_info_group('readonly', $groupSeq);
+          create_commentList('readonly', $pageType, $groupSeq);
 
         }
+        
       ?>
 
 		</div>

@@ -34,9 +34,9 @@ $(document).ready(function(){
 		'use strict';
 		var elemForm = '';
 		if (pageType === 'trial') {		//The search form has different classes: for trials and groups.
-			elemForm = '.m-trialSearchForm';
+			elemForm = '.m-searchForm-trial';
 		} else if (pageType === 'group') {
-			elemForm = '.m-groupSearchForm';
+			elemForm = '.m-searchForm-group';
 		}
 
 		$(elemForm + ' .name').keyup(function() {		//Watch for typing in the name input. This allows for live searching while the user types.
@@ -64,9 +64,9 @@ $(document).ready(function(){
 		
 		//Depending on the page type, validate the search form. The validate functions return lists of errors.
 		if (pageType === 'trial') {
-			errorText = m_trialSearchForm.validate();
+			errorText = m_searchForm_trial.validate();
 		} else if (pageType === 'group') {
-			errorText = m_groupSearchForm.validate();
+			errorText = m_searchForm_group.validate();
 		}
 
 
@@ -77,9 +77,9 @@ $(document).ready(function(){
 
 			//Depending on the page type, parse the search form.
 			if (pageType === 'trial') {
-				main.data = m_trialSearchForm.parseInputs();
+				main.data = m_searchForm_trial.parseInputs();
 			} else if (pageType === 'group') {
-				main.data = m_groupSearchForm.parseInputs();
+				main.data = m_searchForm_group.parseInputs();
 			}
 
 

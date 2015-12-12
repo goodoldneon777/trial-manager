@@ -5,7 +5,7 @@
 	$db = getenv("db");
 	
 	
-	$groupInfo = json_decode($_POST["groupInfo"]);
+	$info = json_decode($_POST["info"]);
 
 	$debugSQL = '';
 
@@ -28,22 +28,22 @@
 		"  name, owner, start_dt, end_dt, unit, goal_type, change_type, bop_vsl, degas_vsl, argon_station, caster_num, strand_num, comment_goal, comment_monitor, comment_general, comment_conclusion \n" .
 		") \n" .
 		"value (" .
-		$groupInfo->name . ", " .
-		$groupInfo->owner . ", " .
-		$groupInfo->startDate . ", " .
-		$groupInfo->endDate . ", " .
-		$groupInfo->unit . ", " .
-		$groupInfo->goalType . ", " .
-		$groupInfo->changeType . ", " .
-		$groupInfo->bopVsl . ", " .
-		$groupInfo->degasVsl . ", " .
-		$groupInfo->argonNum . ", " .
-		$groupInfo->casterNum . ", " .
-		$groupInfo->strandNum . ", " .
-		$groupInfo->goalText . ", " .
-		$groupInfo->monitorText . ", " .
-		$groupInfo->otherInfoText . ", " .
-		$groupInfo->conclusionText .
+		$info->name . ", " .
+		$info->owner . ", " .
+		$info->startDate . ", " .
+		$info->endDate . ", " .
+		$info->unit . ", " .
+		$info->goalType . ", " .
+		$info->changeType . ", " .
+		$info->bopVsl . ", " .
+		$info->degasVsl . ", " .
+		$info->argonNum . ", " .
+		$info->casterNum . ", " .
+		$info->strandNum . ", " .
+		$info->goalText . ", " .
+		$info->monitorText . ", " .
+		$info->otherInfoText . ", " .
+		$info->conclusionText .
 		" ) \n";
 
 	if (!$conn->query($sql)) {
@@ -56,8 +56,8 @@
 
 	$sql = "select max(group_seq) from trial_group";
 	$result = $conn->query($sql);
-  $groupSeq = $result->fetch_array();
-  $groupSeq = $groupSeq[0];
+  $arr = $result->fetch_array();
+  $seq = $arr[0];
 
 	$debugSQL .= $sql;
 
@@ -76,7 +76,7 @@
 	$output = new stdClass();
 	$output->status = $status;
 	$output->errors = $errors;
-	$output->groupSeq = $groupSeq;
+	$output->seq = $seq;
 	$output->debugSQL = $debugSQL;
 
 
