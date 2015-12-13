@@ -48,9 +48,11 @@
         } else if ($pageType === 'group') {
           require('php/dist/m-info-group.php');
           require('php/dist/m-commentList.php');
+          require('php/dist/m-childList-group.php');
 
           create_info_group('write', $groupSeq);
           create_commentList('write', $pageType, $groupSeq);
+          create_childList_group('write', $groupSeq);
         }
       ?>
 

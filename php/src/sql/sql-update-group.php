@@ -8,6 +8,7 @@
 	$seq = json_decode($_POST["seq"]);
 	$info = json_decode($_POST["info"]);
 	$commentList = json_decode($_POST["commentList"], true);
+	$childTrialList = json_decode($_POST["childTrialList"], true);
 
 
 	$debugSQL = "";	// Will contain all the queries. For debugging purposes.
@@ -51,6 +52,51 @@
 	  $errors[] = $conn->error;
 	}
 
+	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
+
+	$sql =
+		"delete from trial_group_child \n" .
+		"where group_seq = " . $seq;
+
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
+
+	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
+
+
+	if (count($childTrialList) > 0) {
+		$sql = 
+	  	"insert into trial_group_child ( \n" .
+			"  group_seq, group_name, group_start_dt, group_end_dt, trial_seq, trial_name, trial_start_dt, trial_end_dt \n" .
+			") \n";
+
+	  for ($i = 0; $i <= count($childTrialList) - 1; $i++) {
+	  	if ($i > 0) {
+	  		$sql .= "union \n";
+	  	}
+
+	  	$sql .= 
+	  		"select " .
+				$seq . " as group_seq, " .
+				$info->name . " as group_name, " .
+				$info->startDate . " as group_start_dt, " .
+				$info->endDate . " as group_end_dt, " .
+				"trial_seq, " .
+				"trial_name as trial_name, " .
+				"start_dt as trial_start_dt, " .
+				"end_dt as trial_end_dt \n" .
+				"from trial \n" .
+				"where trial_seq = " . $childTrialList[$i] . " \n";
+
+	  }
+
+	  if (!$conn->query($sql)) {
+		  $errors[] = $conn->error;
+		}
+	}
 
 	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
 
@@ -62,6 +108,9 @@
 	if (!$conn->query($sql)) {
 	  $errors[] = $conn->error;
 	}
+
+	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
 
 
 	if (count($commentList) > 0) {
@@ -87,7 +136,6 @@
 		  $errors[] = $conn->error;
 		}
 	}
-
 
 	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
 

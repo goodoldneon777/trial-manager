@@ -46,7 +46,7 @@
         } else if ($pageType === 'group') {
           require('php/dist/m-info-group.php');
           require('php/dist/m-commentList.php');
-          require('php/dist/m-groupChildList.php');
+          require('php/dist/m-childList-group.php');
 
           create_info_group('readonly', $groupSeq);
           create_commentList('readonly', $pageType, $groupSeq);

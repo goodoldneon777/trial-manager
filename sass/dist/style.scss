@@ -312,6 +312,18 @@ $padding: 1em;
 		padding-left: 0;
   }
 }
+$padding: 1em;
+
+
+
+.m-addTrialSearch {
+
+  .searchBtn {
+    margin: $padding;
+  }
+}
+
+
 .m-info-trial {
   width: 100%;
   
@@ -369,6 +381,31 @@ $padding: 1em;
 .m-trialGroupBtn {
   width: 100%;
 }
+
+
+.m-childList-group {
+
+  .addTrialBtn {
+    margin: $padding;
+  }
+
+}
+
+
+
+.m-addTrial {
+  //This is a pseudo module. It only appears in a dialog box.
+
+  margin: auto;
+  width: 20%;
+  text-align: center;
+}
+
+
+
+
+
+
 
 
 

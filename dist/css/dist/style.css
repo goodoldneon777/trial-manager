@@ -209,6 +209,9 @@ $colHover       : #ffe6d1; /*/
     padding: 1em;
     padding-right: 0;
     padding-left: 0; } }
+.m-addTrialSearch .searchBtn {
+  margin: 1em; }
+
 .m-info-trial {
   width: 100%; }
   .m-info-trial input {
@@ -241,6 +244,14 @@ $colHover       : #ffe6d1; /*/
 
 .m-trialGroupBtn {
   width: 100%; }
+
+.m-childList-group .addTrialBtn {
+  margin: 1em; }
+
+.m-addTrial {
+  margin: auto;
+  width: 20%;
+  text-align: center; }
 
 .container {
   width: 100%;

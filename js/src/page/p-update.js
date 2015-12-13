@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 
 	start();
-
+// $('.m-childList-group .addBtn').click();
 
 
 	function start() {
@@ -36,6 +36,7 @@ $(document).ready(function(){
 
 	function watch() {
 		'use strict';
+		var target = null;
 		
 
 		$('#submit').click(function() {
@@ -46,6 +47,8 @@ $(document).ready(function(){
 		$('#delete').click(function() {
 			deleteClick();
 		});
+
+
 	}
 
 
@@ -131,6 +134,7 @@ $(document).ready(function(){
 		'use strict';
 		var seq = null;
 		var info = {};
+		var childTrialList = [];
 		var commentList = [];
 		var heatData = {};
 		var urlSQL = null;
@@ -150,13 +154,14 @@ $(document).ready(function(){
 		} else if (type === 'group') {
 			seq = groupSeq;
 			info = m_info_group.parse();
+			childTrialList = m_childList_group.parse();
 			commentList = m_commentList.parse();
 			urlSQL = 'php/dist/sql-update-group.php';
 			urlRedirect = 'view.php?groupseq=';
 			msgSuccess = 'Group successfully update.';
 			msgFailure = 'Something went wrong. Group not updated.';
 		}
-
+console.log(childTrialList);
 
 		$.ajax({
 			type: 'POST',
@@ -164,6 +169,7 @@ $(document).ready(function(){
       data: {
       	'seq' : JSON.stringify(seq),
       	'info' : JSON.stringify(info),
+      	'childTrialList': JSON.stringify(childTrialList),
       	'commentList': JSON.stringify(commentList),
       	'heatData' : JSON.stringify(heatData)
       },
@@ -311,6 +317,39 @@ $(document).ready(function(){
 	}
 
 
+
+
+	// function addTrial_appendTable(newTrial) {
+	// 	'use strict';
+
+	// 	$.ajax({
+	// 		type: 'POST',
+	//     url: 'php/dist/sql-addTrial-appendTable.php',
+	//     data: {
+	//     	'seqCSV' : JSON.stringify(newTrial.csv)
+	//     },
+	//     dataType: 'json',
+	//     success: function(results) {
+ //    		$('.m-childList-group .childTable tbody').append(results.html);
+	//     },
+	//     error: function(XMLHttpRequest, textStatus, errorThrown) { 
+	//     	var dialog = new BootstrapDialog({
+	// 				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+	// 				type: BootstrapDialog.TYPE_DANGER,
+	// 				message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+	// 				buttons: [{
+	// 					label: 'OK',
+	// 					action: function(dialogRef){
+	//             dialogRef.close();
+	//           }
+	// 				}]
+	// 			});
+					
+	// 			dialog.open();
+	//     }   
+	//   });
+
+	// }
 
 
 });
