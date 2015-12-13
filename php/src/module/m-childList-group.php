@@ -28,7 +28,7 @@
 		$html = "";
 
 		if ($result->num_rows > 0) {
-			$html = 
+			$html_tableStart = 
 				"<table class=\"childTable table table-striped table-bordered\"> \n" .
 				"  <thead style=\"text-align:center;\"> \n" .
 				"    <th style=\"width:50%; text-align:center;\">Trial Name</th> \n" .
@@ -38,6 +38,7 @@
 				"    <th class=\"hidden-xs\" style=\"text-align:center;\">Actions</th> \n" .
 				"  </thead> \n" .
 				"  <tbody> \n";
+			$html = $html_tableStart;
 
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
@@ -79,9 +80,10 @@
 	    	$html .= "</tr> \n";
 	    }
 
-	    $html .=
+	    $html_tableEnd =
 	    	"  </tbody> \n" .
 	    	"</table> \n";
+	    $html .= $html_tableEnd;
 		} else {
 	    $html = "<div style=\"text-align:center; padding:10px;\">No trials found</div>";
 		}
@@ -112,6 +114,7 @@
 
 	  <div class="content">
 			<?php echo $html; ?>
+		</div>
 
 			<div style="text-align:center;">
 				<?php echo $html_addTrialBtn; ?>
@@ -123,7 +126,7 @@
 			  </div>
 			</div> -->
 
-		</div>
+		<!-- </div> -->
 
 	</div>
 

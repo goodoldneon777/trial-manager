@@ -40,6 +40,16 @@
     	$start = $row["start_dt"];
     	$end = $row["end_dt"];
 
+    	$html_tableStart = 
+				"<table class=\"childTable table table-striped table-bordered\"> \n" .
+				"  <thead style=\"text-align:center;\"> \n" .
+				"    <th style=\"width:50%; text-align:center;\">Trial Name</th> \n" .
+				"    <th style=\"width:80px; text-align:center;\">Unit</th> \n" .
+				"    <th style=\"text-align:center;\">Start Date</th> \n" .
+				"    <th style=\"text-align:center;\">End Date</th> \n" .
+				"    <th class=\"hidden-xs\" style=\"text-align:center;\">Actions</th> \n" .
+				"  </thead> \n" .
+				"  <tbody> \n";
 
     	$html .= 
       	"<tr class=\"seq-" . $seq . "\"> \n" .
@@ -51,6 +61,10 @@
       	"    <a href=\"javascript: void(0)\" onclick=\"m_childList_group.removeClick('" . $rowClass . "')\" data-toggle=\"tooltip\" title=\"Only unlinks the trial. Doesn't delete it from the database.\">Remove</a> \n" .
       	"  </td> \n" .
     		"</tr> \n";
+
+    	$html_tableEnd =
+	    	"  </tbody> \n" .
+	    	"</table> \n";
     }
 
 	}
@@ -58,6 +72,8 @@
 
 	$output = new stdClass();
 	$output->html = $html;
+	$output->html_tableStart = $html_tableStart;
+	$output->html_tableEnd = $html_tableEnd;
 	$output->debugSQL = $sql;
 
 	echo json_encode($output);

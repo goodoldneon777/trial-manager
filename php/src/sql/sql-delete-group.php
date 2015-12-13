@@ -31,6 +31,15 @@
 
 
 	$sql = 
+		"delete from trial_group_child \n" .
+		"where group_seq = " . $seq;
+
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
+
+
+	$sql = 
 		"delete from trial_group_comment \n" .
 		"where group_seq = " . $seq;
 

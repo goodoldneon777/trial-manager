@@ -85,7 +85,7 @@ m_childList_group.appendTable = function(newTrial) {
     },
     dataType: 'json',
     success: function(results) {
-  		$('.m-childList-group .childTable tbody').append(results.html);
+    	addTrial(results);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
     	var dialog = new BootstrapDialog({
@@ -103,6 +103,21 @@ m_childList_group.appendTable = function(newTrial) {
 			dialog.open();
     }   
   });
+
+
+
+	function addTrial(obj) {
+		var html = '';
+
+		if ($('m-childList-group .childTable').length) {
+			console.log(1);
+			html = obj.html;
+  		$('.m-childList-group .childTable tbody').append(html);
+		} else {
+			html = obj.html_tableStart + obj.html + obj.html_tableEnd;
+			$('.m-childList-group .content').html(html);
+		}
+	}
 
 }
 
