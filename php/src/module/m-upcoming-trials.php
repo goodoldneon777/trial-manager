@@ -29,7 +29,7 @@
 		$html = 
 			"<table class=\"table table-striped table-bordered\"> \n" .
 			"  <thead style=\"text-align:center;\"> \n" .
-			"    <th style=\"width:50%; text-align:center;\">Trial Name</th> \n" .
+			"    <th style=\"width:50%; text-align:center;\">Name</th> \n" .
 			"    <th style=\"width:80px; text-align:center;\">Unit</th> \n" .
 			"    <th style=\"text-align:center;\">Start Date</th> \n" .
 			"    <th style=\"text-align:center;\">End Date</th> \n" .
@@ -55,7 +55,7 @@
     	"  </tbody> \n" .
     	"</table> \n";
 	} else {
-    $html = "<div style=\"text-align:center; padding:10px;\">No trials found</div>";
+    $html = "<div style=\"text-align:center; padding:10px;\">No trials found.</div>";
 	}
 
 ?>

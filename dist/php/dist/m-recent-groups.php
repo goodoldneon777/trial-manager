@@ -14,8 +14,8 @@
 
 
 	$sql = "
-		select trial_name, unit, start_dt, end_dt, trial_seq
-		from trial
+		select name, unit, start_dt, end_dt, group_seq as seq
+		from trial_group
 		where
 			(
 				start_dt between curdate() - interval 60 day and curdate()
@@ -44,14 +44,14 @@
     while($row = $result->fetch_assoc()) {
       $html .= 
       	"<tr> \n" .
-      	"  <td><a href=\"view.php?trialseq=" . $row["trial_seq"] . "\">" . $row["trial_name"] . "</a></td> \n" .
+      	"  <td><a href=\"view.php?groupseq=" . $row["seq"] . "\">" . $row["name"] . "</a></td> \n" .
       	"  <td>" . $row["unit"] . "</td> \n" .
       	"  <td>" . date_format(date_create($row["start_dt"]), "m/d/Y") . "</td> \n" .
       	"  <td>" . date_format(date_create($row["end_dt"]), "m/d/Y") . "</td> \n" .
       	"  <td class=\"hidden-xs\" style=\"text-align:center;\"> \n" .
-      	"    <a href=\"view.php?trialseq=" . $row["trial_seq"] . "\">View</a> \n" .
+      	"    <a href=\"view.php?groupseq=" . $row["seq"] . "\">View</a> \n" .
       	"    | \n" .
-      	"    <a href=\"comment.php?trialseq=" . $row["trial_seq"] . "\">Comment</a> \n" .
+      	"    <a href=\"comment.php?groupseq=" . $row["seq"] . "\">Comment</a> \n" .
       	"  </td> \n" .
     		"</tr> \n";
     }
@@ -59,17 +59,17 @@
     	"  </tbody> \n" .
     	"</table> \n";
 	} else {
-    $html = "<div style=\"text-align:center; padding:10px;\">No trials found.</div>";
+    $html = "<div style=\"text-align:center; padding:10px;\">No groups found.</div>";
 	}
 
 ?>
 
 
 
-<div id="m-recent-trials" class="panel panel-primary">
+<div id="m-recent-trials" class="panel panel-info">
 	<div class="panel-heading">
     <h3 class="panel-title">
-    	Recent Trials
+    	Recent Groups
     	<span class="description">(previous 60 days)</span>
     </h3>
   </div>
