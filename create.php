@@ -1,7 +1,8 @@
 <?php
-  $type = $_GET['type'];
-  if ($type !== 'group') {
+  if (!isset($_GET['type'])) {
     $type = 'trial';
+  } else {
+    $type = $_GET['type'];
   }
 
   if ($type === 'trial') {

@@ -1,11 +1,12 @@
 <?php
-  $trialSeq = $_GET['trialseq'];
-  $groupSeq = $_GET['groupseq'];
-
-  if (!$groupSeq) {
-    $type = 'trial';
-  } else {
-    $type = 'group';
+  if (isset($_GET['trialseq'])) {
+    $pageType = 'trial';
+    $trialSeq = $_GET['trialseq'];
+    $html_title = 'Trial Manager - View Trial';
+  } else if (isset($_GET['groupseq'])) {
+    $pageType = 'group';
+    $groupSeq = $_GET['groupseq'];
+    $html_title = 'Trial Manager - View Group';
   }
 
 ?>

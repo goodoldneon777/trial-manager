@@ -1,14 +1,19 @@
 <?php
-  $type = $_GET['type'];
-  if ($type !== 'group') {
-    $type = 'trial';
-  }
+  
+  function create_searchResults($type) {
+  // if (!isset($_GET['type'])) {
+  //   $type = 'trial';
+  // } else {
+  //   $type = $_GET['type'];
+  // }
 
-  if ($type === 'trial') {
-    $html_class = '"m-searchResults panel panel-primary"';
-  } else if ($type === 'group') {
-    $html_class = '"m-searchResults panel panel-info"';
-  }
+    if ($type === 'trial') {
+      $html_class = '"m-searchResults panel panel-primary"';
+    } else if ($type === 'group') {
+      $html_class = '"m-searchResults panel panel-info"';
+    }
+
+    //Function continues...
 ?>
 
 
@@ -28,6 +33,11 @@
 
 
 
+<?php
+
+  }
+
+?>
 
 
 

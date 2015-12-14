@@ -54,8 +54,8 @@
 	  $errors[] = $conn->error;
 	}
 
-
 	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
 
 
 	$sql =
@@ -91,8 +91,8 @@
 		}
 	}
 
-
 	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
 
 
 	$sql =
@@ -135,9 +135,25 @@
 		  $errors[] = $conn->error;
 		}
 	}
-
 	
 	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
+
+
+	$sql =
+		"update trial_group_child \n" .
+		"set \n" .
+		"  trial_name = " . $info->name . ", \n" .
+		"  trial_start_dt = " . $info->startDate . ", \n" .
+		"  trial_end_dt = " . $info->endDate . " \n" .
+		"where trial_seq = " . $seq . " \n";
+
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
+	
+	$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
 
 
 	if(count($errors) === 0) {

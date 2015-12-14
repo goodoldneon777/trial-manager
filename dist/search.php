@@ -1,7 +1,8 @@
 <?php
-  $type = $_GET['type'];
-  if ($type !== 'group') {
+  if (!isset($_GET['type'])) {
     $type = 'trial';
+  } else {
+    $type = $_GET['type'];
   }
 
   if ($type === 'trial') {
@@ -66,7 +67,10 @@
 
       <br>
 
-      <?php require('php/dist/m-searchResults.php'); ?>
+      <?php
+        require('php/dist/m-searchResults.php');
+        create_searchResults($type);
+      ?>
 
 		</div>
 

@@ -109,11 +109,12 @@ m_childList_group.appendTable = function(newTrial) {
 	function addTrial(obj) {
 		var html = '';
 
-		if ($('m-childList-group .childTable').length) {
+		if ($('.m-childList-group .childTable').length) {
 			console.log(1);
 			html = obj.html;
   		$('.m-childList-group .childTable tbody').append(html);
 		} else {
+			console.log(2);
 			html = obj.html_tableStart + obj.html + obj.html_tableEnd;
 			$('.m-childList-group .content').html(html);
 		}
