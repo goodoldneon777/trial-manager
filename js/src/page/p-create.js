@@ -91,6 +91,7 @@ $(document).ready(function(){
 		'use strict';
 		var info = {};
 		var heatData = {};
+		var childTrialList = [];
 		var urlSQL = '';
 		var urlRedirect = '';
 		var msgSuccess = '';
@@ -105,6 +106,7 @@ $(document).ready(function(){
 			msgFailure = 'Something went wrong. Trial not created.';
 		} else if (type === 'group') {
 			info = m_info_group.parse();
+			childTrialList = m_childList_group.parse();
 			urlSQL = 'php/dist/sql-createGroup.php';
 			urlRedirect = 'view.php?groupseq=';
 			msgSuccess = 'Group successfully created.';
@@ -118,7 +120,8 @@ $(document).ready(function(){
       url: urlSQL,
       data: {
       	'info' : JSON.stringify(info),
-      	'heatData' : JSON.stringify(heatData)
+      	'heatData' : JSON.stringify(heatData),
+      	'childTrialList': JSON.stringify(childTrialList)
       },
       dataType: 'json',
       success: function(results) {

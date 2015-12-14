@@ -55,8 +55,10 @@
 
         } else if ($type === 'group') {
           require('php/dist/m-info-group.php');
+          require('php/dist/m-childList-group.php');
 
           create_info_group('write');
+          create_childList_group('write', $groupSeq);
 
         }
       ?>

@@ -161,7 +161,7 @@ $(document).ready(function(){
 			msgSuccess = 'Group successfully update.';
 			msgFailure = 'Something went wrong. Group not updated.';
 		}
-console.log(childTrialList);
+
 
 		$.ajax({
 			type: 'POST',
