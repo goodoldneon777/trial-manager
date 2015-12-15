@@ -228,12 +228,13 @@ $colHover       : #ffe6d1; /*/
     margin: 0; }
   .m-commentList .commentDate {
     width: 180px;
-    vertical-align: middle; }
+    vertical-align: top; }
   .m-commentList .commentText {
-    vertical-align: middle; }
+    vertical-align: top; }
   .m-commentList .commentAction {
     width: 100px;
-    vertical-align: middle;
+    padding-top: 1em;
+    vertical-align: top;
     text-align: center; }
 
 .m-heatData-trial {

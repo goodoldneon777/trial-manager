@@ -6,10 +6,10 @@
   }
 
   if ($type === 'trial') {
-    $html_title = '<title>Trial Manager - Search Trial</title>';
+    $html_title = 'Trial Manager - Search Trial';
     $html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success">Search Trials</button>';
   } else if ($type === 'group') {
-    $html_title = '<title>Trial Manager - Search Group</title>';
+    $html_title = 'Trial Manager - Search Group';
     $html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success">Search Groups</button>';
   }
 ?>
@@ -22,13 +22,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title><?php echo $html_title; ?></title>
 
-    
-    <?php 
-      echo $html_title;
-
-      require('php/dist/m-HTMLhead.php'); 
-    ?>
+    <?php require('php/dist/m-HTMLhead.php'); ?>
 
 
   </head>

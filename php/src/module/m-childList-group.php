@@ -1,6 +1,6 @@
 <?php
 
-	function create_childList_group($type, $seq = null) {
+	function create_childList_group($type, $seq = 0) {
 		$server = getenv('server');
 		$userWR = getenv('userWR');
 		$passWR = getenv('passWR');
@@ -42,7 +42,6 @@
 
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
-	      $date = date_format(date_create($row["comment_dt"]), "n/j/Y H:i");
 	    	$seq = $row["trial_seq"];
 	    	$rowClass = "seq-" . $seq;
 	    	$name = $row["trial_name"];

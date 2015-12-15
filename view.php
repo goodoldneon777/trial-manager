@@ -1,4 +1,5 @@
 <?php
+
   if (isset($_GET['trialseq'])) {
     $pageType = 'trial';
     $trialSeq = $_GET['trialseq'];
@@ -8,15 +9,7 @@
     $groupSeq = $_GET['groupseq'];
     $html_title = 'Trial Manager - View Group';
   }
-
-  if (!$groupSeq) {
-    $pageType = 'trial';
-    $html_title = 'Trial Manager - View Trial';
-  } else {
-    $pageType = 'group';
-    $html_title = 'Trial Manager - View Group';
-  }
-
+  
 ?>
 
 

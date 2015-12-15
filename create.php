@@ -58,7 +58,7 @@
           require('php/dist/m-childList-group.php');
 
           create_info_group('write');
-          create_childList_group('write', $groupSeq);
+          create_childList_group('write');
 
         }
       ?>

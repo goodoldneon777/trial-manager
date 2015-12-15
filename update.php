@@ -1,20 +1,15 @@
 <?php
+
   if (isset($_GET['trialseq'])) {
     $pageType = 'trial';
     $trialSeq = $_GET['trialseq'];
     $html_title = 'Trial Manager - View Trial';
+    $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this trial.">Update Trial</button>';
+    $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this trial.">Delete Trial</button>';
   } else if (isset($_GET['groupseq'])) {
     $pageType = 'group';
     $groupSeq = $_GET['groupseq'];
     $html_title = 'Trial Manager - View Group';
-  }
-
-  if (!$groupSeq) {
-    $pageType = 'trial';
-    $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this trial.">Update Trial</button>';
-    $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this trial.">Delete Trial</button>';
-  } else {
-    $pageType = 'group';
     $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this group.">Update Group</button>';
     $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this group.">Delete Group</button>';
   }

@@ -1,4 +1,4 @@
-autosize($('#m-commentList-trial textarea'));
+autosize($('.m-commentList textarea'));
 
 
 var m_commentList = {};

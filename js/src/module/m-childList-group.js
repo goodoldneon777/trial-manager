@@ -76,7 +76,7 @@ m_childList_group.addTrialDialog = function() {
 
 m_childList_group.appendTable = function(newTrial) {
 	'use strict';
-
+console.log(newTrial.csv);
 	$.ajax({
 		type: 'POST',
     url: 'php/dist/sql-addTrial-appendTable.php',
@@ -110,11 +110,9 @@ m_childList_group.appendTable = function(newTrial) {
 		var html = '';
 
 		if ($('.m-childList-group .childTable').length) {
-			console.log(1);
 			html = obj.html;
   		$('.m-childList-group .childTable tbody').append(html);
 		} else {
-			console.log(2);
 			html = obj.html_tableStart + obj.html + obj.html_tableEnd;
 			$('.m-childList-group .content').html(html);
 		}

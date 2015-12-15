@@ -351,16 +351,17 @@ $padding: 1em;
 
   .commentDate {
   	width: 180px;
-  	vertical-align: middle;
+  	vertical-align: top;
   }
 
   .commentText {
-  	vertical-align: middle;
+  	vertical-align: top;
   }
 
   .commentAction {
   	width: 100px;
-  	vertical-align: middle;
+    padding-top: 1em;
+  	vertical-align: top;
   	text-align: center;
   }
 }
