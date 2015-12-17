@@ -27,34 +27,56 @@ module.exports = function(grunt) {
     // Compile Sass
     sass: {
       options: {
-        sourceMap: false,
+        sourcemap: 'none',
         sourceComments: false
       },
       dist: {
         files: {
           'css/dist/style.css': 'sass/dist/style.scss'
         }
+      },
+      modules: {
+        files: grunt.file.expandMapping(['module/**/*.scss'], 'module/', {
+          rename: function(destBase, destPath) {
+            var dir = destPath.substring(0, destPath.search('src')) + 'dist';
+            var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
+            var file = file.replace('.scss', '.css');
+            destPath = dir + file;
+            return destPath;
+          }
+        })
       }
     },
 
     // Minify CSS
     cssmin: {
-       dist: {
-          files: {
-             'css/dist/style.min.css': 'css/dist/style.css'
-          }
+      dist: {
+        files: {
+           'css/dist/style.min.css': 'css/dist/style.css'
+        }
       }
     },
 
     // Uglify JS
     uglify: {
-        files: {
-            src: 'js/src/**/*.js',  // source files mask
-            dest: 'js/dist/',    // destination folder
-            expand: true,    // allow dynamic building
-            flatten: true,   // remove all unnecessary nesting
-            ext: '.min.js'   // replace .js to .min.js
-        }
+      pages: {
+        src: 'js/src/**/*.js',  // source files mask
+        dest: 'js/dist/',    // destination folder
+        expand: true,    // allow dynamic building
+        flatten: true,   // remove all unnecessary nesting
+        ext: '.min.js'   // replace .js to .min.js
+      },
+      modules: {
+        files: grunt.file.expandMapping(['module/**/*.js', '!module/**/*.min.js'], 'module/', {
+            rename: function(destBase, destPath) {
+                var dir = destPath.substring(0, destPath.search('src')) + 'dist';
+                var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
+                var file = file.replace('.js', '.min.js');
+                destPath = dir + file;
+                return destPath;
+            }
+        })
+      }
     },
 
     copy: {
@@ -85,11 +107,11 @@ module.exports = function(grunt) {
     // Watch and build
     watch: {
       sass: {
-        files: 'sass/src/**/*.scss',
+        files: ['sass/src/**/*.scss', 'module/**/*.scss', '!module/**/*.css'],
         tasks: ['compileSass']
       },
       js: {
-        files: 'js/src/**/*.js',
+        files: ['js/src/**/*.js', 'module/**/*.js', '!module/**/*.min.js'],
         tasks: ['compileJS']
       },
       php: {

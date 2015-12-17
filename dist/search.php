@@ -1,16 +1,14 @@
 <?php
   if (!isset($_GET['type'])) {
-    $type = 'trial';
+    $pageType = 'trial';
   } else {
-    $type = $_GET['type'];
+    $pageType = $_GET['type'];
   }
 
-  if ($type === 'trial') {
+  if ($pageType === 'trial') {
     $html_title = 'Trial Manager - Search Trial';
-    $html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success">Search Trials</button>';
-  } else if ($type === 'group') {
+  } else if ($pageType === 'group') {
     $html_title = 'Trial Manager - Search Group';
-    $html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success">Search Groups</button>';
   }
 ?>
 
@@ -24,7 +22,11 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title><?php echo $html_title; ?></title>
 
-    <?php require('php/dist/m-HTMLhead.php'); ?>
+    <?php
+      require(SERVER_ROOT . '/module/html_head/module.php');
+
+      create_html_head();
+    ?>
 
 
   </head>
@@ -33,47 +35,46 @@
   <body>
 
 
-    <?php require('php/dist/m-navBar.php'); ?>
+    <?php
+      require(SERVER_ROOT . '/module/nav_bar/module.php');
+    
+      create_nav_bar();
+    ?>
 
 
     <div id="l-body">
 
       <?php
+        require(SERVER_ROOT . '/module/toggle_pagetype/module.php');
+        require(SERVER_ROOT . '/module/search/module.php');
 
-        require('php/dist/m-trialGroupBtn.php');
-        create_trialGroupBtn($type);
-
-
-        if ($type === 'trial') {
-          require('php/dist/m-searchForm-trial.php');
-
-        } else if ($type === 'group') {
-          require('php/dist/m-searchForm-group.php');
-
-        }
-
-        
+        create_toggle_pagetype($pageType);
+        create_search($pageType);
       ?>
 
       <div class="errorHolder"></div>
 
       <div style="text-align:center;">
-        <?php echo $html_submitBtn; ?>
+        <?php //echo $html_submitBtn; ?>
       </div>
 
       <br>
 
       <?php
-        require('php/dist/m-searchResults.php');
-        create_searchResults($type);
+        // require('php/dist/m-searchResults.php');
+        // create_searchResults($pageType);
       ?>
 
 		</div>
 
 
-    <?php require('php/dist/m-HTMLfoot.php'); ?>
+    <?php
+      require(SERVER_ROOT . '/module/html_foot/module.php');
+
+      create_html_foot();
+    ?>
     
-    <script src="js/dist/p-search.min.js"></script>
+  
 
   </body>
 </html>

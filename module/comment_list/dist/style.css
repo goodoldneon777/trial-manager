@@ -1,0 +1,14 @@
+.m_comment_list {
+  width: 100%; }
+  .m_comment_list table {
+    margin: 0; }
+  .m_comment_list .commentDate {
+    width: 180px;
+    vertical-align: top; }
+  .m_comment_list .commentText {
+    vertical-align: top; }
+  .m_comment_list .commentAction {
+    width: 100px;
+    padding-top: 1em;
+    vertical-align: top;
+    text-align: center; }

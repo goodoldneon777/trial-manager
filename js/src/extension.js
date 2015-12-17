@@ -87,8 +87,24 @@ function ifNull(val, replace) {
 
 
 
+function getSeqFromAttrClass(attrClass) {
+  'use strict';
+  var classArr = attrClass.split(' ');
+  var classSeq = $.grep(classArr, function(v, i){
+    return v.indexOf('seq') === 0;
+  }).join();
+  var seq = classSeq.substring(classSeq.indexOf('seq-') + ('seq-').length);
+  var obj = {
+    seq: seq,
+    classSeq: classSeq
+  };
+
+  return obj;
+}
 
 
 
-
+var gVar = {
+  root: '/trial-mgr-module'
+};
 
