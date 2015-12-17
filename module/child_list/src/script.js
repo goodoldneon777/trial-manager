@@ -9,8 +9,7 @@ m_child_list.watch = function() {
 		m_child_list.addTrialDialog();
 	});
 
-	$('.m_child_list').on("click", ".removeTrialLink", function(){
-		// console.log($(this));
+	$('.m_child_list').on("click", ".actions .remove", function(){
 		m_child_list.removeClick($(this));
 	});
 
@@ -27,8 +26,6 @@ m_child_list.parse = function() {
 
 
 	$.each($('.m_child_list .childTable tbody tr'), function( index, value ) {
-		// class = $(this).attr("class").match(/seq-[\w-]*\b/)[0];
-		// trialSeq = class.substring(classPrefix.length, class.length);
 		attrClass = $(this).attr("class");
 		seq = getSeqFromAttrClass(attrClass).seq;
 
@@ -126,7 +123,7 @@ m_child_list.removeClick = function(elem) {
 	BootstrapDialog.confirm({
 		title: '<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>&nbsp;&nbsp;Warning',
 		type: BootstrapDialog.TYPE_WARNING,
-		message: '<h3 style="text-align:center;">This will remove the trial from this group. It will not delete the trial from the database. \n \nAre you sure?</h3>',
+		message: '<h2 style="text-align:center;">Are you sure?</h2>\n\nThis will remove the trial from this group. It will not delete the trial from the database.',
     closable: false,
     callback: function(result) {
       if(result) {

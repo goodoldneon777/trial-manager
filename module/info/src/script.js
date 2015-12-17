@@ -58,9 +58,16 @@ m_info.validate = function() {
 m_info.parse = function() {
 	'use strict';
 	var info = {};
-	var pageType = getURLVariable('type');
-	if (pageType !== 'group') {
+	var trialSeq = getURLVariable('trialseq');
+	var groupSeq = getURLVariable('groupseq');
+	var pageType = '';
+
+	if (trialSeq) {
 		pageType = 'trial';
+	} else if (groupSeq) {
+		pageType = 'group';
+	} else {
+		pageType = getURLVariable('type');
 	}
 	
 

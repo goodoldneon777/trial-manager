@@ -53,9 +53,7 @@
 		      	"  <td>" . $unit . "</td> \n" .
 		      	"  <td>" . date_format(date_create($start), "m/d/Y") . "</td> \n" .
 		      	"  <td>" . date_format(date_create($end), "m/d/Y") . "</td> \n" .
-		      	"  <td class=\"hidden-xs\" style=\"text-align:center;\"> \n" .
-		      	"    <a href=\"view?trialseq=" . $seq . "\">View</a> \n" .
-		      	"    | \n" .
+		      	"  <td class=\"actions hidden-xs\"> \n" .
 		      	"    <a href=\"comment?trialseq=" . $seq . "\">Comment</a> \n" .
 		      	"  </td> \n" .
 		    		"</tr> \n";
@@ -66,8 +64,8 @@
 		      	"  <td>" . $unit . "</td> \n" .
 		      	"  <td>" . date_format(date_create($start), "m/d/Y") . "</td> \n" .
 		      	"  <td>" . date_format(date_create($end), "m/d/Y") . "</td> \n" .
-		      	"  <td style=\"text-align:center;\"> \n" .
-		      	"      <a href=\"javascript: void(0)\" class=\"removeTrialLink\" data-toggle=\"tooltip\" title=\"Only unlinks the trial. Doesn't delete it from the database.\">Remove</a> \n" .
+		      	"  <td class=\"actions\"> \n" .
+		      	"      <a href=\"javascript: void(0)\" class=\"remove\" data-toggle=\"tooltip\" title=\"Only unlinks the trial. Doesn't delete it from the database.\">Remove</a> \n" .
 		      	"  </td> \n" .
 		    		"</tr> \n";
 	      }

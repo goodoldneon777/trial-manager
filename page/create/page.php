@@ -63,28 +63,6 @@
         }
       ?>
 
-      <?php
-
-        // require('php/dist/m-trialGroupBtn.php');
-        // create_trialGroupBtn($pageType);
-
-
-        // if ($pageType === 'trial') {
-        //   require('php/dist/m-info-trial.php');
-        //   require('php/dist/m-heatData-trial.php');
-
-        //   create_info_trial('write');
-        //   create_heatData_trial('write');
-
-        // } else if ($pageType === 'group') {
-        //   require('php/dist/m-info-group.php');
-        //   require('php/dist/m-childList-group.php');
-
-        //   create_info_group('write');
-        //   create_childList_group('write');
-
-        // }
-      ?>
 
 
       <div class="p_create">
@@ -94,7 +72,7 @@
         </div>
 
         <div class="c_submitBtn">
-         <?php echo $html_submitBtn; ?>
+          <?php echo $html_submitBtn; ?>
         </div>
 
       </div>

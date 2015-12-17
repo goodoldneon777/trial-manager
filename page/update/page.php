@@ -1,19 +1,17 @@
 <?php
-
   if (isset($_GET['trialseq'])) {
     $pageType = 'trial';
     $seq = $_GET['trialseq'];
     $pageTitle = 'Trial Manager - View Trial';
-    $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this trial.">Update Trial</button>';
-    $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this trial.">Delete Trial</button>';
+    $html_updateBtn = '<button type="button" class="updateBtn btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this trial.">Update Trial</button>';
+    $html_deleteBtn = '<button type="button" class="deleteBtn btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this trial.">Delete Trial</button>';
   } else if (isset($_GET['groupseq'])) {
     $pageType = 'group';
     $seq = $_GET['groupseq'];
     $pageTitle = 'Trial Manager - View Group';
-    $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this group.">Update Group</button>';
-    $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this group.">Delete Group</button>';
+    $html_updateBtn = '<button type="button" class="updateBtn btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this group.">Update Group</button>';
+    $html_deleteBtn = '<button type="button" class="deleteBtn btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this group.">Delete Group</button>';
   }
-
 ?>
 
 
@@ -64,36 +62,21 @@
         }
       ?>
 
-      <?php
-
-        // if ($pageType === 'trial') {
-        //   require('php/dist/m-info-trial.php');
-        //   require('php/dist/m-commentList.php');
-        //   require('php/dist/m-heatData-trial.php');
-
-        //   create_info_trial('write', $trialSeq);
-        //   create_commentList('write', $pageType, $trialSeq);
-        //   create_heatData_trial('write', $trialSeq);
-        // } else if ($pageType === 'group') {
-        //   require('php/dist/m-info-group.php');
-        //   require('php/dist/m-commentList.php');
-        //   require('php/dist/m-childList-group.php');
-
-        //   create_info_group('write', $groupSeq);
-        //   create_commentList('write', $pageType, $groupSeq);
-        //   create_childList_group('write', $groupSeq);
-        // }
-      ?>
 
 
+      <div class="p_update">
 
-      <div class="errorHolder"></div>
+        <div class="c_errorBox">
 
-      <div style="text-align:center;">
-        <?php
-          echo $html_updateBtn;
-          echo $html_deleteBtn;
-        ?>
+        </div>
+
+        <div class="c_submitBtn">
+          <?php 
+            echo $html_updateBtn;
+            echo $html_deleteBtn;
+          ?>
+        </div>
+
       </div>
 
 		</div>
@@ -107,9 +90,8 @@
       create_html_foot();
     ?>
 
-    <!--
-    <script src="js/dist/p-update.min.js"></script>
--->
+    <script src="<?php echo WEB_ROOT . "/page/update/dist/script.min.js"; ?>"></script>
+
 
   </body>
 </html>

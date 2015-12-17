@@ -8,8 +8,9 @@ var m_comment_list = {};
 m_comment_list.watch = function() {
 	'use strict';
 
-	$('.m_comment_list .commentAction').click(function() {
-		alert(1);
+
+	$('.m_comment_list').on("click", ".actions .delete", function(){
+		m_comment_list.deleteClick($(this));
 	});
 };
 
@@ -46,21 +47,22 @@ m_comment_list.parse = function() {
 	'use strict';
 	var arr = [];
 	var class = '';
-	var comment_seq = '';
+	var seq = '';
 	var commentDate = '';
 	var commentText = '';
 	var i = 0;
 
 
 	$.each($('.m_comment_list tbody tr'), function( index, value ) {
-		class = $(this).attr("class").match(/comment-[\w-]*\b/)[0];
-		comment_seq = class.substring(8, class.length);
+		// class = $(this).attr("class").match(/comment-[\w-]*\b/)[0];
+		// comment_seq = class.substring(8, class.length);
+		seq = getSeqFromAttrClass($(this).attr("class")).seq;
 		commentDate = $(this).find('.commentDate input').val();
 		commentText = $(this).find('.commentText textarea').val();
 
 		if ( $.trim(commentDate) !== ''  &&  $.trim(commentText) !== '' ) {
 			arr[i] = [];
-		  arr[i][0] = comment_seq;
+		  arr[i][0] = seq;
 		  arr[i][1] = prepForSQL(commentDate, 'date');
 		  arr[i][2] = prepForSQL(commentText);
 
@@ -74,17 +76,18 @@ m_comment_list.parse = function() {
 
 
 
-m_comment_list.deleteComment = function(target) {
+m_comment_list.deleteClick = function(elem) {
 	'use strict';
+	var classSeq = getSeqFromAttrClass(elem.closest('tr').attr('class')).classSeq;
 
 	BootstrapDialog.confirm({
 			title: '<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>&nbsp;&nbsp;Warning',
 			type: BootstrapDialog.TYPE_WARNING,
-			message: '<h3 style="text-align:center;">This will delete the comment. \n \nAre you sure?</h3>',
+			message: '<h2 style="text-align:center;">Are you sure?</h2>\n\nThis will permanently delete the comment when you click the \'Update\' button.',
       closable: false,
       callback: function(result) {
         if(result) {
-        	clearComment();
+        	deleteComment(classSeq);
         } else {
 
         }
@@ -93,14 +96,16 @@ m_comment_list.deleteComment = function(target) {
 
 	
 
-	function clearComment() {
-		$('.' + target + ' input').val('');
-		$('.' + target + ' textarea').val('');
-		$('.' + target).remove();
+	function deleteComment(classSeq) {
+		var html = '';
+
+		$('.m_comment_list .' + classSeq).remove();
 
 		if ($('.m_comment_list tbody tr').length === 0) {
-			$('.m_comment_list .content').html('<div style=\"text-align:center; padding:10px;\">No comments found</div>');
+			html = '<tr class="noResults"><td colspan="3">No comments found</td></tr>';
+			$('.m_comment_list tbody').html(html);
 		}
+
 	}
 };
 
