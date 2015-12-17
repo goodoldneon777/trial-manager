@@ -37,18 +37,6 @@
 			"  <tbody> \n";
 
 		if ($result->num_rows > 0) {
-			// $html_tableStart = 
-			// 	"<table class=\"childTable table table-striped table-bordered\"> \n" .
-			// 	"  <thead style=\"text-align:center;\"> \n" .
-			// 	"    <th style=\"width:50%; text-align:center;\">Trial Name</th> \n" .
-			// 	"    <th style=\"width:80px; text-align:center;\">Unit</th> \n" .
-			// 	"    <th style=\"text-align:center;\">Start Date</th> \n" .
-			// 	"    <th style=\"text-align:center;\">End Date</th> \n" .
-			// 	"    <th style=\"text-align:center;\">Actions</th> \n" .
-			// 	"  </thead> \n" .
-			// 	"  <tbody> \n";
-			// $html = $html_tableStart;
-
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
 	    	$seq = $row["seq"];
@@ -86,10 +74,6 @@
 	    	$html .= "</tr> \n";
 	    }
 
-	    // $html_tableEnd =
-	    // 	"  </tbody> \n" .
-	    // 	"</table> \n";
-	    // $html .= $html_tableEnd;
 		} else {
 	    $html .= '<tr class="noResults"><td colspan="5" style="text-align:center; padding:10px;">No trials found</td></tr>';
 		}
@@ -131,31 +115,14 @@
 				<?php echo $html_addTrialBtn; ?>
 			</div>
 
-<!-- 			<div class="panel panel-info">
-			  <div class="panel-body">
-			    Panel content
-			  </div>
-			</div> -->
-
-		<!-- </div> -->
-
 	</div>
 
 </div>
 
 
 
-<!-- <script src="js/dist/m-childList-group.min.js"></script> -->
-
 <script src="<?php echo WEB_ROOT . "/module/child_list/dist/script.min.js"; ?>"></script>
 
-<script>
-  // $(document).ready(function(){
-  //   $('.delete').click(function(e){
-  //      e.preventDefault();
-  //   })
-  // });
-</script>
 
 
 <?php
@@ -166,5 +133,3 @@
 
 
 
-
-<!-- <script src="js/dist/m-childList-group.min.js"></script> -->

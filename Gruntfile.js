@@ -45,6 +45,17 @@ module.exports = function(grunt) {
             return destPath;
           }
         })
+      },
+      pages: {
+        files: grunt.file.expandMapping(['page/**/*.scss'], 'page/', {
+          rename: function(destBase, destPath) {
+            var dir = destPath.substring(0, destPath.search('src')) + 'dist';
+            var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
+            var file = file.replace('.scss', '.css');
+            destPath = dir + file;
+            return destPath;
+          }
+        })
       }
     },
 
@@ -59,7 +70,7 @@ module.exports = function(grunt) {
 
     // Uglify JS
     uglify: {
-      pages: {
+      other: {
         src: 'js/src/**/*.js',  // source files mask
         dest: 'js/dist/',    // destination folder
         expand: true,    // allow dynamic building
@@ -68,6 +79,17 @@ module.exports = function(grunt) {
       },
       modules: {
         files: grunt.file.expandMapping(['module/**/*.js', '!module/**/*.min.js'], 'module/', {
+            rename: function(destBase, destPath) {
+                var dir = destPath.substring(0, destPath.search('src')) + 'dist';
+                var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
+                var file = file.replace('.js', '.min.js');
+                destPath = dir + file;
+                return destPath;
+            }
+        })
+      },
+      pages: {
+        files: grunt.file.expandMapping(['page/**/*.js', '!page/**/*.min.js'], 'page/', {
             rename: function(destBase, destPath) {
                 var dir = destPath.substring(0, destPath.search('src')) + 'dist';
                 var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
@@ -107,11 +129,19 @@ module.exports = function(grunt) {
     // Watch and build
     watch: {
       sass: {
-        files: ['sass/src/**/*.scss', 'module/**/*.scss', '!module/**/*.css'],
+        files: [
+          'sass/src/**/*.scss',
+          'module/**/*.scss', '!module/**/*.css',
+          'page/**/*.scss', '!page/**/*.css'
+        ],
         tasks: ['compileSass']
       },
       js: {
-        files: ['js/src/**/*.js', 'module/**/*.js', '!module/**/*.min.js'],
+        files: [
+          'js/src/**/*.js',
+          'module/**/*.js', '!module/**/*.min.js',
+          'page/**/*.js', '!page/**/*.min.js'
+        ],
         tasks: ['compileJS']
       },
       php: {
@@ -133,8 +163,8 @@ module.exports = function(grunt) {
 
 
   // Run tasks
-  grunt.registerTask('compileSass', ['clean:sass', 'concat:sass', 'sass', 'cssmin', 'copy:css']);
-  grunt.registerTask('compileJS', ['clean:js', 'uglify', 'copy:js']);
+  grunt.registerTask('compileSass', ['clean:sass', 'concat:sass', 'sass', 'cssmin']);
+  grunt.registerTask('compileJS', ['uglify']);
   grunt.registerTask('compilePHP', ['clean:php', 'copy:php']);
   grunt.registerTask('compilePlugin', ['clean:plugin', 'copy:plugin']);
   grunt.registerTask('compileAll', ['compileSass', 'compileJS', 'compilePHP', 'compilePlugin']);

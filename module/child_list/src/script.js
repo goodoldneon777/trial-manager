@@ -21,16 +21,18 @@ m_child_list.watch = function() {
 m_child_list.parse = function() {
 	'use strict';
 	var arr = [];
-	var class = '';
-	var trialSeq = '';
+	var attrClass = '';
+	var seq = '';
 	var classPrefix = 'seq-';
 
 
 	$.each($('.m_child_list .childTable tbody tr'), function( index, value ) {
-		class = $(this).attr("class").match(/seq-[\w-]*\b/)[0];
-		trialSeq = class.substring(classPrefix.length, class.length);
+		// class = $(this).attr("class").match(/seq-[\w-]*\b/)[0];
+		// trialSeq = class.substring(classPrefix.length, class.length);
+		attrClass = $(this).attr("class");
+		seq = getSeqFromAttrClass(attrClass).seq;
 
-		arr[index] = trialSeq;
+		arr[index] = seq;
 	});
 
 

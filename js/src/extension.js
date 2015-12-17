@@ -105,6 +105,6 @@ function getSeqFromAttrClass(attrClass) {
 
 
 var gVar = {
-  root: '/trial-mgr-module'
+  root: '/trial-mgr'
 };
 

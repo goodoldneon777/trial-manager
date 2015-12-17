@@ -24,7 +24,7 @@
 
 <div class="container noPad-xs">
 
-	<div class="m-trialGroupBtn btn-group" role="group" aria-label="...">
+	<div class="m-toggle_pagetype btn-group col-xs-12 noPad-xs" role="group" aria-label="...">
 	  <?php echo $html; ?>
 	</div>
 

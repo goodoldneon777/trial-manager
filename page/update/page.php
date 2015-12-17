@@ -3,13 +3,13 @@
   if (isset($_GET['trialseq'])) {
     $pageType = 'trial';
     $seq = $_GET['trialseq'];
-    $html_title = 'Trial Manager - View Trial';
+    $pageTitle = 'Trial Manager - View Trial';
     $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this trial.">Update Trial</button>';
     $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this trial.">Delete Trial</button>';
   } else if (isset($_GET['groupseq'])) {
     $pageType = 'group';
     $seq = $_GET['groupseq'];
-    $html_title = 'Trial Manager - View Group';
+    $pageTitle = 'Trial Manager - View Group';
     $html_updateBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Update this group.">Update Group</button>';
     $html_deleteBtn = '<button id="delete" type="button" class="btn btn-xlarge btn-danger" data-toggle="tooltip" title="Permanently delete this group.">Delete Group</button>';
   }

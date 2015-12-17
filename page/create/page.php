@@ -1,16 +1,16 @@
 <?php
   if (!isset($_GET['type'])) {
-    $type = 'trial';
+    $pageType = 'trial';
   } else {
-    $type = $_GET['type'];
+    $pageType = $_GET['type'];
   }
 
-  if ($type === 'trial') {
-    $html_title = '<title>Trial Manager - Create Trial</title>';
-    $html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Create this trial.">Create Trial</button>';
-  } else if ($type === 'group') {
-    $html_title = '<title>Trial Manager - Create Group</title>';
-    $html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Create this group.">Create Group</button>';
+  if ($pageType === 'trial') {
+    $pageTitle = 'Trial Manager - Create Trial';
+    $html_submitBtn = '<button type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Create this trial.">Create Trial</button>';
+  } else if ($pageType === 'group') {
+    $pageTitle = 'Trial Manager - Create Group';
+    $html_submitBtn = '<button type="button" class="btn btn-xlarge btn-success" data-toggle="tooltip" title="Create this group.">Create Group</button>';
   }
 ?>
 
@@ -22,53 +22,81 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title><?php echo $pageTitle; ?></title>
 
+    <?php
+      require(SERVER_ROOT . '/module/html_head/module.php');
 
-    <?php 
-      echo $html_title;
-
-      require('php/dist/m-HTMLhead.php'); 
+      create_html_head();
     ?>
 
-    
+    <link rel="stylesheet" media="screen" href="<?php echo WEB_ROOT . "/page/create/dist/style.css"; ?>">
+
   </head>
   <body>
 
 
-    <?php require('php/dist/m-navBar.php'); ?>
+    <?php
+      require(SERVER_ROOT . '/module/nav_bar/module.php');
+    
+      create_nav_bar();
+    ?>
 
 
     <div id="l-body">
 
       <?php
+        require(SERVER_ROOT . '/module/toggle_pagetype/module.php');
+        require(SERVER_ROOT . '/module/info/module.php');
 
-        require('php/dist/m-trialGroupBtn.php');
-        create_trialGroupBtn($type);
+        create_toggle_pagetype($pageType);
+        create_info('write', $pageType);
 
+        if ($pageType === 'trial') {
+          require(SERVER_ROOT . '/module/heat_data/module.php');
 
-        if ($type === 'trial') {
-          require('php/dist/m-info-trial.php');
-          require('php/dist/m-heatData-trial.php');
+          create_heat_data('write', $seq);
+        } else if ($pageType === 'group') {
+          require(SERVER_ROOT . '/module/child_list/module.php');
 
-          create_info_trial('write');
-          create_heatData_trial('write');
-
-        } else if ($type === 'group') {
-          require('php/dist/m-info-group.php');
-          require('php/dist/m-childList-group.php');
-
-          create_info_group('write');
-          create_childList_group('write');
-
+          create_child_list('write', $seq);
         }
       ?>
 
+      <?php
+
+        // require('php/dist/m-trialGroupBtn.php');
+        // create_trialGroupBtn($pageType);
 
 
-      <div class="errorHolder"></div>
+        // if ($pageType === 'trial') {
+        //   require('php/dist/m-info-trial.php');
+        //   require('php/dist/m-heatData-trial.php');
 
-      <div style="text-align:center;">
-        <?php echo $html_submitBtn; ?>
+        //   create_info_trial('write');
+        //   create_heatData_trial('write');
+
+        // } else if ($pageType === 'group') {
+        //   require('php/dist/m-info-group.php');
+        //   require('php/dist/m-childList-group.php');
+
+        //   create_info_group('write');
+        //   create_childList_group('write');
+
+        // }
+      ?>
+
+
+      <div class="p_create">
+
+        <div class="c_errorBox">
+
+        </div>
+
+        <div class="c_submitBtn">
+         <?php echo $html_submitBtn; ?>
+        </div>
+
       </div>
 
     </div>
@@ -76,9 +104,13 @@
 
 
     
-    <?php require('php/dist/m-HTMLfoot.php'); ?>
+    <?php
+      require(SERVER_ROOT . '/module/html_foot/module.php');
 
-    <script src="js/dist/p-create.min.js"></script>
+      create_html_foot();
+    ?>
+
+    <script src="<?php echo WEB_ROOT . "/page/create/dist/script.min.js"; ?>"></script>
 
 
   </body>

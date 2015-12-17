@@ -13,6 +13,7 @@
 		//Function continues...
 ?>
 
+
 <link rel="stylesheet" media="screen" href="<?php echo WEB_ROOT . "/module/search/dist/style.css"; ?>">
 
 

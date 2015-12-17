@@ -6,6 +6,18 @@
 		$passWR = getenv('passWR');
 		$db = getenv('db');
 
+
+		if ($pageType === 'trial') {
+			$notFoundMsg = "Trial not found";
+			$moduleClass = "m_info panel panel-primary";
+			$moduleTitle = "Trial Info";
+		} else if ($pageType === 'group') {
+			$notFoundMsg = "Group not found";
+			$moduleClass = "m_info panel panel-info";
+			$moduleTitle = "Group Info";
+		}
+
+
 		// If there's a trial/group to display, query the trial/group info.
 		if ($seq !== null) {
 			// Create connection
@@ -26,9 +38,6 @@
 					from trial
 					where trial_seq = " . $seq . " 
 					";
-				$notFoundMsg = "Trial not found";
-				$moduleClass = "m_info panel panel-primary";
-				$moduleTitle = "Trial Info";
 			} else if ($pageType === 'group') {
 				$sql = "
 					select 
@@ -39,9 +48,6 @@
 					from trial_group
 					where group_seq = " . $seq . " 
 					";
-				$notFoundMsg = "Group not found";
-				$moduleClass = "m_info panel panel-info";
-				$moduleTitle = "Group Info";
 			}
 
 			$result = $conn->query($sql);
@@ -220,8 +226,8 @@
 				'<div class="col-sm-2 fullPad-sm halfPad-xs"></div>' .
 				'<div class="col-sm-8 fullPad-sm halfPad-xs">' .
 				'  <div class="name input-group">' .
-				'    <span class="elem-title required">Trial Name</span>' .
-    		'    <input class="form-control" type="text" data-toggle="tooltip" title="Can be the same as a previous trial name." value="' . $name . '">' .
+				'    <span class="elem-title required">Name</span>' .
+    		'    <input class="form-control" type="text" data-toggle="tooltip" title="Can be the same as a previous name." value="' . $name . '">' .
     		'    <span></span>' .
     		'  </div>' .
     		'</div>' . 
@@ -239,7 +245,7 @@
 
 			$html_unit = 
 				'<span class="elem-title required">Unit</span>' .
-			  '<select class="form-control" data-toggle="tooltip" title="Area where this trial will be performed." text="BOP">' .
+			  '<select class="form-control" data-toggle="tooltip" title="Area where this will be performed." text="BOP">' .
 			  '  <option></option>' .
 			  '  <option' . ( ($unit === 'BF') ? " selected" : "" ) . '>BF</option>' .
 	 			'  <option' . ( ($unit === 'BOP') ? " selected" : "" ) . '>BOP</option>' .
@@ -268,7 +274,7 @@
 
 		  $html_goalType =
 		  	'<span class="elem-title">Goal Type</span>' .
-		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this trial trying to improve?">' .
+		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this trying to improve?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($goalType === 'Cost') ? " selected" : "" ) . '>Cost</option>' .
 		    '  <option' . ( ($goalType === 'Process') ? " selected" : "" ) . '>Process</option>' .
@@ -279,7 +285,7 @@
 
 		  $html_changeType =
 		  	'<span class="elem-title">Change Type</span>' .
-		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this trial changing?">' .
+		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this changing?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($changeType === 'Equipment') ? " selected" : "" ) . '>Equipment</option>' .
 		    '  <option' . ( ($changeType === 'Material') ? " selected" : "" ) . '>Material</option>' .
@@ -291,7 +297,7 @@
 			$html_bopVsl =
 				'<span class="elem-title hidden-xs">BOP Vsl</span>' .
 	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">BOP Vsl</span>' .
-    		'<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one BOP vessel?">' .
+    		'<select class="form-control" data-toggle="tooltip" title="Will this occur at only one BOP vessel?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($bopVsl === '25') ? " selected" : "" ) . '>25</option>' .
 		    '  <option' . ( ($bopVsl === '26') ? " selected" : "" ) . '>26</option>' .
@@ -300,7 +306,7 @@
     	$html_degasVsl =
     		'<span class="elem-title hidden-xs">Degas Vsl</span>' .
 	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">RH Vsl</span>' .
-    		'<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one Degasser vessel?">' .
+    		'<select class="form-control" data-toggle="tooltip" title="Will this occur at only one Degasser vessel?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($degasVsl === '1') ? " selected" : "" ) . '>1</option>' .
 		    '  <option' . ( ($degasVsl === '2') ? " selected" : "" ) . '>2</option>' .
@@ -309,7 +315,7 @@
     	$html_argonNum =
     		'<span class="elem-title hidden-xs">Argon #</span>' .
 	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">Argon</span>' .
-    		'<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one Argon station?">' .
+    		'<select class="form-control" data-toggle="tooltip" title="Will this occur at only one Argon station?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($argonNum === '1') ? " selected" : "" ) . '>1</option>' .
 		    '  <option' . ( ($argonNum === '2') ? " selected" : "" ) . '>2</option>' .
@@ -318,7 +324,7 @@
     	$html_casterNum =
     		'<span class="elem-title hidden-xs">Caster #</span>' .
 			  '<span class="elem-title visible-xs" style="font-size:0.9em;">Caster</span>' .
-		    '<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one Caster?">' .
+		    '<select class="form-control" data-toggle="tooltip" title="Will this occur at only one Caster?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($casterNum === '1') ? " selected" : "" ) . '>1</option>' .
 		    '  <option' . ( ($casterNum === '2') ? " selected" : "" ) . '>2</option>' .
@@ -327,7 +333,7 @@
 		  $html_strandNum =
 		  	'<span class="elem-title hidden-xs">Strand #</span>' .
 	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">Strand</span>' .
-    		'<select class="form-control" data-toggle="tooltip" title="Does this trial affect only one Caster strand?">' .
+    		'<select class="form-control" data-toggle="tooltip" title="Will this occur at only one Caster strand?">' .
 		    '  <option></option>' .
 		    '  <option' . ( ($strandNum === '1') ? " selected" : "" ) . '>1</option>' .
 		    '  <option' . ( ($strandNum === '2') ? " selected" : "" ) . '>2</option>' .
@@ -423,18 +429,16 @@
 			    	<?php echo $html_processChange; ?>
 				  </div>
 				</div>
-				<?php
-					}
-				?>
-
-
-
+				
+				
 			  <div class="col-sm-3 col-xs-4 fullPad-sm halfPad-xs">
 				  <div class="twi input-group">
 			    	<?php echo $html_twi; ?>
 				  </div>
 				</div>
-
+				<?php
+					}
+				?>
 
 
 			  <div class="col-sm-3 col-xs-4 fullPad-sm halfPad-xs">
@@ -550,7 +554,7 @@
 </div>
 
 
-<script src="<?php echo WEB_ROOT . "/js/dist/m-info-trial.min.js"; ?>"></script>
+<script src="<?php echo WEB_ROOT . "/module/info/dist/script.min.js"; ?>"></script>
 
 
 

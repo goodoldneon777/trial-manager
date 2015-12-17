@@ -209,51 +209,6 @@ $colHover       : #ffe6d1; /*/
     padding: 1em;
     padding-right: 0;
     padding-left: 0; } }
-.m-addTrialSearch .searchBtn {
-  margin: 1em; }
-
-.m-info-trial {
-  width: 100%; }
-  .m-info-trial input {
-    text-overflow: ellipsis; }
-
-.m-info-group {
-  width: 100%; }
-  .m-info-group input {
-    text-overflow: ellipsis; }
-
-.m-commentList {
-  width: 100%; }
-  .m-commentList table {
-    margin: 0; }
-  .m-commentList .commentDate {
-    width: 180px;
-    vertical-align: top; }
-  .m-commentList .commentText {
-    vertical-align: top; }
-  .m-commentList .commentAction {
-    width: 100px;
-    padding-top: 1em;
-    vertical-align: top;
-    text-align: center; }
-
-.m-heatData-trial {
-  width: 100%; }
-
-.m-searchResults .table {
-  margin: 0; }
-
-.m-trialGroupBtn {
-  width: 100%; }
-
-.m-childList-group .addTrialBtn {
-  margin: 1em; }
-
-.m-addTrial {
-  margin: auto;
-  width: 20%;
-  text-align: center; }
-
 .container {
   width: 100%;
   margin: 0px; }

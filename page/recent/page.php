@@ -40,6 +40,7 @@
       create_nav_bar();
     ?>
 
+
     <div id="l-body">
 
       <?php
