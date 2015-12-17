@@ -65,8 +65,6 @@
 	      	"  <td>" . date_format(date_create($row["start_dt"]), "m/d/Y") . "</td> \n" .
 	      	"  <td>" . date_format(date_create($row["end_dt"]), "m/d/Y") . "</td> \n" .
 	      	"  <td class=\"hidden-xs\" style=\"text-align:center;\"> \n" .
-	      	"    <a href=\"view?" . $module_urlSeq . "\">View</a> \n" .
-	      	"    | \n" .
 	      	"    <a href=\"comment?" . $module_urlSeq . "\">Comment</a> \n" .
 	      	"  </td> \n" .
 	    		"</tr> \n";
