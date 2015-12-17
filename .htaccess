@@ -4,3 +4,37 @@ SetEnv passWR "womanofsteel"
 SetEnv userRO "trial_mgr_ro"
 SetEnv passRo "manofsteel"
 SetEnv db "trial_mgr"
+
+
+
+
+RewriteEngine On    # Turn on the rewriting engine
+#RewriteRule ^([0-9a-z]+)$ page/$1/page.php [NC,L,QSA]
+
+#Route default directory (i.e. sets the index).
+RewriteRule ^/$ page/recent/page.php [NC,L,QSA]
+
+#Route /recent
+#RewriteRule recent page/recent/page.php [NC,L,QSA]
+
+#Route /view/t{{seq}} and /view/g{{seq}}
+#RewriteRule ^view/t([0-9a-z]*)$ page/view/page.php?trialseq=$1 [NC,L,QSA]
+#RewriteRule ^view/g([0-9a-z]*)$ page/view/page.php?groupseq=$1 [NC,L,QSA]
+
+#Route /update/t{{seq}} and /update/g{{seq}}
+#RewriteRule ^update/t([0-9a-z]*)$ page/update/page.php?trialseq=$1 [NC,L,QSA]
+#RewriteRule ^update/g([0-9a-z]*)$ page/update/page.php?groupseq=$1 [NC,L,QSA]
+
+#Route /search, /search/t, and /search/g
+#RewriteRule ^search/?$ page/search/page.php?type=trial [NC,L,QSA]
+#RewriteRule ^search/t/?$ page/search/page.php?type=trial [NC,L,QSA]
+#RewriteRule ^search/g/?$ page/search/page.php?type=group [NC,L,QSA]
+
+
+#RewriteRule ^([0-9a-z]+)/t/([0-9a-z]*)$ page/$1/page.php?type=trial&trialseq=$2 [NC,L,QSA]
+RewriteRule ^([0-9a-z]+)?([0-9a-z]*)$ page/$1/page.php?$2 [NC,L,QSA]
+
+
+
+
+php_value auto_prepend_file "/Applications/MAMP/htdocs/trial-mgr-module/config.php"
