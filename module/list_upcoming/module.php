@@ -55,15 +55,15 @@
 				"  <tbody> \n";
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
-	    	$module_urlSeq .= $row["seq"];
+	    	$seq = $row["seq"];
 	      $html .= 
 	      	"<tr> \n" .
-	      	"  <td><a href=\"view?" . $module_urlSeq . "\">" . $row["name"] . "</a></td> \n" .
+	      	"  <td><a href=\"view?" . $module_urlSeq . $seq . "\">" . $row["name"] . "</a></td> \n" .
 	      	"  <td>" . $row["unit"] . "</td> \n" .
 	      	"  <td>" . date_format(date_create($row["start_dt"]), "m/d/Y") . "</td> \n" .
 	      	"  <td>" . date_format(date_create($row["end_dt"]), "m/d/Y") . "</td> \n" .
 	      	"  <td class=\"hidden-xs\" style=\"text-align:center;\"> \n" .
-	      	"    <a href=\"comment?" . $module_urlSeq . "\">Comment</a> \n" .
+	      	"    <a href=\"comment?" . $module_urlSeq . $seq . "\">Comment</a> \n" .
 	      	"  </td> \n" .
 	    		"</tr> \n";
 	    }
