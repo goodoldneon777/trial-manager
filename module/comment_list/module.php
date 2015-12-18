@@ -121,6 +121,7 @@
 	    	<?php echo $moduleTitle; ?>
 	    	<span class="description"></span>
 	    </h3>
+
 	  </div>
 
 	  <div class="content">
@@ -133,15 +134,7 @@
 
 
 <script src="<?php echo WEB_ROOT . "/module/comment_list/dist/script.min.js"; ?>"></script>
-<!-- <script src="js/dist/m-commentList.min.js"></script> -->
 
-<script>
-  $(document).ready(function(){
-    $('.delete').click(function(e){
-       e.preventDefault();
-    })
-  });
-</script>
 
 
 <?php

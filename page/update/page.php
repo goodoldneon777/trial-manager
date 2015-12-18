@@ -41,7 +41,7 @@
     ?>
 
 
-    <div id="l-body">
+    <div class="l-body">
 
       <?php
         require(SERVER_ROOT . '/module/info/module.php');

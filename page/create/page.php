@@ -43,7 +43,7 @@
     ?>
 
 
-    <div id="l-body">
+    <div class="l-body">
 
       <?php
         require(SERVER_ROOT . '/module/toggle_pagetype/module.php');

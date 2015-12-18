@@ -11,9 +11,12 @@
 
 
 
+<link rel="stylesheet" media="screen" href="<?php echo WEB_ROOT . "/module/nav_bar/dist/style.css"; ?>">
+
+
 <!-- Fixed navbar -->
 <nav class="m_nav_bar navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
+  <div class="c_content container noPad-xs">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
         <span class="sr-only">Toggle navigation</span>

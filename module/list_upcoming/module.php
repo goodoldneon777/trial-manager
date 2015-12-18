@@ -84,7 +84,7 @@
 	<div class="panel-heading">
     <h3 class="panel-title">
     	<?php echo $module_title; ?>
-    	<span class="description">(previous 60 days)</span>
+    	<span class="description">(next 7 days)</span>
     </h3>
   </div>
 <?php echo $html; ?>

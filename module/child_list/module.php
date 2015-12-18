@@ -109,9 +109,9 @@
 			<?php echo $html; ?>
 		</div>
 
-			<div style="text-align:center;">
-				<?php echo $html_addTrialBtn; ?>
-			</div>
+		<div style="text-align:center;">
+			<?php echo $html_addTrialBtn; ?>
+		</div>
 
 	</div>
 
