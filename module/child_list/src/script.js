@@ -29,7 +29,9 @@ m_child_list.parse = function() {
 		attrClass = $(this).attr("class");
 		seq = getSeqFromAttrClass(attrClass).seq;
 
-		arr[index] = seq;
+		if (seq.length > 0) {
+			arr[index] = seq;
+		}
 	});
 
 

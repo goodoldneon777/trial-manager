@@ -69,8 +69,7 @@
 	      } else if ($writeType === 'write') {
 	      	$html .= "  <td class=\"commentDate\"> \n";
 	      	$html .= "    <div class=\"input-group noPad-xs\"> \n";
-	      	// $html .= "      <textarea class=\"form-control\" rows=\"1\">" . $date . "</textarea> \n";
-	      	$html .= "      <input class=\"form-control\" rows=\"1\" value=\"" . $date . "\"";
+	      	$html .= "      <input class=\"form-control\" rows=\"1\" value=\"" . $date . "\">";
 	      	$html .= "    </div> \n";
 	      	$html .= "  </td> \n";
 
@@ -107,6 +106,13 @@
 		}
 
 
+		if ($writeType === 'readonly') {
+			$html_addCommentBtn = '';
+		} else if ($writeType === 'write') {
+			$html_addTrialBtn = '<button type="button" class="addCommentBtn btn btn-large btn-success">Add Comment</button>';
+		}
+
+
 		// Function continues...
 ?>
 
@@ -126,6 +132,10 @@
 
 	  <div class="content">
 			<?php echo $html; ?>
+		</div>
+
+		<div style="text-align:center;">
+			<?php echo $html_addTrialBtn; ?>
 		</div>
 
 	</div>

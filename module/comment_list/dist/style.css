@@ -9,6 +9,8 @@
   .m_comment_list .noResults {
     padding: 1em;
     text-align: center; }
+  .m_comment_list .addCommentBtn {
+    margin: 1em; }
   .m_comment_list table {
     margin: 0; }
     .m_comment_list table th {

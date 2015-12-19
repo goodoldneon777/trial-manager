@@ -2,7 +2,8 @@
 	$pageType = $_POST["pageType"];
 	$seq = json_decode($_POST["seq"]);
 	$info = json_decode($_POST["info"]);
-	$commentList = json_decode($_POST["commentList"], true);
+	$oldCommentList = json_decode($_POST["oldCommentList"], true);
+	$newCommentList = json_decode($_POST["newCommentList"], true);
 
 	$debugSQL = '';	// Will contain all the queries. For debugging purposes.
 	$errors = array();
@@ -71,13 +72,13 @@
 
 
 
-		if (count($commentList) > 0) {
+		if (count($oldCommentList) > 0) {
 			$sql = 
 		  	"insert into trial_comment ( \n" .
 				"  trial_seq, comment_seq, comment_dt, comment_text \n" .
 				") \n";
 
-		  for ($i = 0; $i <= count($commentList) - 1; $i++) {
+		  for ($i = 0; $i <= count($oldCommentList) - 1; $i++) {
 		  	if ($i > 0) {
 		  		$sql .= "union \n";
 		  	}
@@ -85,17 +86,57 @@
 		  	$sql .= 
 		  		"select " .
 					$seq . ", " .
-					$commentList[$i][0] . ", " .
-					$commentList[$i][1] . ", " .
-					$commentList[$i][2] . " \n";			
+					$oldCommentList[$i][0] . ", " .
+					$oldCommentList[$i][1] . ", " .
+					$oldCommentList[$i][2] . " \n";			
 		  }
 
 		  if (!$conn->query($sql)) {
 			  $errors[] = $conn->error;
 			}
+
+			$debugSQL .= $sql;
 		}
 
-		$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+
+
+		$sql = 
+			"select max(comment_seq) \n" .
+			"from trial_comment \n" .
+			"where trial_seq = " . $seq . "; \n\n";
+		$result = $conn->query($sql);
+	  $arr = $result->fetch_array();
+	  $maxCommentSeq = $arr[0];
+
+		$debugSQL .= $sql;
+
+
+
+		if (count($newCommentList) > 0) {
+			$sql = 
+		  	"insert into trial_comment ( \n" .
+				"  trial_seq, comment_seq, comment_dt, comment_text \n" .
+				") \n";
+
+		  for ($i = 0; $i <= count($newCommentList) - 1; $i++) {
+		  	if ($i > 0) {
+		  		$sql .= "union \n";
+		  	}
+
+		  	$sql .= 
+		  		"select " .
+					$seq . ", " .
+					($newCommentList[$i][0] + $maxCommentSeq) . ", " .
+					$newCommentList[$i][1] . ", " .
+					$newCommentList[$i][2] . " \n";			
+		  }
+
+		  if (!$conn->query($sql)) {
+			  $errors[] = $conn->error;
+			}
+
+			$debugSQL .= $sql;
+		}
 
 
 
@@ -138,9 +179,9 @@
 		  if (!$conn->query($sql)) {
 			  $errors[] = $conn->error;
 			}
-		}
 		
-		$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+			$debugSQL .= $sql;
+		}
 
 
 
@@ -156,7 +197,7 @@
 		  $errors[] = $conn->error;
 		}
 		
-		$debugSQL .= $sql;	// Will contain all the queries. For debugging purposes.
+		$debugSQL .= $sql;
 
 	} else if ($pageType === 'group') {
 		$childTrialList = json_decode($_POST["childTrialList"], true);
@@ -181,7 +222,7 @@
 		"  comment_monitor = " . $info->monitorText . ", \n" .
 		"  comment_general = " . $info->otherInfoText . ", \n" .
 		"  comment_conclusion = " . $info->conclusionText . " \n" .
-		"where group_seq = " . $seq . "; \n";
+		"where group_seq = " . $seq . "; \n\n";
 
 		if (!$conn->query($sql)) {
 		  $errors[] = $conn->error;
@@ -193,19 +234,19 @@
 
 		$sql =
 			"delete from trial_group_child \n" .
-			"where group_seq = " . $seq . "; \n";
+			"where group_seq = " . $seq . "; \n\n";
 
 		if (!$conn->query($sql)) {
 		  $errors[] = $conn->error;
 		}
 
-		$debugSQL .= $sql;	
+		$debugSQL .= $sql;
 
 
 
 		$sql =
 			"delete from trial_group_comment \n" .
-			"where group_seq = " . $seq . "; \n";
+			"where group_seq = " . $seq . "; \n\n";
 
 		if (!$conn->query($sql)) {
 		  $errors[] = $conn->error;
@@ -215,31 +256,75 @@
 
 
 
-		if (count($commentList) > 0) {
+		if (count($oldCommentList) > 0) {
 			$sql = 
 		  	"insert into trial_group_comment ( \n" .
 				"  group_seq, comment_seq, comment_dt, comment_text \n" .
 				") \n";
 
-		  for ($i = 0; $i <= count($commentList) - 1; $i++) {
+		  for ($i = 0; $i <= count($oldCommentList) - 1; $i++) {
 		  	if ($i > 0) {
-		  		$sql .= "union \n";
+		  		$sql .= "\nunion \n";
 		  	}
 
 		  	$sql .= 
 		  		"select " .
 					$seq . ", " .
-					$commentList[$i][0] . ", " .
-					$commentList[$i][1] . ", " .
-					$commentList[$i][2] . " \n";			
+					$oldCommentList[$i][0] . ", " .
+					$oldCommentList[$i][1] . ", " .
+					$oldCommentList[$i][2];			
 		  }
+
+		  $sql .= "; \n\n";
 
 		  if (!$conn->query($sql)) {
 			  $errors[] = $conn->error;
 			}
+
+			$debugSQL .= $sql;
 		}
 
-		$debugSQL .= $sql;
+
+
+		$sql = 
+			"select max(comment_seq) \n" .
+			"from trial_group_comment \n" .
+			"where group_seq = " . $seq . "; \n\n";
+		$result = $conn->query($sql);
+	  $arr = $result->fetch_array();
+	  $maxCommentSeq = $arr[0];
+
+		$debugSQL .= $sql;	
+
+		
+
+		if (count($newCommentList) > 0) {
+			$sql = 
+		  	"insert into trial_group_comment ( \n" .
+				"  group_seq, comment_seq, comment_dt, comment_text \n" .
+				") \n";
+
+		  for ($i = 0; $i <= count($newCommentList) - 1; $i++) {
+		  	if ($i > 0) {
+		  		$sql .= "\nunion \n";
+		  	}
+
+		  	$sql .= 
+		  		"select " .
+					$seq . ", " .
+					($newCommentList[$i][0] + $maxCommentSeq) . ", " .
+					$newCommentList[$i][1] . ", " .
+					$newCommentList[$i][2];			
+		  }
+
+		  $sql .= "; \n\n";
+
+		  if (!$conn->query($sql)) {
+			  $errors[] = $conn->error;
+			}
+
+			$debugSQL .= $sql;
+		}
 
 
 
@@ -251,7 +336,7 @@
 
 		  for ($i = 0; $i <= count($childTrialList) - 1; $i++) {
 		  	if ($i > 0) {
-		  		$sql .= "union \n";
+		  		$sql .= "\nunion \n";
 		  	}
 
 		  	$sql .= 
@@ -265,16 +350,17 @@
 					"start_dt as trial_start_dt, " .
 					"end_dt as trial_end_dt \n" .
 					"from trial \n" .
-					"where trial_seq = " . $childTrialList[$i] . " \n";
-
+					"where trial_seq = " . $childTrialList[$i];
 		  }
+
+		  $sql .= "; \n\n";
 
 		  if (!$conn->query($sql)) {
 			  $errors[] = $conn->error;
 			}
-		}
 
-		$debugSQL .= $sql;
+			$debugSQL .= $sql;
+		}
 
 	}
 
