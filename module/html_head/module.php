@@ -26,7 +26,7 @@
 
 <!--[if lt IE 9]>
   <script type="text/javascript">
-      window.location = "better-browser.php";
+      window.location = <?php echo WEB_ROOT . "/better-browser"; ?>;
   </script>
 <![endif]-->
 

@@ -18,7 +18,7 @@ RewriteRule ^/$ page/recent/page.php [NC,L,QSA]
 RewriteRule recent page/recent/page.php [NC,L,QSA]
 
 #Route everything else
-RewriteRule ^([0-9a-z]+)([?]*)([0-9a-z]*)$ page/$1/page.php?$2 [NC,L,QSA]
+RewriteRule ^([0-9a-zA-Z\_\-]+)([?]*)([0-9a-zA-Z]*)$ page/$1/page.php?$2 [NC,L,QSA]
 
 
 
