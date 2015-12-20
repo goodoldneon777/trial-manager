@@ -8,7 +8,7 @@
 				where
 					start_dt <= curdate()
 					and end_dt >= curdate()
-				order by start_dt desc
+				order by end_dt desc, start_dt desc
 				";
 			$module_class = "\"m_recent panel panel-primary\"";
 			$module_title = "Ongoing Trials";
@@ -20,7 +20,7 @@
 				where
 					start_dt <= curdate()
 					and end_dt >= curdate()
-				order by start_dt desc
+				order by end_dt desc, start_dt desc
 				";
 			$module_class = "\"m_recent panel panel-info\"";
 			$module_title = "Ongoing Groups";

@@ -6,12 +6,9 @@
 				select name as name, unit, start_dt, end_dt, trial_seq as seq
 				from trial
 				where
-					(
-						start_dt between curdate() - interval 60 day and curdate()
-						and end_dt < curdate()
-					)
-					or end_dt between curdate() - interval 60 day and curdate()
-				order by start_dt desc
+					end_dt >= curdate() - interval 60 day
+					and end_dt < curdate()
+				order by end_dt desc, start_dt desc
 				";
 			$module_class = "\"m_recent panel panel-primary\"";
 			$module_title = "Recent Trials";
@@ -21,12 +18,9 @@
 				select name, unit, start_dt, end_dt, group_seq as seq
 				from trial_group
 				where
-					(
-						start_dt between curdate() - interval 60 day and curdate()
-						and end_dt < curdate()
-					)
-					or end_dt between curdate() - interval 60 day and curdate()
-				order by start_dt desc
+					end_dt >= curdate() - interval 60 day
+					and end_dt < curdate()
+				order by end_dt desc, start_dt desc
 				";
 			$module_class = "\"m_recent panel panel-info\"";
 			$module_title = "Recent Groups";

@@ -7,7 +7,7 @@
 				from trial
 				where
 					start_dt between curdate() + interval 1 day and curdate() + interval 7 day
-				order by start_dt desc
+				order by start_dt desc, end_dt desc
 				";
 			$module_class = "\"m_recent panel panel-primary\"";
 			$module_title = "Upcoming Trials";
@@ -18,7 +18,7 @@
 				from trial_group
 				where
 					start_dt between curdate() + interval 1 day and curdate() + interval 7 day
-				order by start_dt desc
+				order by start_dt desc, end_dt desc
 				";
 			$module_class = "\"m_recent panel panel-info\"";
 			$module_title = "Upcoming Groups";
