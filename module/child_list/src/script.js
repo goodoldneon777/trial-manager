@@ -17,6 +17,33 @@ m_child_list.watch = function() {
 
 
 
+m_child_list.validate = function() {
+	'use strict';
+	var arr = [];
+	var attrClass = '';
+	var seq = '';
+	var errorText = '';
+
+
+	$.each($('.m_child_list .childTable tbody tr'), function( index, value ) {
+		attrClass = $(this).attr("class");
+		seq = getSeqFromAttrClass(attrClass).seq;
+
+		if (seq.length > 0) {
+			arr[index] = seq;
+		}
+	});
+
+	if (arr.length !== uniqueArr(arr).length) {
+		errorText += "<li>You have at least 1 duplicate trial in your 'Trials In This Group' section. Trials can only appear once in this list.</li>";
+	}
+
+
+	return errorText;
+};
+
+
+
 m_child_list.parse = function() {
 	'use strict';
 	var arr = [];
@@ -119,7 +146,7 @@ m_child_list.appendTable = function(newTrial) {
 
 m_child_list.removeClick = function(elem) {
 	'use strict';
-	var classSeq = getSeqFromAttrClass(elem.closest('tr').attr('class')).classSeq;
+	elem = elem.closest('tr');
 
 
 	BootstrapDialog.confirm({
@@ -129,7 +156,7 @@ m_child_list.removeClick = function(elem) {
     closable: false,
     callback: function(result) {
       if(result) {
-      	removeTrial(classSeq);
+      	removeTrial(elem);
       } else {
 
       }
@@ -138,9 +165,10 @@ m_child_list.removeClick = function(elem) {
 
 	
 
-	function removeTrial(classSeq) {
+	// function removeTrial(classSeq) {
+	function removeTrial(elem) {
 		var html = '';
-		$('.m_child_list .' + classSeq).remove();
+		elem.remove();
 
 		if ($('.m_child_list tbody tr').length === 0) {
 			html = '<tr class="noResults"><td colspan="5" style="text-align:center; padding:10px;">No trials found</td></tr>';

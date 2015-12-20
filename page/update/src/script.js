@@ -39,6 +39,7 @@ p_update.updateClick = function() {
 		errorText += m_heat_data.validate();
 	} else if (pageType === 'group') {
 		errorText += m_info.validate();
+		errorText += m_child_list.validate();
 	}
 
 

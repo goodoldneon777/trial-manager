@@ -15,7 +15,7 @@
 
 
 		$sql = "
-			select trial_seq as seq, trial_name as name, trial_unit as unit, trial_start_dt as start_dt, trial_end_dt as end_dt, delete_flag
+			select trial_seq as seq, trial_name as name, trial_unit as unit, trial_start_dt as start_dt, trial_end_dt as end_dt, deleted_flag
 			from trial_group_child a
 			where group_seq = " . $seq . " 
 			order by trial_end_dt desc
@@ -43,11 +43,17 @@
 	    	$unit = $row["unit"];
 	    	$start = $row["start_dt"];
 	    	$end = $row["end_dt"];
+	    	$status = "";
+
+	    	if ($row["deleted_flag"] === "1") {
+	    		$rowClass .= " deleted";
+	    		$status = "[DELETED]";
+	    	}
 
 	      if ($writeType === 'readonly') {
 	      	$html .= 
-		      	"<tr class=\"seq-" . $seq . "\"> \n" .
-		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a></td> \n" .
+		      	"<tr class=\"" . $rowClass . "\"> \n" .
+		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> " . $status . "</td> \n" .
 		      	"  <td>" . $unit . "</td> \n" .
 		      	"  <td>" . date_format(date_create($start), "n/j/Y") . "</td> \n" .
 		      	"  <td>" . date_format(date_create($end), "n/j/Y") . "</td> \n" .
@@ -57,8 +63,8 @@
 		    		"</tr> \n";
 	      } else if ($writeType === 'write') {
 	      	$html .= 
-		      	"<tr class=\"seq-" . $seq . " foo\"> \n" .
-		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "]</td> \n" .
+		      	"<tr class=\"" . $rowClass . " foo\"> \n" .
+		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "] " . $status . "</td> \n" .
 		      	"  <td>" . $unit . "</td> \n" .
 		      	"  <td>" . date_format(date_create($start), "n/j/Y") . "</td> \n" .
 		      	"  <td>" . date_format(date_create($end), "n/j/Y") . "</td> \n" .

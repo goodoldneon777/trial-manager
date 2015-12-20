@@ -1,3 +1,13 @@
+//Global variable object:
+var gVar = {
+  root: '/trial-mgr'
+};
+
+
+
+
+//Extension functions:
+
 function isValidDate(str) {
   // Dependencies: momentjs.
   var d = moment(str);
@@ -15,6 +25,7 @@ function isValidDate(str) {
 
   return true;
 }
+
 
 
 function stringToDate(str) {
@@ -52,6 +63,7 @@ function prepForSQL(val, type) {
 }
 
 
+
 function getURLVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split("&");
@@ -66,15 +78,18 @@ function getURLVariable(variable) {
 }
 
 
+
 function removeChar(str, char) {
   return str.split(char).join('');
 }
+
 
 
 function countChar(str, char) {
   var search = '/\\' + char + '/g';
   return str.match(RegExp(search)).length;
 }
+
 
 
 function ifNull(val, replace) {
@@ -104,7 +119,13 @@ function getSeqFromAttrClass(attrClass) {
 
 
 
-var gVar = {
-  root: '/trial-mgr'
-};
+function uniqueArr(array) {
+  'use strict';
+  return $.grep(array, function(el, index) {
+    return index === $.inArray(el, array);
+  });
+}
+
+
+
 

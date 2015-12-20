@@ -30,6 +30,8 @@
       create_html_head();
     ?>
 
+    <link rel="stylesheet" media="screen" href="<?php echo WEB_ROOT . "/page/update/dist/style.css"; ?>">
+
   </head>
   <body>
 

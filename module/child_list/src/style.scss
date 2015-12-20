@@ -12,6 +12,10 @@ $padding: 1em;
     margin: $padding;
   }
 
+  .deleted td {
+  	background-color: #ffc370;
+  }
+
 	table {
 		
 		tbody {
