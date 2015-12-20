@@ -10,7 +10,13 @@
 		}
 
 		$url = $_SERVER['REQUEST_URI'];
-		$url = substr($url, 0, stripos($url, '?'));
+		if (stripos($url, '?')) {	//If there's a '?' in the url (i.e. URL variables)...
+			$url = substr($url, 0, stripos($url, '?'));	//Remove everything to the right of the '?'
+		}
+		if(substr($url, -1) === '/') {	//If '/' is the last character in the URL...
+		  $url = substr($url, 0, -1);	//Remove the last character in the URL...
+		}
+
 
 		$html = '
 			<a href="' . $url . '?type=trial" role="button" class="trial btn ' . $trialBtnClass . ' col-xs-6">Trial</a>

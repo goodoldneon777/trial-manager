@@ -49,18 +49,18 @@
 	      if ($writeType === 'readonly') {
 	      	$html .= 
 		      	"<tr class=\"seq-" . $seq . "\"> \n" .
-		      	"  <td><a href=\"view?trialseq=" . $seq . "\">" . $name . "</a></td> \n" .
+		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a></td> \n" .
 		      	"  <td>" . $unit . "</td> \n" .
 		      	"  <td>" . date_format(date_create($start), "m/d/Y") . "</td> \n" .
 		      	"  <td>" . date_format(date_create($end), "m/d/Y") . "</td> \n" .
 		      	"  <td class=\"actions hidden-xs\"> \n" .
-		      	"    <a href=\"comment?trialseq=" . $seq . "\">Comment</a> \n" .
+		      	"    <a href=\"" . WEB_ROOT . "\\comment?trialseq=" . $seq . "\">Comment</a> \n" .
 		      	"  </td> \n" .
 		    		"</tr> \n";
 	      } else if ($writeType === 'write') {
 	      	$html .= 
 		      	"<tr class=\"seq-" . $seq . " foo\"> \n" .
-		      	"  <td><a href=\"view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "]</td> \n" .
+		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "]</td> \n" .
 		      	"  <td>" . $unit . "</td> \n" .
 		      	"  <td>" . date_format(date_create($start), "m/d/Y") . "</td> \n" .
 		      	"  <td>" . date_format(date_create($end), "m/d/Y") . "</td> \n" .

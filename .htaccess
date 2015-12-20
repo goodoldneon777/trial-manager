@@ -3,22 +3,26 @@ SetEnv userWR "trial_mgr_wr"
 SetEnv passWR "womanofsteel"
 SetEnv userRO "trial_mgr_ro"
 SetEnv passRo "manofsteel"
-SetEnv db "trial_mgr"
+SetEnv db "trial_mgr_alpha"
 
 
 
 
 RewriteEngine On    # Turn on the rewriting engine
-#RewriteRule ^([0-9a-z]+)$ page/$1/page.php [NC,L,QSA]
-
-#Route default directory (i.e. sets the index).
-RewriteRule ^/$ page/recent/page.php [NC,L,QSA]
-
-#Route /recent
-RewriteRule recent page/recent/page.php [NC,L,QSA]
 
 #Route everything else
-RewriteRule ^([0-9a-zA-Z\_\-]+)([?]*)([0-9a-zA-Z]*)$ page/$1/page.php?$2 [NC,L,QSA]
+RewriteRule ^([0-9a-zA-Z\_\-]+)([/]*)([?]*)([0-9a-zA-Z]*)$ page/$1/page.php?$2 [NC,L,QSA]
+
+#Route older *.php URLs
+RewriteRule ^([0-9a-zA-Z\_\-]+).php([/]*)([?]*)([0-9a-zA-Z]*)$ page/$1/page.php?$2 [NC,L,QSA]
+
+#Route default directory (i.e. sets the index).
+#RewriteRule ^$ page/recent/page.php [NC,L,QSA]
+
+
+
+
+
 
 
 
