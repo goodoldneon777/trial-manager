@@ -53,7 +53,7 @@
 	      if ($writeType === 'readonly') {
 	      	$html .= 
 		      	"<tr class=\"" . $rowClass . "\"> \n" .
-		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> " . $status . "</td> \n" .
+		      	"  <td><a href=\"" . WEB_ROOT . "/view?trialseq=" . $seq . "\">" . $name . "</a> " . $status . "</td> \n" .
 		      	"  <td>" . $unit . "</td> \n" .
 		      	"  <td>" . date_format(date_create($start), "n/j/Y") . "</td> \n" .
 		      	"  <td>" . date_format(date_create($end), "n/j/Y") . "</td> \n" .
@@ -64,7 +64,7 @@
 	      } else if ($writeType === 'write') {
 	      	$html .= 
 		      	"<tr class=\"" . $rowClass . " foo\"> \n" .
-		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "] " . $status . "</td> \n" .
+		      	"  <td><a href=\"" . WEB_ROOT . "/view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "] " . $status . "</td> \n" .
 		      	"  <td>" . $unit . "</td> \n" .
 		      	"  <td>" . date_format(date_create($start), "n/j/Y") . "</td> \n" .
 		      	"  <td>" . date_format(date_create($end), "n/j/Y") . "</td> \n" .

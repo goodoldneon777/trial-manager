@@ -44,7 +44,7 @@
 
     	$html .= 
       	"<tr class=\"seq-" . $seq . "\"> \n" .
-      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "]</td> \n" .
+      	"  <td><a href=\"" . WEB_ROOT . "/view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "]</td> \n" .
       	"  <td>" . $unit . "</td> \n" .
       	"  <td>" . date_format(date_create($start), "n/j/Y") . "</td> \n" .
       	"  <td>" . date_format(date_create($end), "n/j/Y") . "</td> \n" .

@@ -126,7 +126,8 @@ p_update.updateFunc = function(pageType, seq) {
 						label: 'OK',
 						action: function(){
 							dialog.close();
-							document.location.href = urlRedirect + results.seq;
+							// document.location.href = urlRedirect + results.seq;
+							console.log(results.debugSQL);
 						}
 					}]
 				});

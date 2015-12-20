@@ -49,7 +49,7 @@
       $html .= 
       	"<tr> \n" .
       	"  <td><input type=\"checkbox\" value=\"" . $seq . "\"></td> \n" .
-      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "]</td> \n" .
+      	"  <td><a href=\"" . WEB_ROOT . "/view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "]</td> \n" .
       	"  <td>" . $row["unit"] . "</td> \n" .
       	"  <td>" . date_format(date_create($start), "n/j/Y") . "</td> \n" .
       	"  <td>" . date_format(date_create($end), "n/j/Y") . "</td> \n" .
