@@ -60,9 +60,9 @@ m_heat_data.create = function(type) {
 
 
 
-m_heat_data.populate = function (seq) {
-  // Populate the table with data.
+m_heat_data.populate = function (seq) { // Populate the table with data.
   'use strict';
+  var msg = '';
 
   // If there isn't a trial sequence to search, return the function now.
   if (seq === '') {
@@ -84,21 +84,9 @@ m_heat_data.populate = function (seq) {
     success: function(results) {
      trialDataTable.loadData(results);  // Load the data into the table.
     },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-      var dialog = new BootstrapDialog({
-        title: 'Error',
-        type: BootstrapDialog.TYPE_DANGER,
-        message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-        closable: false,
-        buttons: [{
-          label: 'OK',
-          action: function(dialogRef){
-            dialog.close();
-          }
-        }]
-      });
-      
-      dialog.open();
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;
+      dialogError(msg);
     }
   });
 };

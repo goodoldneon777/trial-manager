@@ -85,6 +85,7 @@ m_search.parse = function() {
 m_search.submit = function() {
 	var errorText = '';
 	var errorList = '';
+	var msg = '';
 	
 
 	errorText = m_search.validate();
@@ -107,11 +108,8 @@ m_search.submit = function() {
 			'</div>';
 
 		//Alert the user with the errors.
-		BootstrapDialog.alert({
-			title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-			type: BootstrapDialog.TYPE_DANGER,
-			message: errorList
-		});
+		msg = errorList;
+  	dialogError(msg);
 
 		//Build the HTML for the embedded error box.
 		errorText =
@@ -129,6 +127,7 @@ m_search.submit = function() {
 
 m_search.search = function() {
 	'use strict';
+	var msg = '';
 	var input = m_search.parse();
 	var pageType = getURLVariable('type');	//Get the page type from the URL.
 	if (pageType !== 'group') {
@@ -148,19 +147,8 @@ m_search.search = function() {
     	$('.m_search .c_results').html(results.html);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
-    	var dialog = new BootstrapDialog({
-				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-				type: BootstrapDialog.TYPE_DANGER,
-				message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-				buttons: [{
-					label: 'OK',
-					action: function(dialogRef){
-            dialogRef.close();
-          }
-				}]
-			});
-				
-			dialog.open();
+    	msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;
+  		dialogError(msg);
     }   
   });
 

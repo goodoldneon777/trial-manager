@@ -133,7 +133,7 @@ m_child_list.appendTable = function(newTrial) {
   			return false;
     	}
     },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
 			msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;
   		dialogError(msg);
   		return false;

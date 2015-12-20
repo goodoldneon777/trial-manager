@@ -15,6 +15,7 @@ m_search_trial_add.watch = function() {
 
 m_search_trial_add.search = function() {
 	'use strict';
+	var msg = '';
 	var name = $('.m_search_trial_add .name input').val();
 
 
@@ -29,19 +30,8 @@ m_search_trial_add.search = function() {
     	$('.m_search_trial_add .searchResults').html(results.html);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
-    	var dialog = new BootstrapDialog({
-				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-				type: BootstrapDialog.TYPE_DANGER,
-				message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-				buttons: [{
-					label: 'OK',
-					action: function(dialogRef){
-            dialogRef.close();
-          }
-				}]
-			});
-				
-			dialog.open();
+    	msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;
+  		dialogError(msg);
     }   
   });
 };
