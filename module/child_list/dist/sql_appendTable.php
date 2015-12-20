@@ -4,6 +4,7 @@
 	$passWR = getenv("passWR");
 	$db = getenv("db");
 
+	$errors = array();
 	
 	$seqCSV = json_decode($_POST["seqCSV"]);
 
@@ -18,12 +19,14 @@
 
 
 	$sql = 
-		"select name, unit, start_dt, end_dt, trial_seq as seq \n" .
+		"select nfame, unit, start_dt, end_dt, trial_seq as seq \n" .
 		"from trial \n" .
 		"where trial_seq in (" . $seqCSV . ") \n" .
 		"order by start_dt desc \n";
 
-
+	if (!$conn->query($sql)) {
+	  $errors[] = $conn->error;
+	}
 
 	$result = $conn->query($sql);
 	$html = "";
@@ -54,8 +57,18 @@
 	}
 
 
+	if(count($errors) === 0) {
+    $conn->commit();
+    $status = "success";
+	} else {
+	  $conn->rollback();
+	  $status = "failure";
+	}
+
+
 	$output = new stdClass();
 	$output->html = $html;
+	$output->status = $status;
 	$output->debugSQL = $sql;
 
 	echo json_encode($output);

@@ -128,4 +128,26 @@ function uniqueArr(array) {
 
 
 
+function dialogWarn(msg) {
+  'use strict';
+
+  BootstrapDialog.alert({
+    title: '<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>&nbsp;&nbsp;Warning',
+    type: BootstrapDialog.TYPE_WARNING,
+    message: msg
+  });
+}
+
+
+
+function dialogError(msg) {
+  'use strict';
+
+  BootstrapDialog.alert({
+    title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+    type: BootstrapDialog.TYPE_DANGER,
+    message: msg
+  });
+}
+
 

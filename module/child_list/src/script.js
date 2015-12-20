@@ -85,19 +85,36 @@ m_child_list.addTrialDialog = function() {
         label: 'Add Trials',
         cssClass: 'btn-success',
         action: function(){
-        	newTrial = m_search_trial_add.parse();
-        	m_child_list.appendTable(newTrial);
+        	addTrialsClick();
         }
     	}
     ]
   });
 
+
+	function addTrialsClick() {
+		var msg = '';
+		var success = null;
+
+  	newTrial = m_search_trial_add.parse();
+
+  	if (newTrial.arr.length === 0) {
+  		msg = '<h3 style="text-align:center;">No trials have been selected.<h3>';
+  		dialogWarn(msg);
+  	} else {
+	  	success = m_child_list.appendTable(newTrial);
+	  	if (success) {	//Only uncheck trials if child list append was successful.
+	  		$('.m_search_trial_add input[type=checkbox]').removeAttr('checked');	//Uncheck trials in search_trial_add module.
+	  	}
+	  }
+	}
 }
 
 
 
 m_child_list.appendTable = function(newTrial) {
 	'use strict';
+	var msg = '';
 
 	$.ajax({
 		type: 'POST',
@@ -107,35 +124,28 @@ m_child_list.appendTable = function(newTrial) {
     },
     dataType: 'json',
     success: function(results) {
-    	addTrial(results);
+    	if (results.status === 'success') {
+    		addTrial(results.html);
+    		return true;
+    	} else {
+    		msg = '<h3 style="text-align:center;">There was an error. Trial(s) not added to the group.</h3>';
+  			dialogError(msg);
+  			return false;
+    	}
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
-    	var dialog = new BootstrapDialog({
-				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
-				type: BootstrapDialog.TYPE_DANGER,
-				message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
-				buttons: [{
-					label: 'OK',
-					action: function(dialogRef){
-            dialogRef.close();
-          }
-				}]
-			});
-				
-			dialog.open();
+			msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;
+  		dialogError(msg);
+  		return false;
     }   
   });
 
 
 
-	function addTrial(obj) {
-		var html = '';
-
+	function addTrial(html) {
 		if ($('.m_child_list .childTable .noResults').length === 0) {
-			html = obj.html;
   		$('.m_child_list .childTable tbody').append(html);
 		} else {
-			html = obj.html;
 			$('.m_child_list .childTable tbody').html(html);
 		}
 	}
