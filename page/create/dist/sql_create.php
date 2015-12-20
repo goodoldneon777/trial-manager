@@ -149,7 +149,7 @@
 		if (count($childTrialList) > 0) {
 			$sql = 
 		  	"insert into trial_group_child ( \n" .
-				"  group_seq, group_name, group_start_dt, group_end_dt, trial_seq, trial_name, trial_start_dt, trial_end_dt \n" .
+				"  group_seq, group_name, group_start_dt, group_end_dt, trial_seq, trial_name, trial_unit, trial_start_dt, trial_end_dt \n" .
 				") \n";
 
 		  for ($i = 0; $i <= count($childTrialList) - 1; $i++) {
@@ -165,6 +165,7 @@
 					$info->endDate . " as group_end_dt, " .
 					"trial_seq, " .
 					"name as trial_name, " .
+					"unit as trial_unit, " .
 					"start_dt as trial_start_dt, " .
 					"end_dt as trial_end_dt \n" .
 					"from trial \n" .

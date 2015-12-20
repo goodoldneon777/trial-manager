@@ -82,7 +82,6 @@ p_create.create = function(pageType) {
 		msgSuccess = 'Trial successfully created.';
 		msgFailure = 'Something went wrong. Trial not created.';
 	} else if (pageType === 'group') {
-
 		childTrialList = m_child_list.parse();
 		urlRedirect = 'view?groupseq=';
 		msgSuccess = 'Group successfully created.';
@@ -154,6 +153,15 @@ p_create.create = function(pageType) {
   });
 
 };
+
+
+
+
+
+$(document).ready(function(){
+	p_create.watch();
+});
+
 
 
 

@@ -10,14 +10,16 @@ SetEnv db "trial_mgr_alpha"
 
 RewriteEngine On    # Turn on the rewriting engine
 
+#RewriteCond %{REQUEST_URI} !/plugin([0-9a-zA-Z\_\-]*) [NC]
+
 #Route everything else
-RewriteRule ^([0-9a-zA-Z\_\-]+)([/]*)([?]*)([0-9a-zA-Z]*)$ page/$1/page.php?$2 [NC,L,QSA]
+RewriteRule ^([0-9a-zA-Z\_\-]+)([/]?)([?]*)([0-9a-zA-Z]*)$ page/$1/page.php?$2 [NC,L,QSA]
 
 #Route older *.php URLs
-RewriteRule ^([0-9a-zA-Z\_\-]+).php([/]*)([?]*)([0-9a-zA-Z]*)$ page/$1/page.php?$2 [NC,L,QSA]
+RewriteRule ^([0-9a-zA-Z\_\-]+).php([/]?)([?]*)([0-9a-zA-Z]*)$ page/$1/page.php?$2 [NC,L,QSA]
 
 #Route default directory (i.e. sets the index).
-#RewriteRule ^$ page/recent/page.php [NC,L,QSA]
+RewriteRule ^$ page/recent/page.php [NC,L,QSA]
 
 
 

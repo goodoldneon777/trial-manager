@@ -46,7 +46,7 @@ p_update.updateClick = function() {
 	if (errorText.length === 0) {
 		$('.p_update .c_errorBox').html('');
 
-		p_update.update(pageType, seq);
+		p_update.updateFunc(pageType, seq);
 	} else {	//If there was at least 1 error
 		//Build the HTML for the error dialog.
 		errorList =
@@ -76,7 +76,7 @@ p_update.updateClick = function() {
 
 
 
-p_update.update = function(pageType, seq) {
+p_update.updateFunc = function(pageType, seq) {
 	'use strict';
 	var info = m_info.parse();
 	var heatData = {};
@@ -100,8 +100,8 @@ p_update.update = function(pageType, seq) {
 		msgSuccess = 'Group successfully updated.';
 		msgFailure = 'Something went wrong. Group not updated.';
 	}
-
-
+// console.log(childTrialList);
+// return;
 	$.ajax({
 		type: 'POST',
     url: urlSQL,
@@ -166,6 +166,106 @@ p_update.update = function(pageType, seq) {
 			
 			dialog.open();
     }   
+  });
+
+};
+
+
+
+p_update.deleteClick = function() {
+	'use strict';
+	var trialSeq = getURLVariable('trialseq');
+	var groupSeq = getURLVariable('groupseq');
+	var seq = '';
+	var pageType = '';
+
+	if (trialSeq) {
+		pageType = 'trial';
+		seq = trialSeq;
+	} else if (groupSeq) {
+		pageType = 'group';
+		seq = groupSeq;
+	}
+
+
+	p_update.deleteFunc(pageType, seq);
+
+};
+
+
+
+p_update.deleteFunc = function(pageType, seq) {
+	'use strict';
+	var urlSQL = gVar.root + '/page/update/dist/sql_delete.php';
+	var urlRedirect = gVar.root;
+	var msgSuccess = '';
+	var msgFailure = '';
+
+	if (pageType === 'trial') {
+		msgSuccess = 'Trial successfully deleted.';
+		msgFailure = 'Something went wrong. Trial not deleted.';
+	} else if (pageType === 'group') {
+		msgSuccess = 'Group successfully deleted.';
+		msgFailure = 'Something went wrong. Group not deleted.';
+	}
+
+
+	$.ajax({
+		type: 'POST',
+    url: urlSQL,
+    data: {
+    	'pageType' : pageType,
+    	'seq' : seq
+    },
+    dataType: 'json',
+    success: function(results) {
+    	if (results.status === 'success') {
+      	var dialog = new BootstrapDialog({
+					title: '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;Success',
+					type: BootstrapDialog.TYPE_SUCCESS,
+					message: '<h3 style="text-align:center;">' + msgSuccess + '</h3>',
+					buttons: [{
+						label: 'OK',
+						action: function(){
+							document.location.href = urlRedirect;
+						}
+					}]
+				});
+				
+				dialog.open();
+      } else {
+    		var dialog = new BootstrapDialog({
+					title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+					type: BootstrapDialog.TYPE_DANGER,
+					message: '<h3 style="text-align:center;">' + msgFailure + '</h3>',
+					buttons: [{
+						label: 'OK',
+						action: function(dialogRef){
+              dialogRef.close();
+            }
+					}]
+				});
+				
+				dialog.open();
+
+    		console.log(results.errors);
+    	}
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      var dialog = new BootstrapDialog({
+				title: '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Error',
+				type: BootstrapDialog.TYPE_DANGER,
+				message: 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown,
+				buttons: [{
+					label: 'OK',
+					action: function(dialogRef){
+            dialogRef.close();
+          }
+				}]
+			});
+			
+			dialog.open();
+    }
   });
 
 };

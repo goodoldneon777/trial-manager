@@ -60,14 +60,14 @@ m_info.parse = function() {
 	var info = {};
 	var trialSeq = getURLVariable('trialseq');
 	var groupSeq = getURLVariable('groupseq');
-	var pageType = '';
+	var pageType = getURLVariable('type');
 
 	if (trialSeq) {
 		pageType = 'trial';
 	} else if (groupSeq) {
 		pageType = 'group';
-	} else {
-		pageType = getURLVariable('type');
+	} else if (!pageType) {
+		pageType = 'trial';
 	}
 	
 

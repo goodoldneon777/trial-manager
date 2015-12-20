@@ -15,12 +15,10 @@
 
 
 		$sql = "
-			select a.trial_seq as seq, a.trial_name as name, b.unit, a.trial_start_dt as start_dt, a.trial_end_dt as end_dt
+			select trial_seq as seq, trial_name as name, trial_unit as unit, trial_start_dt as start_dt, trial_end_dt as end_dt, delete_flag
 			from trial_group_child a
-			inner join trial b
-				on a.trial_seq = b.trial_seq
-			where a.group_seq = " . $seq . " 
-			order by a.trial_end_dt desc
+			where group_seq = " . $seq . " 
+			order by trial_end_dt desc
 			";
 
 
@@ -51,8 +49,8 @@
 		      	"<tr class=\"seq-" . $seq . "\"> \n" .
 		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a></td> \n" .
 		      	"  <td>" . $unit . "</td> \n" .
-		      	"  <td>" . date_format(date_create($start), "m/d/Y") . "</td> \n" .
-		      	"  <td>" . date_format(date_create($end), "m/d/Y") . "</td> \n" .
+		      	"  <td>" . date_format(date_create($start), "n/j/Y") . "</td> \n" .
+		      	"  <td>" . date_format(date_create($end), "n/j/Y") . "</td> \n" .
 		      	"  <td class=\"actions hidden-xs\"> \n" .
 		      	"    <a href=\"" . WEB_ROOT . "\\comment?trialseq=" . $seq . "\">Comment</a> \n" .
 		      	"  </td> \n" .
@@ -62,8 +60,8 @@
 		      	"<tr class=\"seq-" . $seq . " foo\"> \n" .
 		      	"  <td><a href=\"" . WEB_ROOT . "\\view?trialseq=" . $seq . "\">" . $name . "</a> [" . $seq . "]</td> \n" .
 		      	"  <td>" . $unit . "</td> \n" .
-		      	"  <td>" . date_format(date_create($start), "m/d/Y") . "</td> \n" .
-		      	"  <td>" . date_format(date_create($end), "m/d/Y") . "</td> \n" .
+		      	"  <td>" . date_format(date_create($start), "n/j/Y") . "</td> \n" .
+		      	"  <td>" . date_format(date_create($end), "n/j/Y") . "</td> \n" .
 		      	"  <td class=\"actions\"> \n" .
 		      	"      <a href=\"javascript: void(0)\" class=\"remove\" data-toggle=\"tooltip\" title=\"Only unlinks the trial. Doesn't delete it from the database.\">Remove</a> \n" .
 		      	"  </td> \n" .

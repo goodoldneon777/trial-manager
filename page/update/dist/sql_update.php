@@ -189,6 +189,7 @@
 			"update trial_group_child \n" .
 			"set \n" .
 			"  trial_name = " . $info->name . ", \n" .
+			"  trial_unit = " . $info->unit . ", \n" .
 			"  trial_start_dt = " . $info->startDate . ", \n" .
 			"  trial_end_dt = " . $info->endDate . " \n" .
 			"where trial_seq = " . $seq . " \n";
@@ -223,18 +224,6 @@
 		"  comment_general = " . $info->otherInfoText . ", \n" .
 		"  comment_conclusion = " . $info->conclusionText . " \n" .
 		"where group_seq = " . $seq . "; \n\n";
-
-		if (!$conn->query($sql)) {
-		  $errors[] = $conn->error;
-		}
-
-		$debugSQL .= $sql;
-
-
-
-		$sql =
-			"delete from trial_group_child \n" .
-			"where group_seq = " . $seq . "; \n\n";
 
 		if (!$conn->query($sql)) {
 		  $errors[] = $conn->error;
@@ -328,10 +317,38 @@
 
 
 
+		$trialSeqStr = "";
+		if (count($childTrialList) > 0) {
+			$trialSeqStr = "(";
+			for ($i = 0; $i <= count($childTrialList) - 1; $i++) {
+				if ($i > 0) {
+					$trialSeqStr .= ", ";
+				}
+				$trialSeqStr .= $childTrialList[$i];
+			}
+			$trialSeqStr .= ")";
+		}
+
+		$sql =
+			"delete from trial_group_child \n" .
+			"where group_seq = " . $seq;
+		if ($trialSeqStr !== "") {
+			$sql .= "\n  and trial_seq not in " . $trialSeqStr;
+		}
+		$sql .= "; \n\n";
+
+		if (!$conn->query($sql)) {
+		  $errors[] = $conn->error;
+		}
+
+		$debugSQL .= $sql;
+
+
+
 		if (count($childTrialList) > 0) {
 			$sql = 
 		  	"insert into trial_group_child ( \n" .
-				"  group_seq, group_name, group_start_dt, group_end_dt, trial_seq, trial_name, trial_start_dt, trial_end_dt \n" .
+				"  group_seq, group_name, group_start_dt, group_end_dt, trial_seq, trial_name, trial_unit, trial_start_dt, trial_end_dt \n" .
 				") \n";
 
 		  for ($i = 0; $i <= count($childTrialList) - 1; $i++) {
@@ -345,12 +362,23 @@
 					$info->name . " as group_name, " .
 					$info->startDate . " as group_start_dt, " .
 					$info->endDate . " as group_end_dt, " .
-					"trial_seq, " .
-					"name as trial_name, " .
-					"start_dt as trial_start_dt, " .
-					"end_dt as trial_end_dt \n" .
+					"trial.trial_seq, " .
+					"trial.name as trial_name, " .
+					"trial.unit as trial_unit, " .
+					"trial.start_dt as trial_start_dt, " .
+					"trial.end_dt as trial_end_dt \n" .
 					"from trial \n" .
-					"where trial_seq = " . $childTrialList[$i];
+					"left outer join trial_group_child \n" .
+					"  on trial.trial_seq = trial_group_child.trial_seq \n" .
+					"where trial.trial_seq = " . $childTrialList[$i];
+					if ($trialSeqStr !== "") {
+						$sql .= 
+							" \n" .
+							"  and ( \n" .
+							"    trial.trial_seq not in " . $trialSeqStr . " \n" .
+							"    or trial_group_child.trial_seq is null \n" .
+							"  )";
+					}
 		  }
 
 		  $sql .= "; \n\n";
