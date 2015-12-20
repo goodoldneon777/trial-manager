@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 14, 2015 at 11:13 PM
+-- Generation Time: Dec 20, 2015 at 11:56 PM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -28,13 +28,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `trial` (
   `trial_seq` int(11) NOT NULL,
-  `trial_name` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `start_dt` datetime NOT NULL,
   `end_dt` datetime NOT NULL,
   `owner` varchar(15) NOT NULL,
   `proc_chg_num` varchar(15) DEFAULT NULL,
   `twi_num` varchar(15) DEFAULT NULL,
-  `unit` text,
+  `unit` varchar(20) DEFAULT NULL,
   `goal_type` varchar(20) DEFAULT NULL,
   `change_type` varchar(20) DEFAULT NULL,
   `bop_vsl` tinyint(4) DEFAULT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE `trial_group` (
   `start_dt` datetime NOT NULL,
   `end_dt` datetime NOT NULL,
   `owner` varchar(15) NOT NULL,
-  `unit` text,
+  `unit` varchar(20) DEFAULT NULL,
   `goal_type` varchar(20) DEFAULT NULL,
   `change_type` varchar(20) DEFAULT NULL,
   `bop_vsl` tinyint(4) DEFAULT NULL,
@@ -104,8 +104,10 @@ CREATE TABLE `trial_group_child` (
   `group_start_dt` datetime DEFAULT NULL,
   `group_end_dt` datetime DEFAULT NULL,
   `trial_name` varchar(100) DEFAULT NULL,
+  `trial_unit` varchar(20) NOT NULL,
   `trial_start_dt` datetime DEFAULT NULL,
   `trial_end_dt` datetime DEFAULT NULL,
+  `deleted_flag` int(11) NOT NULL DEFAULT '0',
   `comment` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -176,7 +178,8 @@ ALTER TABLE `trial_group_child`
 -- Indexes for table `trial_group_comment`
 --
 ALTER TABLE `trial_group_comment`
-  ADD PRIMARY KEY (`group_seq`,`comment_seq`);
+  ADD PRIMARY KEY (`group_seq`,`comment_seq`),
+  ADD KEY `comment_seq` (`comment_seq`);
 
 --
 -- Indexes for table `trial_ht`

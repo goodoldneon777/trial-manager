@@ -3,7 +3,7 @@ SetEnv userWR "trial_mgr_wr"
 SetEnv passWR "womanofsteel"
 SetEnv userRO "trial_mgr_ro"
 SetEnv passRo "manofsteel"
-SetEnv db "trial_mgr_alpha"
+SetEnv db "trial_mgr"
 
 
 
