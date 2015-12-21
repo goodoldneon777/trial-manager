@@ -2,155 +2,176 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
-    // Project configuration
+    //Project configuration
     pkg: grunt.file.readJSON('package.json'),
 
 
-    // Delete old concat Sass file
+
+    //Clean
     clean : {
-      sass: ['sass/dist/style.scss', 'css/dist/*', 'dist/css/dist/*'],
-      js: ['js/dist/*.min.js', 'dist/js/dist/*'],
-      php: ['php/dist/*.php', 'dist/*.php', 'dist/php/dist/*'],
-      plugin: ['dist/plugin/*']
+      css: [
+        'css/dist/*.css',
+        'module/*/dist/*.css',
+        'page/*/dist/*.css'
+      ],
+      sass: [
+        'css/dist/*.scss'
+      ],
+      js: [
+        'js/dist/*.min.js',
+        'module/*/dist/*.min.js',
+        'page/*/dist/*.min.js'
+      ],
+      php: [
+        'module/*/dist/*.php',
+        'page/*/dist/*.php'
+      ],
+      dist: [
+        'dist/**/*'
+      ]
     },
 
-    // Concat Sass
+
+
+    //Concat Sass
     concat: {
       sass: {
         src: [
-          'sass/src/*.scss',
+          'css/src/*.scss',
         ],
-        dest: 'sass/dist/style.scss',
+        dest: 'css/dist/style.scss'
       }
     },
 
-    // Compile Sass
+
+
+    //Compile Sass
     sass: {
       options: {
         sourcemap: 'none',
         sourceComments: false
       },
-      dist: {
+      main: {
         files: {
-          'css/dist/style.css': 'sass/dist/style.scss'
+          'css/dist/style.css': 'css/dist/style.scss'
         }
       },
-      modules: {
-        files: grunt.file.expandMapping(['module/**/*.scss'], 'module/', {
-          rename: function(destBase, destPath) {
-            var dir = destPath.substring(0, destPath.search('src')) + 'dist';
-            var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
-            var file = file.replace('.scss', '.css');
-            destPath = dir + file;
-            return destPath;
-          }
-        })
-      },
-      pages: {
-        files: grunt.file.expandMapping(['page/**/*.scss'], 'page/', {
-          rename: function(destBase, destPath) {
-            var dir = destPath.substring(0, destPath.search('src')) + 'dist';
-            var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
-            var file = file.replace('.scss', '.css');
-            destPath = dir + file;
-            return destPath;
-          }
-        })
-      }
-    },
-
-    // Minify CSS
-    cssmin: {
-      dist: {
-        files: {
-           'css/dist/style.min.css': 'css/dist/style.css'
-        }
-      }
-    },
-
-    // Uglify JS
-    uglify: {
       other: {
-        src: 'js/src/**/*.js',  // source files mask
+        files: grunt.file.expandMapping(['module/*/src/*.scss', 'page/*/src/*.scss'], '', {
+          rename: function(destBase, destPath) {
+            var dir = destPath.substring(0, destPath.search('src')) + 'dist';
+            var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
+            var file = file.replace('.scss', '.css');
+            destPath = dir + file;
+            return destPath;
+          }
+        })
+      }
+    },
+
+
+
+    //Uglify JS
+    uglify: {
+      main: {
+        src: ['js/src/*.js', '!js/src/global_var.js'],  // source files mask
         dest: 'js/dist/',    // destination folder
         expand: true,    // allow dynamic building
         flatten: true,   // remove all unnecessary nesting
         ext: '.min.js'   // replace .js to .min.js
       },
-      modules: {
-        files: grunt.file.expandMapping(['module/**/*.js', '!module/**/*.min.js'], 'module/', {
-            rename: function(destBase, destPath) {
-                var dir = destPath.substring(0, destPath.search('src')) + 'dist';
-                var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
-                var file = file.replace('.js', '.min.js');
-                destPath = dir + file;
-                return destPath;
-            }
-        })
-      },
-      pages: {
-        files: grunt.file.expandMapping(['page/**/*.js', '!page/**/*.min.js'], 'page/', {
-            rename: function(destBase, destPath) {
-                var dir = destPath.substring(0, destPath.search('src')) + 'dist';
-                var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
-                var file = file.replace('.js', '.min.js');
-                destPath = dir + file;
-                return destPath;
-            }
+      other: {
+        files: grunt.file.expandMapping(['module/*/src/*.js', 'page/*/src/*.js'], '', {
+          rename: function(destBase, destPath) {
+            var dir = destPath.substring(0, destPath.search('src')) + 'dist';
+            var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
+            var file = file.replace('.js', '.min.js');
+            destPath = dir + file;
+            return destPath;
+          }
         })
       }
     },
 
+
+
+    //Copy files
     copy: {
-      css: {
-        files: [
-          {expand: true, flatten: true, src: ['css/dist/*'], dest: 'dist/css/dist/', filter: 'isFile'}
-        ]
-      },
       js: {
         files: [
-          {expand: true, flatten: true, src: ['js/dist/*'], dest: 'dist/js/dist/', filter: 'isFile'}
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              'js/src/global_var.js'
+            ],
+            dest: 'js/dist/'
+          }
         ]
       },
       php: {
-        files: [
-          {expand: true, flatten: true, src: 'php/src/**/*.php', dest: 'php/dist/'},
-          {expand: true, flatten: true, src: 'php/src/**/*.php', dest: 'dist/php/dist/'},
-          {expand: true, flatten: true, src: ['*.php'], dest: 'dist/', filter: 'isFile'}
-        ]
+        files: grunt.file.expandMapping(['module/**/src/*.php', 'page/**/src/*.php'], '', {
+          rename: function(destBase, destPath) {
+            var dir = destPath.substring(0, destPath.search('src')) + 'dist';
+            var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
+            destPath = dir + file;
+            return destPath;
+          }
+        })
       },
-      plugin: {
+      dist: {
         files: [
-          {expand: true, flatten: false, src: 'plugin/**/*', dest: 'dist/'}
+          {
+            expand: true,
+            flatten: false,
+            src: [
+              '.htaccess',
+              'config.php',
+              'plugin/*',
+              'css/dist/*',
+              'js/dist/*',
+              'module/*/dist/*',
+              'page/*/dist/*'
+            ],
+            dest: 'dist/'
+          }
         ]
       }
     },
 
+
+
     // Watch and build
     watch: {
-      sass: {
+      css: {
         files: [
-          'sass/src/**/*.scss',
-          'module/**/*.scss', '!module/**/*.css',
-          'page/**/*.scss', '!page/**/*.css'
+          'css/src/*.scss',
+          'module/*/src/*.scss',
+          'page/*/src/*.scss'
         ],
-        tasks: ['compileSass']
+        tasks: ['compileCSS']
       },
       js: {
         files: [
-          'js/src/**/*.js',
-          'module/**/*.js', '!module/**/*.min.js',
-          'page/**/*.js', '!page/**/*.min.js'
+          'js/src/*.js',
+          'module/*/src/*.js',
+          'page/*/src/*.js'
         ],
         tasks: ['compileJS']
       },
       php: {
-        files: ['*.php', 'php/src/**/*.php'],
+        files: [
+          'module/*/src/*.php',
+          'page/*/src/*.php'
+        ],
         tasks: ['compilePHP']
       }
     }
 
+
   });
+
+
 
   // Load dependencies
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -162,11 +183,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
 
 
+
   // Run tasks
-  grunt.registerTask('compileSass', ['clean:sass', 'concat:sass', 'sass', 'cssmin']);
-  grunt.registerTask('compileJS', ['uglify']);
+  grunt.registerTask('compileCSS', ['clean:css', 'clean:sass', 'concat:sass', 'sass', 'clean:sass']);
+  grunt.registerTask('compileJS', ['clean:js', 'uglify', 'copy:js']);
   grunt.registerTask('compilePHP', ['clean:php', 'copy:php']);
-  grunt.registerTask('compilePlugin', ['clean:plugin', 'copy:plugin']);
-  grunt.registerTask('compileAll', ['compileSass', 'compileJS', 'compilePHP', 'compilePlugin']);
+  grunt.registerTask('compileAll', ['compileCSS', 'compileJS', 'compilePHP']);
+  grunt.registerTask('compileDist', ['clean:dist', 'copy:dist']);
 
 };
+
+
+

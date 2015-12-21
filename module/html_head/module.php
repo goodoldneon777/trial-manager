@@ -19,6 +19,7 @@
 
 <script src="<?php echo WEB_ROOT . "/plugin/moment/moment.min.js"; ?>"></script>
 
+<script src="<?php echo WEB_ROOT . "/js/dist/global_var.js"; ?>"></script>
 <script src="<?php echo WEB_ROOT . "/js/dist/extension.min.js"; ?>"></script>
 
 

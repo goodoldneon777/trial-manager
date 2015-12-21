@@ -1,13 +1,3 @@
-//Global variable object:
-var gVar = {
-  root: '/trial-mgr'
-};
-
-
-
-
-//Extension functions:
-
 function isValidDate(str) {
   // Dependencies: momentjs.
   var d = moment(str);
