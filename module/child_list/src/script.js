@@ -94,7 +94,6 @@ m_child_list.addTrialDialog = function() {
 
 	function addTrialsClick() {
 		var msg = '';
-		var success = null;
 
   	newTrial = m_search_trial_add.parse();
 
@@ -102,10 +101,7 @@ m_child_list.addTrialDialog = function() {
   		msg = '<h3 style="text-align:center;">No trials have been selected.<h3>';
   		dialogWarn(msg);
   	} else {
-	  	success = m_child_list.appendTable(newTrial);
-	  	if (success) {	//Only uncheck trials if child list append was successful.
-	  		$('.m_search_trial_add input[type=checkbox]').removeAttr('checked');	//Uncheck trials in search_trial_add module.
-	  	}
+  		m_child_list.appendTable(newTrial);
 	  }
 	}
 }
@@ -126,17 +122,15 @@ m_child_list.appendTable = function(newTrial) {
     success: function(results) {
     	if (results.status === 'success') {
     		addTrial(results.html);
-    		return true;
+    		$('.m_search_trial_add input[type=checkbox]').removeAttr('checked');	//Uncheck trials in search_trial_add module.
     	} else {
     		msg = '<h3 style="text-align:center;">There was an error. Trial(s) not added to the group.</h3>';
   			dialogError(msg);
-  			return false;
     	}
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
 			msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;
   		dialogError(msg);
-  		return false;
     }   
   });
 
@@ -148,6 +142,8 @@ m_child_list.appendTable = function(newTrial) {
 		} else {
 			$('.m_child_list .childTable tbody').html(html);
 		}
+
+
 	}
 
 }
