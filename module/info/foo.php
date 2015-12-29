@@ -1,15 +1,6 @@
 <?php
 
 	function create_info($writeType, $pageType, $seq = null) {
-		include(SERVER_ROOT . '/module/info/dist/c_unit.php');
-		include(SERVER_ROOT . '/module/info/dist/c_goalType.php');
-		include(SERVER_ROOT . '/module/info/dist/c_changeType.php');
-		include(SERVER_ROOT . '/module/info/dist/c_bopVsl.php');
-		include(SERVER_ROOT . '/module/info/dist/c_degasVsl.php');
-		include(SERVER_ROOT . '/module/info/dist/c_argonNum.php');
-		include(SERVER_ROOT . '/module/info/dist/c_casterNum.php');
-		include(SERVER_ROOT . '/module/info/dist/c_strandNum.php');
-
 		$server = getenv('server');
 		$userWR = getenv('userWR');
 		$passWR = getenv('passWR');
@@ -252,7 +243,18 @@
 	    	'<input class="form-control" type="text" value="' . $endDate . '">' .
 	    	'<span></span>';
 
-		  $html_unit = create_unit($pageType, $seq);	//See dist/c_unit.php
+			$html_unit = 
+				'<span class="elem-title required">Unit</span>' .
+			  '<select class="form-control" data-toggle="tooltip" title="Area where this will be performed." text="BOP">' .
+			  '  <option></option>' .
+			  '  <option' . ( ($unit === 'BF') ? " selected" : "" ) . '>BF</option>' .
+	 			'  <option' . ( ($unit === 'BOP') ? " selected" : "" ) . '>BOP</option>' .
+				'  <option' . ( ($unit === 'Degas') ? " selected" : "" ) . '>Degas</option>' .
+				'  <option' . ( ($unit === 'Argon') ? " selected" : "" ) . '>Argon</option>' .
+				'  <option' . ( ($unit === 'LMF') ? " selected" : "" ) . '>LMF</option>' .
+				'  <option' . ( ($unit === 'Caster') ? " selected" : "" ) . '>Caster</option>' .
+				'  <option' . ( ($unit === 'Other') ? " selected" : "" ) . '>Other</option>' . 
+			  '</select>';
 
 		  $html_owner =
 		  	'<span class="elem-title required">Owner</span>' .
@@ -270,19 +272,74 @@
 			  '<input class="form-control" type="text" value="' . $twi . '">' .
 			  '<span></span>';
 
-		  $html_goalType = create_goalType($pageType, $seq);	//See dist/c_goalType.php
+		  $html_goalType =
+		  	'<span class="elem-title">Goal Type</span>' .
+		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this trying to improve?">' .
+		    '  <option></option>' .
+		    '  <option' . ( ($goalType === 'Cost') ? " selected" : "" ) . '>Cost</option>' .
+		    '  <option' . ( ($goalType === 'Process') ? " selected" : "" ) . '>Process</option>' .
+		    '  <option' . ( ($goalType === 'Quality') ? " selected" : "" ) . '>Quality</option>' .
+		    '  <option' . ( ($goalType === 'Safety') ? " selected" : "" ) . '>Safety</option>' .
+		    '  <option' . ( ($goalType === 'Other') ? " selected" : "" ) . '>Other</option>' .
+		  	'</select>';
 
-		  $html_changeType = create_changeType($pageType, $seq);	//See dist/c_changeType.php
+		  $html_changeType =
+		  	'<span class="elem-title">Change Type</span>' .
+		  	'<select class="form-control" data-toggle="tooltip" title="In general, what is this changing?">' .
+		    '  <option></option>' .
+		    '  <option' . ( ($changeType === 'Equipment') ? " selected" : "" ) . '>Equipment</option>' .
+		    '  <option' . ( ($changeType === 'Material') ? " selected" : "" ) . '>Material</option>' .
+		    '  <option' . ( ($changeType === 'Model') ? " selected" : "" ) . '>Model</option>' .
+		    '  <option' . ( ($changeType === 'Procedure') ? " selected" : "" ) . '>Procedure</option>' .
+		    '  <option' . ( ($changeType === 'Other') ? " selected" : "" ) . '>Other</option>' .
+		  	'</select>';
 
-		  $html_bopVsl = create_bopVsl($pageType, $seq);	//See dist/c_bopVsl.php
+			$html_bopVsl =
+				'<span class="elem-title hidden-xs">BOP Vsl</span>' .
+	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">BOP Vsl</span>' .
+    		'<select class="form-control" data-toggle="tooltip" title="Will this occur at only one BOP vessel?">' .
+		    '  <option></option>' .
+		    '  <option' . ( ($bopVsl === '25') ? " selected" : "" ) . '>25</option>' .
+		    '  <option' . ( ($bopVsl === '26') ? " selected" : "" ) . '>26</option>' .
+		  	'</select>';
 
-		  $html_degasVsl = create_degasVsl($pageType, $seq);	//See dist/c_degasVsl.php
+    	$html_degasVsl =
+    		'<span class="elem-title hidden-xs">Degas Vsl</span>' .
+	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">RH Vsl</span>' .
+    		'<select class="form-control" data-toggle="tooltip" title="Will this occur at only one Degasser vessel?">' .
+		    '  <option></option>' .
+		    '  <option' . ( ($degasVsl === '1') ? " selected" : "" ) . '>1</option>' .
+		    '  <option' . ( ($degasVsl === '2') ? " selected" : "" ) . '>2</option>' .
+		  	'</select>';
 
-		  $html_argonNum = create_argonNum($pageType, $seq);	//See dist/c_argonNum.php
+    	$html_argonNum =
+    		'<span class="elem-title hidden-xs">Argon #</span>' .
+	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">Argon</span>' .
+    		'<select class="form-control" data-toggle="tooltip" title="Will this occur at only one Argon station?">' .
+		    '  <option></option>' .
+		    '  <option' . ( ($argonNum === '1') ? " selected" : "" ) . '>1</option>' .
+		    '  <option' . ( ($argonNum === '2') ? " selected" : "" ) . '>2</option>' .
+		  	'</select>';
 
-		  $html_casterNum = create_casterNum($pageType, $seq);	//See dist/c_casterNum.php
+    	$html_casterNum =
+    		'<span class="elem-title hidden-xs">Caster #</span>' .
+			  '<span class="elem-title visible-xs" style="font-size:0.9em;">Caster</span>' .
+		    '<select class="form-control" data-toggle="tooltip" title="Will this occur at only one Caster?">' .
+		    '  <option></option>' .
+		    '  <option' . ( ($casterNum === '1') ? " selected" : "" ) . '>1</option>' .
+		    '  <option' . ( ($casterNum === '2') ? " selected" : "" ) . '>2</option>' .
+		  	'</select>';
 
-		  $html_strandNum = create_strandNum($pageType, $seq);	//See dist/c_strandNum.php
+		  $html_strandNum =
+		  	'<span class="elem-title hidden-xs">Strand #</span>' .
+	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">Strand</span>' .
+    		'<select class="form-control" data-toggle="tooltip" title="Will this occur at only one Caster strand?">' .
+		    '  <option></option>' .
+		    '  <option' . ( ($strandNum === '1') ? " selected" : "" ) . '>1</option>' .
+		    '  <option' . ( ($strandNum === '2') ? " selected" : "" ) . '>2</option>' .
+		    '  <option' . ( ($strandNum === '3') ? " selected" : "" ) . '>3</option>' .
+		    '  <option' . ( ($strandNum === '4') ? " selected" : "" ) . '>4</option>' .
+		  	'</select>';
 
     	$html_goalText =
     		'<span class="elem-title">Goals</span>' .

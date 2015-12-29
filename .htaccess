@@ -26,7 +26,6 @@ RewriteRule ^$ page/recent/page.php [NC,L,QSA]
 
 
 
-
 #For MAMP:
 php_value auto_prepend_file "/Applications/MAMP/htdocs/trial-mgr/config.php"
 
