@@ -19,7 +19,7 @@
 
 
 	$sql = 
-		"select nfame, unit, start_dt, end_dt, trial_seq as seq \n" .
+		"select name, unit, start_dt, end_dt, trial_seq as seq \n" .
 		"from trial \n" .
 		"where trial_seq in (" . $seqCSV . ") \n" .
 		"order by start_dt desc \n";
