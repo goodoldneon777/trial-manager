@@ -107,14 +107,26 @@ function getSeqFromAttrClass(attrClass) {
   return obj;
 }
 
+// var arr = [
+//   [1, 15],
+//   [2, 15],
+//   [1, 14],
+//   [1, 15]
+// ];
+
+// // var arr = [1, 2, 1];
+
+// console.log(uniqueArr(arr));
+
+// function uniqueArr(arr) {
+//   'use strict';
+//   return $.grep(arr, function(el, index) {
+//     return index === $.inArray(el, arr);
+//   });
+// }
 
 
-function uniqueArr(array) {
-  'use strict';
-  return $.grep(array, function(el, index) {
-    return index === $.inArray(el, array);
-  });
-}
+
 
 
 
@@ -141,3 +153,59 @@ function dialogError(msg) {
 }
 
 
+
+function uniqueArr(arr, colArr) {
+  'use strict';
+  var arr = arr.slice();
+  if (typeof colArr === "undefined") {  //If colArr wasn't specified.
+    colArr = null;  //colArr an array of columns. These are the columns that will be inspected for duplicates. Any columns not in this array will not be considered when looking for duplicates.
+  }
+  var testArr = [];
+  var testRow = [];
+  
+
+
+  if (colArr !== null) {  //If the user specified columns.
+    //Build the "test" array which will be used to identify duplicates.
+    $.each(arr, function(indexRow, arrRow) {  //Loop thru rows in arr.
+      testRow = []; //Initialize array that will temporarily hold each row for testArr.
+
+      $.each(arrRow, function(indexCol, valueCell) {  //Loop thru columns in the current row of arr.
+        if ($.inArray(indexCol, colArr) >= 0) { //If the current column is specified in colArr.
+          testRow.push(valueCell);  //Push the current cell value into testRow.
+        }
+      });
+
+      if (testRow.length > 0) { //If testRow contains at 1 value.
+        testArr.push(testRow);  //Push testRow into testArr.
+      }
+    });
+  } else {  //If the user didn't specify columns.
+    testArr = arr.slice();  //Test array is the same as the "real" (passed in) array.
+  }
+
+
+  //Loop thru the test array looking for duplicates. Will remove any duplcates.
+  for(var index = 0; index < testArr.length; index++) { //Must be a 'for' loop insead of 'each' since there will be splicing.
+    var row = testArr[index]; //Current row.
+    var testArrRemaining = testArr.slice(index + 1, testArr.length);  //Everything in the test array AFTER the current element.
+    var unique = true;  //Initialize the "unique" variable. This will be changed to false if a duplicate is found.
+
+    $.each(testArrRemaining, function(indexSub, rowSub) { //Loop thru the remaining rows in the test array.
+      if (JSON.stringify(row) === JSON.stringify(rowSub)) { //If the current element (in the parent loop) matches an element in the rest of the test array.
+        unique = false;
+      }
+    });
+
+
+    if (unique === false) { //If a duplicate was found.
+      testArr.splice(index, 1); //Remove that index in the test array.
+      arr.splice(index, 1); //Remove that index in the "real" (passed in) array.
+      index--;  //Increment index down since an element was spliced.
+    }
+
+  };
+
+
+  return arr;
+}
