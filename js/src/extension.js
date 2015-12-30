@@ -107,27 +107,6 @@ function getSeqFromAttrClass(attrClass) {
   return obj;
 }
 
-// var arr = [
-//   [1, 15],
-//   [2, 15],
-//   [1, 14],
-//   [1, 15]
-// ];
-
-// // var arr = [1, 2, 1];
-
-// console.log(uniqueArr(arr));
-
-// function uniqueArr(arr) {
-//   'use strict';
-//   return $.grep(arr, function(el, index) {
-//     return index === $.inArray(el, arr);
-//   });
-// }
-
-
-
-
 
 
 function dialogWarn(msg) {

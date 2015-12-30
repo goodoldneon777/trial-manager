@@ -102,44 +102,54 @@ m_heat_data.validate = function() {
   var tap_yr = null;
   var emptyRow = null;
 
+  heatData = m_heat_data.parse();
 
-  // Loop thru each row in the table.
+
+  //Test for missing required fields.
   $.each(heatData, function( index, row ) {
-    ht_num = row[0];
-    tap_yr = row[1];
-    emptyRow = true;  //Initialize
+    ht_num = row[1];
+    tap_yr = row[2];
 
-    // If ht_num is only whitespace, make it null.
-    if ( ifNull(ht_num, '').replace(/ /g,'').length === 0 ) {
+    if (ht_num === "NULL") {
       ht_num = null;
     }
-    // If tap_yr is only whitespace, make it null.
-    if ( ifNull(tap_yr, '').replace(/ /g,'').length === 0 ) {
+
+    if (tap_yr === "NULL") {
       tap_yr = null;
     }
-    
 
-    // Loop thru each cell in the row.
-    $.each(row, function( index, value ) {
-      // If the cell is only whitespace.
-      if ( ifNull(value, '').replace(/ /g,'').length === 0 ) {
-        value = null;
-      }
+    // If either required column is null.
+    if ( (ht_num === null)  ||  (tap_yr === null) ) {
+      errorText += "<li>'Heat #' and 'Tap Year' are required on all used rows in the 'Trial Data' table.</li>";
 
-      // If there is a value in the cell, flag row as not empty.
-      if ( value !== null ) {
-        emptyRow = false;
-      }
-    });
+      return false; //Exit the 'each' loop. Most be 'return false' for the loop exit to work.
+    }
+  });
 
-    // If the row isn't empty.
-    if (!emptyRow) {
-      // If either required column is null.
-      if ( (ht_num === null)  ||  (tap_yr === null) ) {
-        errorText = "<li>'Heat #' and 'Tap Year' are required on all used rows in the heat data table.</li>";
+
+  //Test for improper year format.
+  $.each(heatData, function( index, row ) {
+    tap_yr = row[2];
+    tap_yr = tap_yr.replace(/'/g,''); //Remove single quotes;
+    if (tap_yr === "NULL") {  //Convert "NULL" string to null value.
+      tap_yr = null;
+    }
+
+
+    if (tap_yr !== null) {
+      if (tap_yr.length != 2) {
+        errorText += "<li>'Tap Year' must be in 'YY' format (e.g. 15 for 2015) in the 'Trial Data' table.</li>";
+
+        return false; //Exit the 'each' loop. Most be 'return false' for the loop exit to work.
       }
     }
   });
+
+
+  //Test for duplicates.
+  if (heatData.length !== uniqueArr(heatData, [1, 2]).length) {
+    errorText += "<li>Duplicate heats are not allowed in 'Trial Data' table.</li>";
+  }
 
   return errorText;
 };
