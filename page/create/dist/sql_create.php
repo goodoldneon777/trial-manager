@@ -28,7 +28,7 @@
 
 		$sql = 
 			"insert into trial ( \n" .
-			"  name, owner, start_dt, end_dt, proc_chg_num, twi_num, unit, goal_type, change_type, bop_vsl, degas_vsl, argon_station, caster_num, strand_num, comment_goal, comment_monitor, comment_general, comment_conclusion \n" .
+			"  name, owner, start_dt, end_dt, proc_chg_num, twi_num, unit, goal_type, change_type, bop_vsl, degas_vsl, argon_station, caster_num, strand_num, comment_goal, comment_monitor, comment_general, comment_conclusion, insert_dt \n" .
 			") \n" .
 			"value (" .
 			$info->name . ", " .
@@ -48,7 +48,8 @@
 			$info->goalText . ", " .
 			$info->monitorText . ", " .
 			$info->otherInfoText . ", " .
-			$info->conclusionText .
+			$info->conclusionText . ", " .
+			"now() " .
 			" ); \n";
 
 		if (!$conn->query($sql)) {
@@ -108,7 +109,7 @@
 
 		$sql = 
 			"insert into trial_group ( \n" .
-			"  name, owner, start_dt, end_dt, unit, goal_type, change_type, bop_vsl, degas_vsl, argon_station, caster_num, strand_num, comment_goal, comment_monitor, comment_general, comment_conclusion \n" .
+			"  name, owner, start_dt, end_dt, unit, goal_type, change_type, bop_vsl, degas_vsl, argon_station, caster_num, strand_num, comment_goal, comment_monitor, comment_general, comment_conclusion, insert_dt \n" .
 			") \n" .
 			"value (" .
 			$info->name . ", " .
@@ -126,7 +127,8 @@
 			$info->goalText . ", " .
 			$info->monitorText . ", " .
 			$info->otherInfoText . ", " .
-			$info->conclusionText .
+			$info->conclusionText . ", " .
+			"now() " .
 			" ) \n";
 
 		if (!$conn->query($sql)) {

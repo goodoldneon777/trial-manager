@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 20, 2015 at 11:56 PM
+-- Generation Time: Jan 01, 2016 at 06:13 PM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -19,6 +19,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `trial_mgr`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `param_dropdown_options`
+--
+
+CREATE TABLE `param_dropdown_options` (
+  `name_id` varchar(100) NOT NULL,
+  `order_num` int(11) NOT NULL,
+  `option_value` varchar(100) NOT NULL,
+  `option_text` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `param_input`
+--
+
+CREATE TABLE `param_input` (
+  `name_id` varchar(100) NOT NULL,
+  `html_type` varchar(20) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `title_short` varchar(100) DEFAULT NULL,
+  `tooltip` varchar(200) DEFAULT NULL,
+  `tooltip_enable_flag` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -46,7 +74,7 @@ CREATE TABLE `trial` (
   `comment_monitor` text,
   `comment_general` text,
   `comment_conclusion` text,
-  `create_dt` datetime DEFAULT NULL,
+  `insert_dt` datetime DEFAULT NULL,
   `update_dt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -87,7 +115,7 @@ CREATE TABLE `trial_group` (
   `comment_monitor` text,
   `comment_general` text,
   `comment_conclusion` text,
-  `create_dt` datetime DEFAULT NULL,
+  `insert_dt` datetime DEFAULT NULL,
   `update_dt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -149,6 +177,18 @@ CREATE TABLE `trial_ht` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `param_dropdown_options`
+--
+ALTER TABLE `param_dropdown_options`
+  ADD PRIMARY KEY (`name_id`,`order_num`,`option_value`,`option_text`);
+
+--
+-- Indexes for table `param_input`
+--
+ALTER TABLE `param_input`
+  ADD PRIMARY KEY (`name_id`);
 
 --
 -- Indexes for table `trial`

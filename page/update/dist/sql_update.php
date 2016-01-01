@@ -49,7 +49,8 @@
 			"  comment_goal = " . $info->goalText . ", \n" .
 			"  comment_monitor = " . $info->monitorText . ", \n" .
 			"  comment_general = " . $info->otherInfoText . ", \n" .
-			"  comment_conclusion = " . $info->conclusionText . " \n" .
+			"  comment_conclusion = " . $info->conclusionText . ", \n" .
+			"  update_dt = now() \n" .
 			"where trial_seq = " . $seq . "; \n";
 
 		if (!$conn->query($sql)) {
@@ -205,25 +206,26 @@
 
 
 		$sql = 
-		"update trial_group \n" .
-		"set  \n" .
-		"  name = " . $info->name . ", \n" .
-		"  owner = " . $info->owner . ", \n" .
-		"  start_dt = " . $info->startDate . ", \n" .
-		"  end_dt = " . $info->endDate . ", \n" .
-		"  unit = " . $info->unit . ", \n" .
-		"  goal_type = " . $info->goalType . ", \n" .
-		"  change_type = " . $info->changeType . ", \n" .
-		"  bop_vsl = " . $info->bopVsl . ", \n" .
-		"  degas_vsl = " . $info->degasVsl . ", \n" .
-		"  argon_station = " . $info->argonNum . ", \n" .
-		"  caster_num = " . $info->casterNum . ", \n" .
-		"  strand_num = " . $info->strandNum . ", \n" .
-		"  comment_goal = " . $info->goalText . ", \n" .
-		"  comment_monitor = " . $info->monitorText . ", \n" .
-		"  comment_general = " . $info->otherInfoText . ", \n" .
-		"  comment_conclusion = " . $info->conclusionText . " \n" .
-		"where group_seq = " . $seq . "; \n\n";
+			"update trial_group \n" .
+			"set  \n" .
+			"  name = " . $info->name . ", \n" .
+			"  owner = " . $info->owner . ", \n" .
+			"  start_dt = " . $info->startDate . ", \n" .
+			"  end_dt = " . $info->endDate . ", \n" .
+			"  unit = " . $info->unit . ", \n" .
+			"  goal_type = " . $info->goalType . ", \n" .
+			"  change_type = " . $info->changeType . ", \n" .
+			"  bop_vsl = " . $info->bopVsl . ", \n" .
+			"  degas_vsl = " . $info->degasVsl . ", \n" .
+			"  argon_station = " . $info->argonNum . ", \n" .
+			"  caster_num = " . $info->casterNum . ", \n" .
+			"  strand_num = " . $info->strandNum . ", \n" .
+			"  comment_goal = " . $info->goalText . ", \n" .
+			"  comment_monitor = " . $info->monitorText . ", \n" .
+			"  comment_general = " . $info->otherInfoText . ", \n" .
+			"  comment_conclusion = " . $info->conclusionText . ", \n" .
+			"  update_dt = now() \n" .
+			"where group_seq = " . $seq . "; \n\n";
 
 		if (!$conn->query($sql)) {
 		  $errors[] = $conn->error;
