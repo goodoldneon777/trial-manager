@@ -40,8 +40,8 @@
 	if ($input->endDate != 'NULL') {
 		$whereStatement .= 
 			"  and ( \n" .
-			"    start_dt <= " . $input->endDate . " + interval 1 day \n" .
-			"    or end_dt <= " . $input->endDate . " + interval 1 day \n" .
+			"    start_dt < " . $input->endDate . " + interval 1 day \n" .
+			"    or end_dt < " . $input->endDate . " + interval 1 day \n" .
 			"  ) \n";
 		$whereStatementBlank = false;
 	}

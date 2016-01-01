@@ -84,7 +84,10 @@ module.exports = function(grunt) {
         }
       },
       other: {
-        files: grunt.file.expandMapping(['module/*/dist/*.css', 'page/*/dist/*.css'], '', {
+        files: grunt.file.expandMapping([
+          'module/*/dist/*.css', 'page/*/dist/*.css',
+          '!module/*/dist/*.min.css', '!page/*/dist/*.min.css'
+        ], '', {
           rename: function(destBase, destPath) {
             destPath = destPath.replace('.css', '.min.css');
             return destPath;

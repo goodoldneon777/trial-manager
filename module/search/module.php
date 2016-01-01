@@ -1,6 +1,9 @@
 <?php
 
 	function create_search($pageType) {
+		include(SERVER_ROOT . '/module/search/dist/c_createInput.php');
+
+
 		if ($pageType === 'trial') {
 			$module_class = "\"m_search panel panel-primary\"";
 			$module_title = "Search Trials";
@@ -10,6 +13,15 @@
 			$module_title = "Search Groups";
 			$html_submitBtn = '<button id="submit" type="button" class="btn btn-xlarge btn-success">Search Groups</button>';
 		}
+
+
+		$html_name = create_input('name');
+		$html_startDate = create_input('start_dt');
+		$html_endDate = create_input('end_dt');
+		$html_unit = create_input('unit');
+		$html_goalType = create_input('goal_type');
+		$html_changeType = create_input('change_type');
+
 		//Function continues...
 ?>
 
@@ -35,25 +47,19 @@
 
 				<div class="col-sm-6 col-xs-12 fullPad-sm halfPad-xs">
 				  <div class="name input-group">
-			    	<span class="elem-title">Name</span>
-			    	<input class="form-control" type="text" data-toggle="tooltip" title="Partial name search. For example, 'BOP FeP Addition' would show up if you enter 'FeP'.">
-			    	<span></span>
+			    	<?php echo $html_name; ?>
 				  </div>
 				</div>
 
 				<div class="col-sm-3 col-xs-6 fullPad-sm halfPad-xs">
 				  <div class="start-date input-group">
-			    	<span class="elem-title">Start Date</span>
-			    	<input class="form-control" type="text" data-toggle="tooltip" title="Anything that occurred on or after this date.">
-			    	<span></span>
+			    	<?php echo $html_startDate; ?>
 				  </div>
 				</div>
 
 				<div class="col-sm-3 col-xs-6 fullPad-sm halfPad-xs">
 				  <div class="end-date input-group">
-			    	<span class="elem-title">End Date</span>
-			    	<input class="form-control" type="text" data-toggle="tooltip" title="Anything that occurred on or before this date.">
-			    	<span></span>
+			    	<?php echo $html_endDate; ?>
 				  </div>
 				</div>
 
@@ -67,45 +73,19 @@
 
 				<div class="col-sm-4 col-xs-4 fullPad-sm halfPad-xs">
 				  <div class="unit input-group">
-					  <span class="elem-title">Unit</span>
-					  <select class="form-control">
-					    <option></option>
-					    <option>BF</option>
-					    <option>BOP</option>
-					    <option>Degas</option>
-					    <option>Argon</option>
-					    <option>LMF</option>
-					    <option>Caster</option>
-					    <option>Other</option>
-					  </select>
+					  <?php echo $html_unit; ?>
 					</div>
 				</div>
 
 				<div class="col-sm-4 col-xs-4 fullPad-sm halfPad-xs">
 				  <div class="goal-type input-group">
-					  <span class="elem-title">Goal Type</span>
-					  <select class="form-control">
-					    <option></option>
-					    <option>Cost</option>
-					    <option>Process</option>
-					    <option>Quality</option>
-					    <option>Safety</option>
-					    <option>Other</option>
-					  </select>
+					  <?php echo $html_goalType; ?>
 					</div>
 				</div>
 
 				<div class="col-sm-4 col-xs-4 fullPad-sm halfPad-xs">
 				  <div class="change-type input-group">
-					  <span class="elem-title">Change Type</span>
-					  <select class="form-control">
-					    <option></option>
-					    <option>Equipment</option>
-					    <option>Material</option>
-					    <option>Model</option>
-					    <option>Procedure</option>
-					    <option>Other</option>
-					  </select>
+					  <?php echo $html_changeType; ?>
 					</div>
 				</div>
 
