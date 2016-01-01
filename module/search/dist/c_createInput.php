@@ -19,7 +19,7 @@
 
 		//<<< Get input info.
 		$sql = "
-			select html_type, title, title_short, tooltip_search, tooltip_enable_flag
+			select html_type, title, title_short, tooltip_search
 			from param_input
 			where name_id = '" . $inputName . "'
 		";
@@ -30,7 +30,6 @@
 		$html_type = $row["html_type"];
 		$title = $row["title"];
 		$tooltip = $row["tooltip_search"];
-		$tooltip_enable_flag = $row["tooltip_enable_flag"];
 
 		if ($title_short === null) {
 			$title_short = $title;
@@ -42,7 +41,7 @@
 		//<<< Handle different types of write inputs.
 		if ($html_type === 'select') {	//Generate dropdown html.
 			$sql = "
-				select d.name_id, d.title, d.title_short, d.tooltip_search, o.order_num, o.option_value, o.option_text
+				select o.option_text
 				from param_input d
 				inner join param_dropdown_options o
 					on d.name_id = o.name_id

@@ -121,25 +121,25 @@
 		}
 
 
-		$html_name = create_option('name', $name, $writeType);
-		$html_startDate = create_option('start_dt', $startDate, $writeType);
-		$html_endDate = create_option('end_dt', $endDate, $writeType);
-	  $html_unit = create_option('unit', $unit, $writeType);
-		$html_owner = create_option('owner', $owner, $writeType);
-		$html_processChange = create_option('proc_chg_num', $processChange, $writeType);
-		$html_twi = create_option('twi_num', $twi, $writeType);
-	  $html_goalType = create_option('goal_type', $goalType, $writeType);
-	  $html_changeType = create_option('change_type', $changeType, $writeType);
-	  $html_bopVsl = create_option('bop_vsl', $bopVsl, $writeType);
-	  $html_degasVsl = create_option('degas_vsl', $degasVsl, $writeType);
-	  $html_argonNum = create_option('argon_num', $argonNum, $writeType);
-	  $html_casterNum = create_option('caster_num', $casterNum, $writeType);
-	  $html_strandNum = create_option('strand_num', $strandNum, $writeType);
-	  $html_strandNum = create_option('strand_num', $strandNum, $writeType);
-	  $html_goalText = create_option('comment_goal', $goalText, $writeType);
-	  $html_monitorText = create_option('comment_monitor', $monitorText, $writeType);
-	  $html_otherInfoText = create_option('comment_general', $otherInfoText, $writeType);
-	  $html_conclusionText = create_option('comment_conclusion', $conclusionText, $writeType);
+		$html_name = create_input('name', $name, $writeType);
+		$html_startDate = create_input('start_dt', $startDate, $writeType);
+		$html_endDate = create_input('end_dt', $endDate, $writeType);
+	  $html_unit = create_input('unit', $unit, $writeType);
+		$html_owner = create_input('owner', $owner, $writeType);
+		$html_processChange = create_input('proc_chg_num', $processChange, $writeType);
+		$html_twi = create_input('twi_num', $twi, $writeType);
+	  $html_goalType = create_input('goal_type', $goalType, $writeType);
+	  $html_changeType = create_input('change_type', $changeType, $writeType);
+	  $html_bopVsl = create_input('bop_vsl', $bopVsl, $writeType);
+	  $html_degasVsl = create_input('degas_vsl', $degasVsl, $writeType);
+	  $html_argonNum = create_input('argon_num', $argonNum, $writeType);
+	  $html_casterNum = create_input('caster_num', $casterNum, $writeType);
+	  $html_strandNum = create_input('strand_num', $strandNum, $writeType);
+	  $html_strandNum = create_input('strand_num', $strandNum, $writeType);
+	  $html_goalText = create_input('comment_goal', $goalText, $writeType);
+	  $html_monitorText = create_input('comment_monitor', $monitorText, $writeType);
+	  $html_otherInfoText = create_input('comment_general', $otherInfoText, $writeType);
+	  $html_conclusionText = create_input('comment_conclusion', $conclusionText, $writeType);
 
 ?>
 
