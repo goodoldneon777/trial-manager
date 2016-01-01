@@ -12,6 +12,9 @@
 ?>
 
 
+<link rel="stylesheet" media="screen" href="<?php echo WEB_ROOT . "/module/heat_data/dist/style.min.css"; ?>">
+
+
 <div class="container noPad-xs hidden-xs">
 
 	<div class="m_heat_data panel panel-primary">
