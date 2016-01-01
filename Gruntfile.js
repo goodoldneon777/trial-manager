@@ -15,7 +15,8 @@ module.exports = function(grunt) {
         'page/*/dist/*.css'
       ],
       sass: [
-        'css/dist/*.scss'
+        'css/dist/*.scss',
+        'sass/dist/*.scss'
       ],
       js: [
         'js/dist/*.min.js',
@@ -37,9 +38,9 @@ module.exports = function(grunt) {
     concat: {
       sass: {
         src: [
-          'css/src/*.scss',
+          'sass/src/*.scss',
         ],
-        dest: 'css/dist/style.scss'
+        dest: 'sass/dist/style.scss'
       }
     },
 
@@ -53,7 +54,7 @@ module.exports = function(grunt) {
       },
       main: {
         files: {
-          'css/dist/style.css': 'css/dist/style.scss'
+          'css/dist/style.css': 'sass/dist/style.scss'
         }
       },
       other: {
@@ -69,6 +70,28 @@ module.exports = function(grunt) {
       }
     },
 
+
+
+    //Minify CSS
+    cssmin: {
+      options: {
+        shorthandCompacting: false,
+        roundingPrecision: -1
+      },
+      main: {
+        files: {
+          'css/dist/style.min.css': 'css/dist/style.css'
+        }
+      },
+      other: {
+        files: grunt.file.expandMapping(['module/*/dist/*.css', 'page/*/dist/*.css'], '', {
+          rename: function(destBase, destPath) {
+            destPath = destPath.replace('.css', '.min.css');
+            return destPath;
+          }
+        })
+      }
+    },
 
 
     //Uglify JS
@@ -185,7 +208,7 @@ module.exports = function(grunt) {
 
 
   // Run tasks
-  grunt.registerTask('compileCSS', ['clean:css', 'clean:sass', 'concat:sass', 'sass', 'clean:sass']);
+  grunt.registerTask('compileCSS', ['clean:css', 'clean:sass', 'concat:sass', 'sass', 'cssmin']);
   grunt.registerTask('compileJS', ['clean:js', 'uglify', 'copy:js']);
   grunt.registerTask('compilePHP', ['clean:php', 'copy:php']);
   grunt.registerTask('compileAll', ['compileCSS', 'compileJS', 'compilePHP']);

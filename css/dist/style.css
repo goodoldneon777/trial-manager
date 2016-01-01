@@ -241,10 +241,6 @@ $colHover       : #ffe6d1; /*/
     .errorHolder ul li {
       margin: 0; }
 
-.required::after {
-  content: "*";
-  color: #ff0000; }
-
 .handsontable {
   overflow: auto;
   height: 250px; }

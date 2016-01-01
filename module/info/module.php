@@ -1,14 +1,7 @@
 <?php
 
 	function create_info($writeType, $pageType, $seq = null) {
-		include(SERVER_ROOT . '/module/info/dist/c_unit.php');
-		include(SERVER_ROOT . '/module/info/dist/c_goalType.php');
-		include(SERVER_ROOT . '/module/info/dist/c_changeType.php');
-		include(SERVER_ROOT . '/module/info/dist/c_bopVsl.php');
-		include(SERVER_ROOT . '/module/info/dist/c_degasVsl.php');
-		include(SERVER_ROOT . '/module/info/dist/c_argonNum.php');
-		include(SERVER_ROOT . '/module/info/dist/c_casterNum.php');
-		include(SERVER_ROOT . '/module/info/dist/c_strandNum.php');
+		include(SERVER_ROOT . '/module/info/dist/c_createInput.php');
 
 		$server = getenv('server');
 		$userWR = getenv('userWR');
@@ -118,201 +111,44 @@
 		}
 
 
-
-		if ($writeType === 'readonly') {
-
+  	if ($seq) {
 			$html_header =
 				'<div class="page-header">' . 
 					'<h1>' . $name . '</h1>' .
 				'</div>';
+		} else {
+			$html_header = '';
+		}
 
-			$html_name =
-				'';
 
-			$html_startDate = 
-				'<span class="elem-title">Start Date</span>' .
-	    	'<input class="form-control" type="text" readonly value="' . $startDate . '">' .
-	    	'<span></span>';
-
-	    $html_endDate = 
-				'<span class="elem-title">End Date</span>' .
-	    	'<input class="form-control" type="text" readonly value="' . $endDate . '">' .
-	    	'<span></span>';
-
-			$html_unit = 
-				'<span class="elem-title">Unit</span>' .
-		    '<input class="form-control" type="text" readonly value="' . $unit . '">' .
-		    '<span></span>';
-
-		  $html_owner =
-		  	'<span class="elem-title">Owner</span>' .
-			  '<input class="form-control" type="text" readonly value="' . $owner . '">' .
-			  '<span></span>';
-
-	    $html_processChange =
-	    	'<span class="elem-title hidden-xs">Process Change</span>' .
-		    '<span class="elem-title visible-xs">Proc Chg</span>' .
-	    	'<input class="form-control" type="text" readonly value="' . $processChange . '">' .
-	    	'<span></span>';
-
-	    $html_twi =
-	    	'<span class="elem-title">TWI</span>' .
-			  '<input class="form-control" type="text" readonly value="' . $twi . '">' .
-			  '<span></span>';
-
-		  $html_goalType =
-		  	'<span class="elem-title">Goal Type</span>' .
-		    '<input class="form-control" type="text" readonly value="' . $goalType . '">' .
-		    '<span></span>';
-
-		  $html_changeType =
-		  	'<span class="elem-title hidden-xs">Change Type</span>' .
-				'<span class="elem-title visible-xs">Change</span>' .
-		   	'<input class="form-control" type="text" readonly value="' . $changeType . '">' .
-		    '<span></span>';
-
-			$html_bopVsl =
-				'<span class="elem-title hidden-xs">BOP Vsl</span>' .
-	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">BOP Vsl</span>' .
-    		'<input class="form-control" type="text" readonly value="' . $bopVsl . '">' .
-    		'<span></span>';
-
-    	$html_degasVsl =
-    		'<span class="elem-title hidden-xs">Degas Vsl</span>' .
-	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">RH Vsl</span>' .
-    		'<input class="form-control" type="text" readonly value="' . $degasVsl . '">' .
-    		'<span></span>';
-
-    	$html_argonNum =
-    		'<span class="elem-title hidden-xs">Argon #</span>' .
-	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">Argon</span>' .
-    		'<input class="form-control" type="text" readonly value="' . $argonNum . '">' .
-    		'<span></span>';
-
-    	$html_casterNum =
-    		'<span class="elem-title hidden-xs">Caster #</span>' .
-			  '<span class="elem-title visible-xs" style="font-size:0.9em;">Caster</span>' .
-		    '<input class="form-control" type="text" readonly value="' . $casterNum . '">' .
-		    '<span></span>';
-
-		  $html_strandNum =
-		  	'<span class="elem-title hidden-xs">Strand #</span>' .
-	    	'<span class="elem-title visible-xs" style="font-size:0.9em;">Strand</span>' .
-    		'<input class="form-control" type="text" readonly value="' . $strandNum . '">' .
-    		'<span></span>';
-
-    	$html_goalText =
-    		'<span class="elem-title">Goals</span>' .
-        '<textarea class="form-control" readonly>' . $goalText . '</textarea>' .
-        '<span></span>';
-
-    	$html_monitorText =
-    		'<span class="elem-title">Monitor</span>' .
-        '<textarea class="form-control" readonly>' . $monitorText . '</textarea>' .
-        '<span></span>';
-
-    	$html_otherInfoText =
-    		'<span class="elem-title">Other Info</span>' .
-        '<textarea class="form-control" readonly>' . $otherInfoText . '</textarea>' .
-        '<span></span>';
-
-    	$html_conclusionText =
-    		'<span class="elem-title">Conclusion</span>' .
-        '<textarea class="form-control" readonly>' . $conclusionText . '</textarea>' .
-        '<span></span>';
-    } else if ($writeType === 'write') {
-
-    	if ($seq) {
-				$html_header =
-					'<div class="page-header">' . 
-						'<h1>' . $name . '</h1>' .
-					'</div>';
-			} else {
-				$html_header = '';
-			}
-
-			$html_name =
-				'<div class="col-sm-2 fullPad-sm halfPad-xs"></div>' .
-				'<div class="col-sm-8 fullPad-sm halfPad-xs">' .
-				'  <div class="name input-group">' .
-				'    <span class="elem-title required">Name</span>' .
-    		'    <input class="form-control" type="text" data-toggle="tooltip" title="Can be the same as a previous name." value="' . $name . '">' .
-    		'    <span></span>' .
-    		'  </div>' .
-    		'</div>' . 
-    		'<div class="col-sm-2 fullPad-sm halfPad-xs"></div>';
-
-			$html_startDate = 
-				'<span class="elem-title required">Start Date</span>' .
-	    	'<input class="form-control" type="text" value="' . $startDate . '">' .
-	    	'<span></span>';
-
-	    $html_endDate = 
-				'<span class="elem-title required">End Date</span>' .
-	    	'<input class="form-control" type="text" value="' . $endDate . '">' .
-	    	'<span></span>';
-
-		  $html_unit = create_unit($pageType, $seq);	//See dist/c_unit.php
-
-		  $html_owner =
-		  	'<span class="elem-title required">Owner</span>' .
-			  '<input class="form-control" type="text" value="' . $owner . '">' .
-			  '<span></span>';
-
-	    $html_processChange =
-	    	'<span class="elem-title hidden-xs">Process Change</span>' .
-		    '<span class="elem-title visible-xs">Proc Chg</span>' .
-	    	'<input class="form-control" type="text" value="' . $processChange . '">' .
-	    	'<span></span>';
-
-	    $html_twi =
-	    	'<span class="elem-title">TWI</span>' .
-			  '<input class="form-control" type="text" value="' . $twi . '">' .
-			  '<span></span>';
-
-		  $html_goalType = create_goalType($pageType, $seq);	//See dist/c_goalType.php
-
-		  $html_changeType = create_changeType($pageType, $seq);	//See dist/c_changeType.php
-
-		  $html_bopVsl = create_bopVsl($pageType, $seq);	//See dist/c_bopVsl.php
-
-		  $html_degasVsl = create_degasVsl($pageType, $seq);	//See dist/c_degasVsl.php
-
-		  $html_argonNum = create_argonNum($pageType, $seq);	//See dist/c_argonNum.php
-
-		  $html_casterNum = create_casterNum($pageType, $seq);	//See dist/c_casterNum.php
-
-		  $html_strandNum = create_strandNum($pageType, $seq);	//See dist/c_strandNum.php
-
-    	$html_goalText =
-    		'<span class="elem-title">Goals</span>' .
-        '<textarea class="form-control">' . $goalText . '</textarea>' .
-        '<span></span>';
-
-    	$html_monitorText =
-    		'<span class="elem-title">Monitor</span>' .
-        '<textarea class="form-control">' . $monitorText . '</textarea>' .
-        '<span></span>';
-
-    	$html_otherInfoText =
-    		'<span class="elem-title">Other Info</span>' .
-        '<textarea class="form-control">' . $otherInfoText . '</textarea>' .
-        '<span></span>';
-
-    	$html_conclusionText =
-    		'<span class="elem-title">Conclusion</span>' .
-        '<textarea class="form-control">' . $conclusionText . '</textarea>' .
-        '<span></span>';
-    }
+		$html_name = create_option('name', $name, $writeType);
+		$html_startDate = create_option('start_dt', $startDate, $writeType);
+		$html_endDate = create_option('end_dt', $endDate, $writeType);
+	  $html_unit = create_option('unit', $unit, $writeType);
+		$html_owner = create_option('owner', $owner, $writeType);
+		$html_processChange = create_option('proc_chg_num', $processChange, $writeType);
+		$html_twi = create_option('twi_num', $twi, $writeType);
+	  $html_goalType = create_option('goal_type', $goalType, $writeType);
+	  $html_changeType = create_option('change_type', $changeType, $writeType);
+	  $html_bopVsl = create_option('bop_vsl', $bopVsl, $writeType);
+	  $html_degasVsl = create_option('degas_vsl', $degasVsl, $writeType);
+	  $html_argonNum = create_option('argon_num', $argonNum, $writeType);
+	  $html_casterNum = create_option('caster_num', $casterNum, $writeType);
+	  $html_strandNum = create_option('strand_num', $strandNum, $writeType);
+	  $html_strandNum = create_option('strand_num', $strandNum, $writeType);
+	  $html_goalText = create_option('comment_goal', $goalText, $writeType);
+	  $html_monitorText = create_option('comment_monitor', $monitorText, $writeType);
+	  $html_otherInfoText = create_option('comment_general', $otherInfoText, $writeType);
+	  $html_conclusionText = create_option('comment_conclusion', $conclusionText, $writeType);
 
 ?>
 
 
 
 
-
-
 <?php echo $html_header; ?>
+
+<link rel="stylesheet" media="screen" href="<?php echo WEB_ROOT . "/module/info/dist/style.min.css"; ?>">
 
 
 <div class="container noPad-xs">
@@ -328,12 +164,26 @@
 
 			<div class="row noPad-xs" style="margin:0;">
 
-				<?php echo $html_name; ?>
+
+				<?php
+					if ($writeType === 'write') {
+						//Continues...
+				?>
+				<div class="col-sm-2 fullPad-sm halfPad-xs"></div>
+				<div class="col-sm-8 fullPad-sm halfPad-xs">
+					<div class="name input-group required">
+						<?php echo $html_name; ?>
+					</div>
+    		</div>
+    		<div class="col-sm-2 fullPad-sm halfPad-xs"></div>
+				<?php
+					}
+				?>
 
 
 
 		  	<div class="col-sm-3 col-xs-6 fullPad-sm halfPad-xs">
-				  <div class="startDate input-group">
+				  <div class="startDate input-group required">
 			    	<?php echo $html_startDate; ?>
 				  </div>
 				</div>
@@ -341,7 +191,7 @@
 
 
 			  <div class="col-sm-3 col-xs-6 fullPad-sm halfPad-xs">
-				  <div class="endDate input-group">
+				  <div class="endDate input-group required">
 			    	<?php echo $html_endDate; ?>
 				  </div>
 				</div>
@@ -349,7 +199,7 @@
 
 
 			  <div class="col-sm-3 col-xs-4 fullPad-sm halfPad-xs">
-				  <div class="unit input-group">
+				  <div class="unit input-group required">
 			    	<?php echo $html_unit; ?>
 					</div>
 				</div>
@@ -357,10 +207,11 @@
 
 
 			  <div class="col-sm-3 col-xs-4 fullPad-sm halfPad-xs">
-				  <div class="owner input-group">
+				  <div class="owner input-group required">
 			    	<?php echo $html_owner; ?>
 				  </div>
 				</div>
+
 
 
 				<?php
@@ -382,6 +233,7 @@
 				<?php
 					}
 				?>
+
 
 
 			  <div class="col-sm-3 col-xs-4 fullPad-sm halfPad-xs">
@@ -456,6 +308,7 @@
         <div class="col-sm-6 col-xs-12 fullPad-sm halfPad-xs">
           <div class="goalText input-group">
             <?php echo $html_goalText; ?>
+            <?php echo $html_goalText2; ?>
           </div>
         </div>
 
