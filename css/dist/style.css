@@ -240,7 +240,3 @@ $colHover       : #ffe6d1; /*/
     padding-left: 1em; }
     .errorHolder ul li {
       margin: 0; }
-
-.handsontable {
-  overflow: auto;
-  height: 250px; }
