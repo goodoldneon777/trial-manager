@@ -46,7 +46,7 @@
 
 			<div class="c_typeSelect col-xs-4 halfPad-xs">
 			  <div class="input-group" style="vertial-align:middle;">
-			  	<select class="form-control" data-toggle="tooltip" title="" data-original-title="Trials performed at this unit.">
+			  	<select class="form-control">
 			  		<option>Lookup by Heats</option>
 			  		<!-- <option>Search by Slabs</option> -->
 				  </select>
