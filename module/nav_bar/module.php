@@ -37,27 +37,12 @@
 
 
 
-<script type="application/javascript">
-  var url = window.location.href;
-  var page = url.substr(url.lastIndexOf('/') + 1);
-  page = page.substr(0, page.lastIndexOf('.php') + 4);
+<script src="<?php echo WEB_ROOT . "/module/nav_bar/dist/script.min.js"; ?>"></script>
 
-  switch (page) {
-    case '':
-      $('.m_nav_bar .recent').addClass('active');
-      break;
-    case 'index.php':
-      $('.m_nav_bar .recent').addClass('active');
-      break;
-    case 'search.php':
-      $('.m_nav_bar .search').addClass('active');
-      break;
-    case 'create.php':
-      $('.m_nav_bar .create').addClass('active');
-      break;
-    default:
-      break;
-  }
+
+
+<script type="application/javascript">
+  
 
 
 </script>
