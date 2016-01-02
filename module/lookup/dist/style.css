@@ -1,0 +1,11 @@
+.m_lookup .c_submitBtn {
+  text-align: center; }
+.m_lookup .c_errorBox {
+  width: 35em;
+  margin: 0 auto; }
+.m_lookup .c_inputTable {
+  padding-top: 0; }
+.m_lookup .c_results {
+  padding-top: 0; }
+  .m_lookup .c_results table th {
+    white-space: nowrap; }

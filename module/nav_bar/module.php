@@ -25,6 +25,7 @@
     <ul class="nav navbar-nav">
       <li class="recent"><a href="<?php echo WEB_ROOT . "/recent"; ?>">Recent</a></li>
       <li class="search"><a href="<?php echo WEB_ROOT . "/search"; ?>">Search</a></li>
+      <li class="lookup"><a href="<?php echo WEB_ROOT . "/lookup"; ?>">Lookup</a></li>
       <li class="create"><a href="<?php echo WEB_ROOT . "/create"; ?>">Create</a></li>
     </ul>
   </div><!--/.nav-collapse -->
