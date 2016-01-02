@@ -94,6 +94,12 @@
     	$startDate = $row["start_dt"];
     	$endDate = $row["end_dt"];
 
+    	if ($name) {
+    		$name = "<a href=\"" . WEB_ROOT . "/view?" . $urlSeq . $seq . "\">" . $name . "</a>";
+    	} else {
+    		$name = "No results";
+    	}
+
     	if ($startDate) {
     		$startDate = date_format(date_create($startDate), "n/j/Y");
     	}
@@ -106,7 +112,7 @@
       $html .= 
       	"<tr> \n" .
       	"  <td>" . $id . "</td> \n" .
-      	"  <td><a href=\"" . WEB_ROOT . "/view?" . $urlSeq . $seq . "\">" . $name . "</a></td> \n" .
+      	"  <td>" . $name . "</td> \n" .
       	"  <td>" . $unit . "</td> \n" .
       	"  <td>" . $startDate . "</td> \n" .
       	"  <td>" . $endDate . "</td> \n" .
