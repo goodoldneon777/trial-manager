@@ -50,6 +50,7 @@ m_heat_data.create = function(type) {
     rowHeaders: true,
     manualRowResize: true,
     minRows: 10,
+    minSpareRows: 1,
     stretchH: 'all',
     scrollV: 'auto',
     columnSorting: true,
