@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 01, 2016 at 06:13 PM
+-- Generation Time: Jan 03, 2016 at 05:07 AM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -44,8 +44,8 @@ CREATE TABLE `param_input` (
   `html_type` varchar(20) NOT NULL,
   `title` varchar(100) NOT NULL,
   `title_short` varchar(100) DEFAULT NULL,
-  `tooltip` varchar(200) DEFAULT NULL,
-  `tooltip_enable_flag` int(11) NOT NULL DEFAULT '0'
+  `tooltip_info` varchar(200) DEFAULT NULL,
+  `tooltip_search` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
