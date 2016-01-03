@@ -24,6 +24,7 @@ module.exports = function(grunt) {
         'page/*/dist/*.min.js'
       ],
       php: [
+        'php/dist/*',
         'module/*/dist/*.php',
         'page/*/dist/*.php'
       ],
@@ -136,7 +137,7 @@ module.exports = function(grunt) {
         ]
       },
       php: {
-        files: grunt.file.expandMapping(['module/**/src/*.php', 'page/**/src/*.php'], '', {
+        files: grunt.file.expandMapping(['php/src/*.php', 'module/**/src/*.php', 'page/**/src/*.php'], '', {
           rename: function(destBase, destPath) {
             var dir = destPath.substring(0, destPath.search('src')) + 'dist';
             var file = destPath.substring(destPath.search('src') + ('src').length, destPath.length);
@@ -187,6 +188,7 @@ module.exports = function(grunt) {
       },
       php: {
         files: [
+          'php/src/*.php',
           'module/*/src/*.php',
           'page/*/src/*.php'
         ],
