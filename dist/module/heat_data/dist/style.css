@@ -1,0 +1,3 @@
+.m_heat_data .required::after {
+  content: "*";
+  color: #ff0000; }

@@ -153,11 +153,11 @@ module.exports = function(grunt) {
             src: [
               '.htaccess',
               'config.php',
-              'plugin/*',
+              'plugin/**/*',
               'css/dist/*',
               'js/dist/*',
-              'module/*/dist/*',
-              'page/*/dist/*'
+              'module/**/*', '!module/*src/*',
+              'page/**/*', '!page/*src/*'
             ],
             dest: 'dist/'
           }

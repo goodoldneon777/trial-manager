@@ -1,0 +1,30 @@
+.m_lookup {
+	
+	.c_submitBtn {
+		// padding-bottom: 1em;
+		text-align: center;
+	}
+
+	.c_errorBox {
+		width: 35em;
+		margin: 0 auto;
+	}
+
+	.c_inputTable {
+		padding-top: 0;
+	}
+
+	.c_results {
+		padding-top: 0;
+
+		table {
+
+			th {
+				// background-color: blue;
+				white-space:nowrap
+			}
+		}
+	}
+}
+
+

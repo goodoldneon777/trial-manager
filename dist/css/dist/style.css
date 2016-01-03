@@ -3,16 +3,20 @@
   .container .row {
     margin: 0; }
 
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
 .input-group {
   text-align: center; }
   .input-group .elem-title {
     color: #555555; }
 
-.form-group {
-  text-align: center; }
-  .form-group .elem-title {
-    color: #555555;
-    display: block; }
+.form-group .elem-title {
+  color: #555555;
+  display: block; }
 
 .col15-xs-5,
 .col15-sm-5,
@@ -240,11 +244,3 @@ $colHover       : #ffe6d1; /*/
     padding-left: 1em; }
     .errorHolder ul li {
       margin: 0; }
-
-.required::after {
-  content: "*";
-  color: #ff0000; }
-
-.handsontable {
-  overflow: auto;
-  height: 250px; }

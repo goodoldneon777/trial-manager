@@ -7,7 +7,6 @@ SetEnv db "trial_mgr"
 
 
 
-
 RewriteEngine On    # Turn on the rewriting engine
 
 #RewriteCond %{REQUEST_URI} !/plugin([0-9a-zA-Z\_\-]*) [NC]
@@ -24,7 +23,7 @@ RewriteRule ^$ page/recent/page.php [NC,L,QSA]
 
 
 
-
+#[!!!] PATHS BELOW MUST BE MODIFIED TO MATCH YOUR SERVER CONFIGURATION
 
 #For MAMP:
 php_value auto_prepend_file "/Applications/MAMP/htdocs/trial-mgr/config.php"
@@ -32,7 +31,7 @@ php_value auto_prepend_file "/Applications/MAMP/htdocs/trial-mgr/config.php"
 #For e3lapp:
 #php_value auto_prepend_file "/var/www/html/glw/trial-mgr/config.php"
 
-
+#[/!!!]
 
 
 

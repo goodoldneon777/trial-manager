@@ -1,0 +1,25 @@
+$padding: 1em;
+
+
+.m_child_list {
+	
+	.actions {
+  	width: 100px;
+  	text-align: center;
+  }
+
+  .addTrialBtn {
+    margin: $padding;
+  }
+
+  .deleted td {
+  	background-color: #ffc370;
+  }
+
+	table {
+		
+		tbody {
+			vertical-align: top;
+		}
+	}
+}
