@@ -14,8 +14,8 @@
 
 ## End User Info
 
-	* FAQ
-		* **If a trial is deleted, will it disappear from its parent groups?** No: it will still appear on the group page (will be labeled as deleted) and will remain in the trial_group_child table (deleted_flag = 1).
+* FAQ
+	* **If a trial is deleted, will it disappear from its parent groups?** No: it will still appear on the group page (will be labeled as deleted) and will remain in the trial_group_child table (deleted_flag = 1).
 
 
 
