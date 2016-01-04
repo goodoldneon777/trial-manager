@@ -36,16 +36,9 @@ m_lookup.validate = function() {
 
   //Test for missing required fields.
   $.each(inputArr, function( index, row ) {
-    id = row[1];
-    tap_yr = row[2];
+    id = row[0];
+    tap_yr = row[1];
 
-    if (id === "NULL") {
-      id = null;
-    }
-
-    if (tap_yr === "NULL") {
-      tap_yr = null;
-    }
 
     // If either required column is null.
     if ( (id === null)  ||  (tap_yr === null) ) {
@@ -80,9 +73,8 @@ m_lookup.submit = function() {
 	var errorList = '';
 	var msg = '';
 	
-	inputArr = m_lookup.parse();
 
-// console.log(inputArr);
+	inputArr = m_lookup.parse();
 
 	errorText = m_lookup.validate();
 

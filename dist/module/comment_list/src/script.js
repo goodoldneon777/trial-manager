@@ -29,14 +29,15 @@ m_comment_list.validate = function() {
 
 
 	$.each($('.m_comment_list tbody tr'), function( index, value ) {
-	  commentDate = $(this).find('.commentDate input').val();
-	  commentText = $(this).find('.commentText textarea').val();
+	  commentDate = ifBlank($(this).find('.commentDate input').val(), null);
+	  commentText = ifBlank($(this).find('.commentText textarea').val(), null);
 
-	  if (commentDate.length === 0  &&  commentText.length > 0) {
+
+	  if (!commentDate  &&  commentText) {
 			errorText += "<li>Comment date is blank but comment text isn't.</li>";
-		} else if (commentDate.length > 0  &&  commentText.length === 0) {
+		} else if (commentDate  &&  !commentText) {
 			errorText += "<li>Comment text is blank but comment date isn't.</li>";
-		} else if (commentDate.length > 0  &&  !isValidDate(commentDate)) {
+		} else if (commentDate  &&  !isValidDate(commentDate)) {
 			errorText += "<li>Invalid comment date: " + commentDate + ".</li>";
 		}
 
@@ -66,14 +67,15 @@ m_comment_list.parse = function() {
 		//If this row has an "old" comment.
 		if (classSeq.indexOf('seq-') === 0) {
 			seq = getSeqFromAttrClass($(this).attr("class")).seq;
-			commentDate = $(this).find('.commentDate input').val();
-			commentText = $(this).find('.commentText textarea').val();
+			commentDate = prepDateForSQL( ifBlank($(this).find('.commentDate input').val(), null) );
+			commentText = ifBlank($(this).find('.commentText textarea').val(), null);
 
-			if ( $.trim(commentDate) !== ''  &&  $.trim(commentText) !== '' ) {
+			// if ( $.trim(commentDate) !== ''  &&  $.trim(commentText) !== '' ) {
+			if (commentDate  &&  commentText) {
 				oldArr[i] = [];
 			  oldArr[i][0] = seq;
-			  oldArr[i][1] = prepForSQL(commentDate, 'date');
-			  oldArr[i][2] = prepForSQL(commentText);
+			  oldArr[i][1] = commentDate;
+			  oldArr[i][2] = commentText;
 
 			  i += 1;
 			}
@@ -86,14 +88,15 @@ m_comment_list.parse = function() {
 	$.each($('.m_comment_list tbody tr'), function( index, value ) {
 		//If this row has an "old" comment.
 		if ($(this).attr("class").indexOf('new') === 0) {
-			commentDate = $(this).find('.commentDate input').val();
-			commentText = $(this).find('.commentText textarea').val();
+			commentDate = prepDateForSQL( ifBlank($(this).find('.commentDate input').val(), null) );
+			commentText = ifBlank($(this).find('.commentText textarea').val(), null);
 
-			if ( $.trim(commentDate) !== ''  &&  $.trim(commentText) !== '' ) {
+			// if ( $.trim(commentDate) !== ''  &&  $.trim(commentText) !== '' ) {
+			if (commentDate  &&  commentText) {
 				newArr[i] = [];
 			  newArr[i][0] = i + 1;
-			  newArr[i][1] = prepForSQL(commentDate, 'date');
-			  newArr[i][2] = prepForSQL(commentText);
+			  newArr[i][1] = commentDate;
+			  newArr[i][2] = commentText;
 
 			  i += 1;
 			}
@@ -105,6 +108,7 @@ m_comment_list.parse = function() {
 		oldArr: oldArr,
 		newArr: newArr
 	};
+
 
 	return obj;
 };

@@ -89,7 +89,7 @@ p_comment.create = function(pageType, seq) {
     data: {
     	'pageType': pageType,
     	'seq': seq,
-    	'comment': JSON.stringify(prepForSQL(comment))
+    	'comment': JSON.stringify(comment)
     },
     dataType: 'json',
     success: function(results) {

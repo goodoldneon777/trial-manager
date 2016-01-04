@@ -1,4 +1,7 @@
 <?php
+	require_once(SERVER_ROOT . '/php/dist/prepForSQL.php');
+
+
 	$server = getenv("server");
 	$userWR = getenv("userWR");
 	$passWR = getenv("passWR");
@@ -6,6 +9,8 @@
 
 	
 	$input = json_decode($_POST["input"]);
+	$input = prepForSQL($input);
+	$input->name = removeStringWrap($input->name);
 	$pageType = json_decode($_POST["pageType"]);
 
 
@@ -22,7 +27,7 @@
 
 	//Build name filter.
 	if ($input->name != 'NULL') {
-		$whereStatement .= "  and name like '%" . substr($input->name, 1, strlen($input->name) - 2) . "%' \n";
+		$whereStatement .= "  and name like '%" . $input->name . "%' \n";
 		$whereStatementBlank = false;
 	}
 

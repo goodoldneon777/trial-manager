@@ -1,11 +1,15 @@
 <?php
+	require_once(SERVER_ROOT . '/php/dist/prepForSQL.php');
+
+
 	$server = getenv("server");
 	$userWR = getenv("userWR");
 	$passWR = getenv("passWR");
 	$db = getenv("db");
 
-	
+
 	$input = json_decode($_POST["input"]);
+	$input = prepForSQL($input);
 	$pageType = json_decode($_POST["pageType"]);
 
 
@@ -21,11 +25,12 @@
 	$sqlQueryPseudo = '';
 	if (count($input) > 0) {
 		foreach($input as $key=>$row) {
+			$ht_num = $row[0];
 			if ($key > 0) {
 				$sqlQueryPseudo .= "union \n";
 			}
 
-			$sqlQueryPseudo .= "select '" . $row[0] . "' as ht_num, '" . $row[1] . "' as tap_yr \n";
+			$sqlQueryPseudo .= "select " . $ht_num . " as ht_num, " . $row[1] . " as tap_yr \n";
 		}
 	}
 

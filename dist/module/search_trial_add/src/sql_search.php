@@ -1,4 +1,7 @@
 <?php
+	require_once(SERVER_ROOT . '/php/dist/prepForSQL.php');
+
+
 	$server = getenv("server");
 	$userWR = getenv("userWR");
 	$passWR = getenv("passWR");
@@ -6,6 +9,8 @@
 
 	
 	$name = json_decode($_POST["name"]);
+	$name = prepForSQL($name);
+	$name = removeStringWrap($name);
 
 
 	// Create connection
@@ -65,7 +70,7 @@
 
 	$output = new stdClass();
 	$output->html = $html;
-	$output->debugSQL = $sql;
+	$output->sql = $sql;
 
 	echo json_encode($output);
 

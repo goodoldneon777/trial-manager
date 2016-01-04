@@ -42,6 +42,8 @@ p_update.updateClick = function() {
 		errorText += m_child_list.validate();
 	}
 
+	errorText += m_comment_list.validate();
+
 
 	//If there weren't any errors
 	if (errorText.length === 0) {
@@ -101,8 +103,8 @@ p_update.updateFunc = function(pageType, seq) {
 		msgSuccess = 'Group successfully updated.';
 		msgFailure = 'Something went wrong. Group not updated.';
 	}
-// console.log(childTrialList);
-// return;
+
+
 	$.ajax({
 		type: 'POST',
     url: urlSQL,

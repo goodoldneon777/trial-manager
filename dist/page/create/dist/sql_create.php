@@ -1,6 +1,10 @@
 <?php
+	require_once(SERVER_ROOT . '/php/dist/prepForSQL.php');
+
+	
 	$pageType = $_POST["pageType"];
 	$info = json_decode($_POST["info"]);
+	$info = prepForSQL($info);
 
 	$debugSQL = '';	// Will contain all the queries. For debugging purposes.
 	$errors = array();
@@ -24,6 +28,7 @@
 
 	if ($pageType === 'trial') {
 		$heatData = json_decode($_POST["heatData"]);
+		$heatData = prepForSQL($heatData);
 
 
 		$sql = 
@@ -105,6 +110,7 @@
 
 	} else if ($pageType === 'group') {
 		$childTrialList = json_decode($_POST["childTrialList"], true);
+		$childTrialList = prepForSQL($childTrialList);
 
 
 		$sql = 
@@ -199,8 +205,8 @@
 	$output = new stdClass();
 	$output->status = $status;
 	$output->errors = $errors;
-	$output->seq = $seq;
-	$output->debugSQL = $debugSQL;
+	$output->seq = removeStringWrap($seq);
+	$output->sql = $debugSQL;
 
 
 	echo json_encode($output);

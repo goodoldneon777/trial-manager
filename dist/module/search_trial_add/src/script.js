@@ -28,6 +28,7 @@ m_search_trial_add.search = function() {
     dataType: 'json',
     success: function(results) {
     	$('.m_search_trial_add .searchResults').html(results.html);
+    	console.log(results.sql);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
     	msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;

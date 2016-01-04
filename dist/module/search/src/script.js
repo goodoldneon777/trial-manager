@@ -68,12 +68,12 @@ m_search.validate = function() {
 m_search.parse = function() {
 	'use strict';
 	var obj = {
-		name 				: prepForSQL($('.m_search .c_form .name input').val()),
-		startDate 	: prepForSQL($('.m_search .c_form .start-date input').val(), 'date'),
-		endDate 		: prepForSQL($('.m_search .c_form .end-date input').val(), 'date'),
-		unit 				: prepForSQL($('.m_search .c_form .unit select').val()),
-		goalType 		: prepForSQL($('.m_search .c_form .goal-type select').val()),
-		changeType 	: prepForSQL($('.m_search .c_form .change-type select').val())
+		name 				: ifBlank($('.m_search .c_form .name input').val(), null),
+		startDate 	: prepDateForSQL( ifBlank($('.m_search .c_form .start-date input').val(), null) ),
+		endDate 		: prepDateForSQL( ifBlank($('.m_search .c_form .end-date input').val(), null) ),
+		unit 				: ifBlank($('.m_search .c_form .unit select').val(), null),
+		goalType 		: ifBlank($('.m_search .c_form .goal-type select').val(), null),
+		changeType 	: ifBlank($('.m_search .c_form .change-type select').val(), null)
 	};
 
 
@@ -145,6 +145,7 @@ m_search.search = function() {
     dataType: 'json',
     success: function(results) {
     	$('.m_search .c_results').html(results.html);
+    	console.log(results.sql);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
     	msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;

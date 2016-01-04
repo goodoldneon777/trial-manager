@@ -95,7 +95,7 @@
 					}
 
 
-					if ($text === $value) {
+					if ($option_text === $value) {
 						$valueInList = true;	//$value is an option in the param_dropdown table.
 						$selected = 'selected';
 					} else {

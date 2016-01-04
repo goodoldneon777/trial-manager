@@ -157,6 +157,7 @@ module.exports = function(grunt) {
               'plugin/**/*',
               'css/dist/*',
               'js/dist/*',
+              'php/dist/*',
               'module/**/*', '!module/*src/*',
               'page/**/*', '!page/*src/*'
             ],
