@@ -61,7 +61,7 @@ m_heat_data.create = function(type) {
 
 
 
-m_heat_data.populate = function (seq) { // Populate the table with data.
+m_heat_data.populate = function(seq) { // Populate the table with data.
   'use strict';
   var msg = '';
 
@@ -83,7 +83,7 @@ m_heat_data.populate = function (seq) { // Populate the table with data.
     },
     dataType: 'json',
     success: function(results) {
-     trialDataTable.loadData(results);  // Load the data into the table.
+     trialDataTable.loadData(results.data);  // Load the data into the table.
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       msg = 'Status: ' + textStatus + '\n' + 'Error: ' + errorThrown;
@@ -131,10 +131,10 @@ m_heat_data.validate = function() {
   //Test for improper year format.
   $.each(heatData, function( index, row ) {
     tap_yr = row[2];
-    tap_yr = tap_yr.replace(/'/g,''); //Remove single quotes;
-    if (tap_yr === "NULL") {  //Convert "NULL" string to null value.
-      tap_yr = null;
-    }
+
+    // if (tap_yr === "NULL") {  //Convert "NULL" string to null value.
+    //   tap_yr = null;
+    // }
 
 
     if (tap_yr !== null) {
@@ -181,8 +181,8 @@ m_heat_data.parse = function() {
         emptyRow = false;
       }
 
-      // Prep the value for SQL.
-      row[index] = prepForSQL(value);
+
+      row[index] = value;
     });
 
     if (!emptyRow) {

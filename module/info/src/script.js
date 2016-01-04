@@ -72,28 +72,28 @@ m_info.parse = function() {
 	
 
 	info = {
-		name 						: prepForSQL($('.m_info .name input').val()),
-		owner 					: prepForSQL($('.m_info .owner input').val()),
-		startDate 			: prepForSQL($('.m_info .startDate input').val(), 'date'),
-		endDate 				: prepForSQL($('.m_info .endDate input').val(), 'date'),
-		unit 						: prepForSQL($('.m_info .unit select').val()),
-		goalType 				: prepForSQL($('.m_info .goalType select').val()),
-		changeType 			: prepForSQL($('.m_info .changeType select').val()),
-		bopVsl 					: prepForSQL($('.m_info .bopVsl select').val()),
-		degasVsl 				: prepForSQL($('.m_info .degasVsl select').val()),
-		argonNum 				: prepForSQL($('.m_info .argonNum select').val()),
-		casterNum 			: prepForSQL($('.m_info .casterNum select').val()),
-		strandNum 			: prepForSQL($('.m_info .strandNum select').val()),
-		goalText 				: prepForSQL($('.m_info .goalText textarea').val()),
-		monitorText 		: prepForSQL($('.m_info .monitorText textarea').val()),
-		otherInfoText 	: prepForSQL($('.m_info .otherInfoText textarea').val()),
-		conclusionText	: prepForSQL($('.m_info .conclusionText textarea').val())
+		name 						: ifBlank($('.m_info .name input').val(), null),
+		owner 					: ifBlank($('.m_info .owner input').val(), null),
+		startDate 			: prepDateForSQL( ifBlank($('.m_info .startDate input').val(), null) ),
+		endDate 				: prepDateForSQL( ifBlank($('.m_info .endDate input').val(), null) ),
+		unit 						: ifBlank($('.m_info .unit select').val(), null),
+		goalType 				: ifBlank($('.m_info .goalType select').val(), null),
+		changeType 			: ifBlank($('.m_info .changeType select').val(), null),
+		bopVsl 					: ifBlank($('.m_info .bopVsl select').val(), null),
+		degasVsl 				: ifBlank($('.m_info .degasVsl select').val(), null),
+		argonNum 				: ifBlank($('.m_info .argonNum select').val(), null),
+		casterNum 			: ifBlank($('.m_info .casterNum select').val(), null),
+		strandNum 			: ifBlank($('.m_info .strandNum select').val(), null),
+		goalText 				: ifBlank($('.m_info .goalText textarea').val(), null),
+		monitorText 		: ifBlank($('.m_info .monitorText textarea').val(), null),
+		otherInfoText 	: ifBlank($('.m_info .otherInfoText textarea').val(), null),
+		conclusionText	: ifBlank($('.m_info .conclusionText textarea').val(), null)
 	};
 
 	//The trial version of the info module has 2 inputs more inputs than the group version.
 	if (pageType === 'trial') {
-		info.processChange = prepForSQL($('.m_info .processChange input').val());
-		info.twi = prepForSQL($('.m_info .twi input').val());
+		info.processChange = ifBlank($('.m_info .processChange input').val(), null);
+		info.twi = ifBlank($('.m_info .twi input').val(), null);
 	}
 
 

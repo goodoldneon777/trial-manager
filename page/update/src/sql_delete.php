@@ -1,6 +1,10 @@
 <?php
+	require_once(SERVER_ROOT . '/php/dist/prepForSQL.php');
+
+
 	$pageType = $_POST["pageType"];
 	$seq = json_decode($_POST["seq"]);
+	$seq = prepForSQL($seq);
 
 	$debugSQL = '';	// Will contain all the queries. For debugging purposes.
 	$errors = array();
@@ -131,7 +135,7 @@
 	$output = new stdClass();
 	$output->status = $status;
 	$output->errors = $errors;
-	$output->seq = $seq;
+	$output->seq = removeStringWrap($seq);
 	$output->debugSQL = $debugSQL;
 
 

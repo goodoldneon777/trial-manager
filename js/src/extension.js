@@ -33,23 +33,38 @@ function stringToDate(str) {
 
 
 
-function prepForSQL(val, type) {
-  if (val !== null) {
-    val = val.replace(/'/g, "''");  //Escape single quotes.
-    val = val.replace(/\\/g, "\\\\");  //Escape backslashes.
+// function prepForSQL(val, type) {
+//   if (val !== null) {
+//     val = val.replace(/'/g, "''");  //Escape single quotes.
+//     val = val.replace(/\\/g, "\\\\");  //Escape backslashes.
+//   }
+
+//   if ( (type === 'date')  &&  (val !== '') ) {
+//     val = stringToDate(val);
+//     val = moment(val).format("YYYY/M/D HH:mm");
+//   }
+
+// 	if ( (val === '')  ||  (val === null) ) {
+// 		return 'NULL';
+// 	} else {
+// 		return "'" + val + "'";
+// 	}
+
+// }
+
+
+
+function prepDateForSQL(val) {
+  'use strict';
+  if (val === null) {
+    return null;
   }
+  
+  val = stringToDate(val);
+  val = moment(val).format("YYYY/M/D HH:mm");
 
-  if ( (type === 'date')  &&  (val !== '') ) {
-    val = stringToDate(val);
-    val = moment(val).format("YYYY/M/D HH:mm");
-  }
 
-	if ( (val === '')  ||  (val === null) ) {
-		return 'NULL';
-	} else {
-		return "'" + val + "'";
-	}
-
+  return val;
 }
 
 
@@ -84,6 +99,22 @@ function countChar(str, char) {
 
 function ifNull(val, replace) {
   if (val === null) {
+    return replace;
+  } else {
+    return val;
+  }
+}
+
+
+
+function ifBlank(val, replace) {
+  if (val === null) {
+    return null;
+  }
+
+  $.trim(val);
+
+  if (val === '') {
     return replace;
   } else {
     return val;

@@ -1,9 +1,17 @@
 <?php
+	require_once(SERVER_ROOT . '/php/dist/prepForSQL.php');
+
+	
 	$pageType = $_POST["pageType"];
 	$seq = json_decode($_POST["seq"]);
+	$seq = prepForSQL($seq);
 	$info = json_decode($_POST["info"]);
+	$info = prepForSQL($info);
 	$oldCommentList = json_decode($_POST["oldCommentList"], true);
+	$oldCommentList = prepForSQL($oldCommentList);
 	$newCommentList = json_decode($_POST["newCommentList"], true);
+	$newCommentList = prepForSQL($newCommentList);
+
 
 	$debugSQL = '';	// Will contain all the queries. For debugging purposes.
 	$errors = array();
@@ -27,6 +35,7 @@
 
 	if ($pageType === 'trial') {
 		$heatData = json_decode($_POST["heatData"]);
+		$heatData = prepForSQL($heatData);
 
 
 		$sql = 
@@ -80,6 +89,10 @@
 				") \n";
 
 		  for ($i = 0; $i <= count($oldCommentList) - 1; $i++) {
+		  	$commentSeq = $oldCommentList[$i][0];
+				$commentDate = $oldCommentList[$i][1];
+				$commentText = $oldCommentList[$i][2];
+
 		  	if ($i > 0) {
 		  		$sql .= "union \n";
 		  	}
@@ -87,9 +100,9 @@
 		  	$sql .= 
 		  		"select " .
 					$seq . ", " .
-					$oldCommentList[$i][0] . ", " .
-					$oldCommentList[$i][1] . ", " .
-					$oldCommentList[$i][2] . " \n";			
+					$commentSeq . ", " .
+					$commentDate . ", " .
+					$commentText . " \n";			
 		  }
 
 		  if (!$conn->query($sql)) {
@@ -114,12 +127,18 @@
 
 
 		if (count($newCommentList) > 0) {
+
 			$sql = 
 		  	"insert into trial_comment ( \n" .
 				"  trial_seq, comment_seq, comment_dt, comment_text \n" .
 				") \n";
 
 		  for ($i = 0; $i <= count($newCommentList) - 1; $i++) {
+		  	$commentSeq = intval( removeStringWrap($newCommentList[$i][0]) );	//Remove single-quote wrap and convert string to integer.
+		  	$commentSeq += $maxCommentSeq;	//Add the max comment seq on the table to ensure the new comments go after the old ones.
+		  	$commentDate = $newCommentList[$i][1];
+		  	$commentText = $newCommentList[$i][2];
+
 		  	if ($i > 0) {
 		  		$sql .= "union \n";
 		  	}
@@ -127,9 +146,9 @@
 		  	$sql .= 
 		  		"select " .
 					$seq . ", " .
-					($newCommentList[$i][0] + $maxCommentSeq) . ", " .
-					$newCommentList[$i][1] . ", " .
-					$newCommentList[$i][2] . " \n";			
+					$commentSeq . ", " .
+					$commentDate . ", " .
+					$commentText . " \n";			
 		  }
 
 		  if (!$conn->query($sql)) {
@@ -203,6 +222,7 @@
 
 	} else if ($pageType === 'group') {
 		$childTrialList = json_decode($_POST["childTrialList"], true);
+		$childTrialList = prepForSQL($childTrialList);
 
 
 		$sql = 
@@ -409,7 +429,7 @@
 	$output = new stdClass();
 	$output->status = $status;
 	$output->errors = $errors;
-	$output->seq = $seq;
+	$output->seq = removeStringWrap($seq);
 	$output->debugSQL = $debugSQL;
 
 

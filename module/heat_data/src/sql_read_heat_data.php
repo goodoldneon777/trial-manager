@@ -1,11 +1,15 @@
 <?php
+	require_once(SERVER_ROOT . '/php/dist/prepForSQL.php');
+
+
 	$server = getenv("server");
 	$userWR = getenv("userWR");
 	$passWR = getenv("passWR");
 	$db = getenv("db");
 
 
-	$seq = $_POST['seq'];
+	$seq = json_decode($_POST['seq']);
+	$seq = prepForSQL($seq);
 	
 
 	// Create connection
@@ -32,7 +36,11 @@
 	}
 
 
-	echo json_encode($rows);
+	$output = new stdClass();
+	$output->data = $rows;
+	$output->sql = $sql;
+
+	echo json_encode($output);
 
 
 	$conn->close();
