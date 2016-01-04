@@ -62,11 +62,63 @@
 ### Pages
 
 * better-browser
+* comment
+	* Module dependencies
+		* html_head
+		* nav_bar
+		* info
+		* comment_add
+		* html_foot
 * create
+	* Module dependencies
+		* html_head
+		* nav_bar
+		* toggle_pagetype
+		* info
+		* heat_data (if type=trial)
+		* child_list (if type=group)
+		* html_foot
 * lookup
+	* Module dependencies
+		* html_head
+		* nav_bar
+		* toggle_pagetype
+		* lookup
+		* html_foot
 * recent
+	* Module dependencies
+		* html_head
+		* nav_bar
+		* toggle_pagetype
+		* list_upcoming
+		* list_ongoing
+		* list_recent
+		* html_foot
 * search
+	* Module dependencies
+		* html_head
+		* nav_bar
+		* toggle_pagetype
+		* search
+		* html_foot
 * update
+	* Module dependencies
+		* html_head
+		* nav_bar
+		* toggle_pagetype
+		* info
+		* heat_data (if type=trial)
+		* child_list (if type=group)
+		* html_foot
+* view
+	* Module dependencies
+		* html_head
+		* nav_bar
+		* toggle_pagetype
+		* info
+		* heat_data (if type=trial)
+		* child_list (if type=group)
+		* html_foot
 * view
 
 ### Modules
