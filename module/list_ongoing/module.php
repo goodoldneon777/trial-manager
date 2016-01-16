@@ -20,7 +20,7 @@
 				where
 					start_dt <= curdate()
 					and end_dt >= curdate()
-				order by end_dt desc, start_dt desc
+				order by start_dt desc, end_dt desc
 				";
 			$module_class = "\"m_recent panel panel-info\"";
 			$module_title = "Ongoing Groups";
@@ -62,8 +62,8 @@
 	      	"<tr> \n" .
 	      	"  <td><a href=\"" . WEB_ROOT . "/view?" . $module_urlSeq . $seq . "\">" . $row["name"] . "</a></td> \n" .
 	      	"  <td>" . $row["unit"] . "</td> \n" .
-	      	"  <td>" . date_format(date_create($row["start_dt"]), "m/d/Y") . "</td> \n" .
-	      	"  <td>" . date_format(date_create($row["end_dt"]), "m/d/Y") . "</td> \n" .
+	      	"  <td>" . date_format(date_create($row["start_dt"]), "n/j/Y") . "</td> \n" .
+	      	"  <td>" . date_format(date_create($row["end_dt"]), "n/j/Y") . "</td> \n" .
 	      	"  <td class=\"hidden-xs\" style=\"text-align:center;\"> \n" .
 	      	"    <a href=\"" . WEB_ROOT . "/comment?" . $module_urlSeq . $seq . "\">Comment</a> \n" .
 	      	"  </td> \n" .
